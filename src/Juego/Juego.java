@@ -38,6 +38,13 @@ public class Juego extends InterfaceJuego
     {
         jugador.dibujar(entorno);
 
+        //control movimiento con teclas
+        if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
+            jugador.moverDerecha(entorno);
+        }
+        if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
+            jugador.moverIzquierda();
+        }
 
     }
 
