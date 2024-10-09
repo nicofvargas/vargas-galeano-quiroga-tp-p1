@@ -2,6 +2,8 @@ package Juego;
 
 import entorno.Entorno;
 
+import java.awt.*;
+
 public class Jugador {
     private double x;
     private double y;
@@ -9,6 +11,7 @@ public class Jugador {
     private double alto;
     private double velocidad;
     private boolean enElPiso;
+    private boolean hayColision;
 
     public Jugador(Entorno entorno) {
         this.x=100;
@@ -17,20 +20,30 @@ public class Jugador {
         this.alto=50;
         this.velocidad=2;
         this.enElPiso=false;
+        this.hayColision=false;
+    }
+    //metodo para dibujar
+    public void dibujar(Entorno entorno) {
+        entorno.dibujarRectangulo(this.x,this.y,this.ancho,this.alto,0, Color.blue);
     }
 
-    //movimiento
+    //metodos para mover
+    public void moverDerecha(Entorno entorno) {
+        if (!hayColisionDer(entorno)) {
+            this.x+=velocidad;
+        }
+    }
+    public void moverIzquierda() {
+        if (!hayColisionIzq()) {
+            this.x-=velocidad;
+        }
+    }
 
-    public void moverIzq() {
-        this.x-=velocidad;
+    //colision con bordes de ventana
+    public boolean hayColisionIzq() {
+        return this.x-this.ancho/2<=0; //le resto el ancho dividido dos porque sino se pasa de la ventana ya que X es el medio del rectangulo
     }
-    public void moverDerecha() {
-        this.x+=velocidad;
-    }
-    public void caer() {
-        this.y+=velocidad;
-    }
-    public void saltar() {
-        //falta completar
+    public boolean hayColisionDer(Entorno entorno) {
+        return this.x+this.ancho/2>= entorno.ancho(); //aca lo mismo pero a la inversa le falta medio rectangulo para llegar a colisionar
     }
 }
