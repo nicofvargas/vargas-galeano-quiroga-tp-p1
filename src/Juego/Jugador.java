@@ -46,4 +46,7 @@ public class Jugador {
     public boolean hayColisionDer(Entorno entorno) {
         return this.x+this.ancho/2>= entorno.ancho(); //aca lo mismo pero a la inversa le falta medio rectangulo para llegar a colisionar
     }
+
+    //colision con objetos
+
 }
