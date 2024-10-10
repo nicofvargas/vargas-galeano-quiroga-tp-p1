@@ -16,11 +16,11 @@ public class Jugador {
 
     public Jugador(Entorno entorno, Gravedad gravedad) {
         this.x=100;
-        this.y=100;
+        this.y=500;
         this.ancho=50;
         this.alto=50;
         this.velocidad=2;
-        this.enElPiso=false;
+        this.enElPiso=true;
         this.hayColision=false;
         this.distanciaSalto=10;
         this.gravedad = gravedad;
@@ -41,6 +41,7 @@ public class Jugador {
             this.x-=velocidad;
         }
     }
+    //el metodo salto da errores falta corregir
     public void saltar() {
         if(enElPiso) {
             for(int i=0; i<distanciaSalto; i++) {
