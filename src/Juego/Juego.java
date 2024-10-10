@@ -12,6 +12,7 @@ public class Juego extends InterfaceJuego
     // El objeto Entorno que controla el tiempo y otros
     private Entorno entorno;
     private Jugador jugador;
+    private Gravedad gravedad;
     // Variables y métodos propios de cada grupo
     // ...
 
@@ -20,7 +21,8 @@ public class Juego extends InterfaceJuego
     {
         // Inicializa el objeto entorno
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
-        this.jugador = new Jugador(entorno);
+        this.jugador = new Jugador(entorno,gravedad);
+        this.gravedad = new Gravedad();
         // Inicializar lo que haga falta para el juego
         // ...
 
