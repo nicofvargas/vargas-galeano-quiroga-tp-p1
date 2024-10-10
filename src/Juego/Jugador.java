@@ -48,6 +48,9 @@ public class Jugador {
             }
             this.enElPiso=false;
             this.y = gravedad.aplicarGravedad(this.y, this.enElPiso);
+            if(hayColisionAbajo()) {
+                enElPiso=true;
+            }
         }
     }
 
@@ -60,5 +63,7 @@ public class Jugador {
     }
 
     //colision con objetos
-
+    public boolean hayColisionAbajo() {
+        return false;
+    }
 }
