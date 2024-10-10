@@ -1,7 +1,6 @@
 package Juego;
 
 import entorno.Entorno;
-
 import java.awt.*;
 
 public class Jugador {
@@ -12,8 +11,10 @@ public class Jugador {
     private double velocidad;
     private boolean enElPiso;
     private boolean hayColision;
+    private double distanciaSalto;
+    private Gravedad gravedad;
 
-    public Jugador(Entorno entorno) {
+    public Jugador(Entorno entorno, Gravedad gravedad) {
         this.x=100;
         this.y=100;
         this.ancho=50;
@@ -21,6 +22,8 @@ public class Jugador {
         this.velocidad=2;
         this.enElPiso=false;
         this.hayColision=false;
+        this.distanciaSalto=10;
+        this.gravedad = gravedad;
     }
     //metodo para dibujar
     public void dibujar(Entorno entorno) {
@@ -36,6 +39,15 @@ public class Jugador {
     public void moverIzquierda() {
         if (!hayColisionIzq()) {
             this.x-=velocidad;
+        }
+    }
+    public void saltar() {
+        if(enElPiso) {
+            for(int i=0; i<distanciaSalto; i++) {
+                this.y-=i;
+            }
+            this.enElPiso=false;
+            this.y = gravedad.aplicarGravedad(this.y, this.enElPiso);
         }
     }
 
