@@ -17,6 +17,7 @@ public class Gravedad {
         else {
             velocidad=0; //aca se actualiza a 0 cada vez que el estado de enElPiso es true
         }
-        return y; //esta es el return que es usado en todas las clases que puedan caer
+        return y;
+        //asdasd esta es el return que es usado en todas las clases que puedan caer
     }
 }

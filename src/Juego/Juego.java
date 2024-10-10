@@ -47,7 +47,9 @@ public class Juego extends InterfaceJuego
         if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
             jugador.moverIzquierda();
         }
-
+        if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
+            jugador.saltar();
+        }
     }
 
 
