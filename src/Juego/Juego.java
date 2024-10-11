@@ -13,6 +13,8 @@ public class Juego extends InterfaceJuego
     private Entorno entorno;
     private Jugador jugador;
     private Gravedad gravedad;
+    private Isla[] islas;
+
     // Variables y métodos propios de cada grupo
     // ...
 
@@ -24,7 +26,34 @@ public class Juego extends InterfaceJuego
         this.jugador = new Jugador(entorno,gravedad);
         this.gravedad = new Gravedad();
         // Inicializar lo que haga falta para el juego
+        // Isla
+        double anchoIsla = 150;
+        double altoIsla = 50;
+        double separacion = 25;
+
+        // Definimos la posición de las islas en el eje Y
+        double[] posicionesY = {500,400,300,200,100};
+
+        // Creamos las islas
+        this.islas = new Isla[15]; // Inicializar la variable islas
         // ...
+        int indice = 0;
+        for (int i = 0; i < posicionesY.length; i++) {
+            for (int j = 0; j < 5 - i; j++) {
+                double x = ((200 + (anchoIsla*i)) / 2 + (j * (anchoIsla + separacion)));
+
+                double y = posicionesY[i];
+                this.islas[indice] = new Isla(x, y, anchoIsla, altoIsla);
+
+                indice++;
+            }
+
+        }
+        this.islas[14] = new Isla((800 - anchoIsla)/ 2, 50, anchoIsla, altoIsla);
+        // ...
+
+
+
 
         // Inicia el juego!
         this.entorno.iniciar();
@@ -38,6 +67,9 @@ public class Juego extends InterfaceJuego
      */
     public void tick()
     {
+        for (Isla isla : islas) {
+            isla.dibujar(entorno);
+        }
         jugador.dibujar(entorno);
 
         //control movimiento con teclas
