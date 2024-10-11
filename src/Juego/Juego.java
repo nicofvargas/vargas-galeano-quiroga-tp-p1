@@ -29,9 +29,9 @@ public class Juego extends InterfaceJuego {
     }
 
     private void crearIslas() {
-        double anchoIsla = 150;
-        double altoIsla = 50;
-        double separacion = 25;
+        double anchoIsla = 100;
+        double altoIsla = 25;
+        double separacion = 75;
         double[] posicionesY = {500, 400, 300, 200, 100};
 
         int indice = 0;
@@ -63,6 +63,9 @@ public class Juego extends InterfaceJuego {
         }
         if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
             jugador.saltar();
+        }
+        if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
+            //jugador.moverAbajo();
         }
     }
 

@@ -41,11 +41,24 @@ public class Jugador {
             this.x-=velocidad;
         }
     }
+    /*
+    public void moverArriba() {
+        if (!hayColisionArriba()) {
+            this.y-=velocidad;
+        }
+    }
+    public void moverAbajo() {
+        if (!hayColisionAbajo()) {
+            this.y+=velocidad;
+        }
+    }
+
+*/
     //el metodo salto da errores falta corregir
     public void saltar() {
-        if(enElPiso) {
-            for(int i=0; i<distanciaSalto; i++) {
-                this.y-=i;
+        if (enElPiso) {
+            for (int i = 0; i < distanciaSalto; i++) {
+                this.y -= i;
             }
             this.enElPiso=false;
             this.y = gravedad.aplicarGravedad(this.y, this.enElPiso);
@@ -64,7 +77,13 @@ public class Jugador {
     }
 
     //colision con objetos
+
     public boolean hayColisionAbajo() {
         return false;
     }
+    public boolean hayColisionArriba() {
+        return false;
+    }
+
+
 }
