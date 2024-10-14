@@ -22,5 +22,18 @@ public class Isla {
     public void dibujar(Entorno entorno) {
         entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.yellow);
     }
+
+    public double getX() {
+        return this.x;
+    }
+    public double getY() {
+        return this.y;
+    }
+    public double getAncho() {
+        return this.ancho;
+    }
+    public double getAlto() {
+        return this.alto;
+    }
 }
 
