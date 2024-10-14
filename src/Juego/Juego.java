@@ -56,16 +56,24 @@ public class Juego extends InterfaceJuego {
 
         //control movimiento con teclas
         if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
-            jugador.moverDerecha(entorno);
+            if(!jugador.colisionaDerecha(islas)) {
+                jugador.moverDerecha(entorno,islas);
+            }
         }
         if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
-            jugador.moverIzquierda();
+            if(!jugador.colisionaIzquierda(islas)) {
+                jugador.moverIzquierda();;
+            }
         }
         if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
-            jugador.saltar();
+            if(!jugador.colisionaArriba(islas)) {
+                jugador.moverArriba();
+            }
         }
         if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
-            //jugador.moverAbajo();
+            if(!jugador.colisionaAbajo(islas)) {
+                jugador.moverAbajo();
+            }
         }
     }
 
