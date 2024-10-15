@@ -10,21 +10,17 @@ public class Jugador {
     private double ancho;
     private double alto;
     private double velocidad;
-    private boolean enElPiso;
-    private boolean hayColision;
-    private double distanciaSalto;
-    private Gravedad gravedad;
+    private double gravedad;
+    private double velocidadCaida;
 
-    public Jugador(Entorno entorno, Gravedad gravedad) {
+    public Jugador(Entorno entorno) {
         this.x = 100;
         this.y = 50;
         this.ancho = 50;
         this.alto = 50;
         this.velocidad = 2;
-        this.enElPiso = true;
-        this.hayColision = false;
-        this.distanciaSalto = 10;
-        this.gravedad = gravedad;
+        this.gravedad = 0.5;
+        this.velocidadCaida = 0;
     }
 
     //metodo para dibujar
@@ -120,6 +116,15 @@ public class Jugador {
         }
         return false;
     }
-
+    //gravedad
+    public void aplicarGravedad(Isla[] islas) {
+        if(!colisionaAbajo(islas)) {
+            velocidadCaida+=gravedad;
+            this.y+=velocidadCaida;
+        }
+        else {
+            velocidadCaida=0;
+        }
+    }
 
 }
