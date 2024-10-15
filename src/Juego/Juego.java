@@ -13,7 +13,7 @@ public class Juego extends InterfaceJuego {
     private Jugador jugador;
     private Gravedad gravedad;
     private Isla[] islas;
-
+    private Duende duende;
     // Variables y métodos propios de cada grupo
     // ...
 
@@ -24,6 +24,7 @@ public class Juego extends InterfaceJuego {
         this.jugador = new Jugador(entorno,gravedad);
         this.gravedad = new Gravedad();
         this.islas = new Isla[15];
+        this.duende = new Duende();
         crearIslas();
         this.entorno.iniciar();
     }
@@ -62,7 +63,7 @@ public class Juego extends InterfaceJuego {
         }
         if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
             if(!jugador.colisionaIzquierda(islas)) {
-                jugador.moverIzquierda();;
+                jugador.moverIzquierda();
             }
         }
         if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
@@ -75,6 +76,8 @@ public class Juego extends InterfaceJuego {
                 jugador.moverAbajo();
             }
         }
+
+        //duende.getX();
     }
 
 
