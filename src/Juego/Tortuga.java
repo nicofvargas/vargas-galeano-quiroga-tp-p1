@@ -6,7 +6,8 @@ public class Tortuga {
     private double alto;
 
     private boolean estaEnIsla;
-    private Isla islaActual;
+    //voy a comentar todo lo que de error para hacer pruebas en las otras clases
+    //private Isla islaActual;
 
     public Tortuga() {
         this.x = 0;
@@ -14,7 +15,7 @@ public class Tortuga {
         this.ancho = 10;
         this.alto = 10;
         estaEnIsla = false;
-        islaActual = null;
+        //islaActual = null;
     }
 
     public void caer() {
@@ -22,7 +23,7 @@ public class Tortuga {
             y++;
         }
     }
-
+/*
     public void aterrizarEnIsla(Isla isla) {
         if (!estaEnIsla) {
             y = isla.getY();
@@ -50,6 +51,8 @@ public class Tortuga {
     public void dibujar(Entorno entorno) {
         entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.blue);
     }
+
+ */
     //getters
     public double getX() {
         return this.x;
