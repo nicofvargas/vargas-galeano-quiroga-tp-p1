@@ -72,7 +72,7 @@ public class Juego extends InterfaceJuego {
         }
         if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
             if(!jugador.colisionaArriba(islas)) {
-                jugador.moverArriba(islas);
+                jugador.saltar();
             }
         }
         if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {

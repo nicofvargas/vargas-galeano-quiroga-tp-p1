@@ -12,6 +12,7 @@ public class Jugador {
     private double velocidad;
     private double gravedad;
     private double velocidadCaida;
+    private boolean enElAire;
 
     public Jugador(Entorno entorno) {
         this.x = 100;
@@ -19,8 +20,9 @@ public class Jugador {
         this.ancho = 50;
         this.alto = 50;
         this.velocidad = 2;
-        this.gravedad = 0.5;
+        this.gravedad = 0.3;
         this.velocidadCaida = 0;
+        this.enElAire=true; //esto cuando terminemos sera false solo lo pongo para pruebas como true
     }
 
     //metodo para dibujar
@@ -55,6 +57,13 @@ public class Jugador {
         this.y+=velocidad;
         if(colisionaAbajo(islas)) {
             this.y-=velocidad;
+        }
+    }
+
+    public void saltar() {
+        if (!enElAire) { // Solo permitir saltar si el jugador está en el suelo
+            velocidadCaida = -10; // Asigna una velocidad de caída inicial negativa para saltar
+            enElAire = true; // Ahora el jugador está en el aire
         }
     }
 
