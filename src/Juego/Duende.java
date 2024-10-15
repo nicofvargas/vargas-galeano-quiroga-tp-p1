@@ -6,6 +6,10 @@ public class Duende {
     private double ancho;
     private double alto;
     private double velocidad;
+    private double salud;
+    private boolean colision;
+    private boolean muere;
+    private boolean rescatado;
 
     public Duende() {
         this.x = 100;
@@ -20,5 +24,20 @@ public class Duende {
         return this.x;
     }
 
+    public double getY() {return this.y;}
+
+    public double getAncho() {return this.ancho;}
+
+    public double getAlto() {return this.alto;}
+
+    public void moverIzquierda(){
+        this.x -= velocidad;
+    }
+
+    public void moverDerecha(){
+        this.x += velocidad;
+    }
+    public void patronMov(){
+
+    }
 }
-//gasdasdasdasdasdas
