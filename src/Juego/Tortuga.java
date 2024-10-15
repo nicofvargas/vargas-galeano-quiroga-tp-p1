@@ -1,14 +1,18 @@
 public class Tortuga {
     private double x;
     private double y;
+
+    private double ancho;
+    private double alto;
+
     private boolean estaEnIsla;
     private Isla islaActual;
 
     public Tortuga() {
-        x = 0;
-        y = 0;
-        ancho = 10;
-        alto = 10;
+        this.x = 0;
+        this.y = 0;
+        this.ancho = 10;
+        this.alto = 10;
         estaEnIsla = false;
         islaActual = null;
     }
@@ -26,14 +30,7 @@ public class Tortuga {
             islaActual = isla;
         }
     }
-    public Tortuga() {
-        x = 0;
-        y = 0;
-        ancho = 10;
-        alto = 10;
-        estaEnIsla = false;
-        islaActual = null;
-    }
+
     public void actualizarPosicion(List<Isla> islas) {
         caer();
         for (Isla isla : islas) {
