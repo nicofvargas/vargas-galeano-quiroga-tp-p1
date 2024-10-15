@@ -47,12 +47,6 @@ public class Tortuga {
         return islaActual == isla;
     }
 
-    public double getX() {
-        return x;
-    }
-    public double getY() {
-        return y;
-    }
     public void dibujar(Entorno entorno) {
         entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.blue);
     }
