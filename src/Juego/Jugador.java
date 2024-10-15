@@ -35,21 +35,31 @@ public class Jugador {
     //metodos para mover
     public void moverDerecha(Entorno entorno, Isla[] islas) {
         this.x += velocidad;
-        if (!hayColisionDer(entorno)) {
-            this.x -= velocidad;
+        if (hayColisionDer(entorno)) { //esto es para que no se pase del borde de ventana
+            if(colisionaDerecha(islas)) { //esto comprueba si hay colision con isla vuelve para atras
+                this.x -= velocidad;
+            }
         }
     }
-    public void moverIzquierda() {
+    public void moverIzquierda(Isla[] islas) {
         this.x -= velocidad;
-        if(!hayColisionIzq()) {
-            this.x+=velocidad;
+        if(hayColisionIzq()) {
+            if(colisionaIzquierda(islas)) {
+                this.x+=velocidad;
+            }
         }
     }
-    public void moverArriba() {
+    public void moverArriba(Isla[] islas) {
         this.y-=velocidad;
+        if(colisionaArriba(islas)) {
+            this.y+=velocidad;
+        }
     }
-    public void moverAbajo() {
+    public void moverAbajo(Isla[] islas) {
         this.y+=velocidad;
+        if(colisionaAbajo(islas)) {
+            this.y-=velocidad;
+        }
     }
 
     //colision con bordes de ventana
