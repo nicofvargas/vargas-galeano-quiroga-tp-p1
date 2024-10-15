@@ -5,32 +5,32 @@ public class Tortuga {
     private Isla islaActual;
 
     public Tortuga() {
-        x = 0; // comienza en x=0 (el cielo)
-        y = 0; // coordenada y inicial no importa
-        ancho = 10; // ancho predeterminado
-        alto = 10; // alto predeterminado
+        x = 0;
+        y = 0;
+        ancho = 10;
+        alto = 10;
         estaEnIsla = false;
         islaActual = null;
     }
 
     public void caer() {
         if (!estaEnIsla) {
-            y++; // mueve hacia abajo (cae) si no está en una isla
+            y++;
         }
     }
 
     public void aterrizarEnIsla(Isla isla) {
         if (!estaEnIsla) {
-            y = isla.getY(); // establece la coordenada y en la coordenada y de la isla
+            y = isla.getY();
             estaEnIsla = true;
             islaActual = isla;
         }
     }
     public Tortuga() {
-        x = 0; // comienza en x=0 (el cielo)
-        y = 0; // coordenada y inicial no importa
-        ancho = 10; // ancho predeterminado
-        alto = 10; // alto predeterminado
+        x = 0;
+        y = 0;
+        ancho = 10;
+        alto = 10;
         estaEnIsla = false;
         islaActual = null;
     }
