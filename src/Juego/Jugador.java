@@ -34,13 +34,15 @@ public class Jugador {
 
     //metodos para mover
     public void moverDerecha(Entorno entorno, Isla[] islas) {
+        this.x += velocidad;
         if (!hayColisionDer(entorno)) {
-            this.x += velocidad;
+            this.x -= velocidad;
         }
     }
     public void moverIzquierda() {
+        this.x -= velocidad;
         if(!hayColisionIzq()) {
-            this.x-=velocidad;
+            this.x+=velocidad;
         }
     }
     public void moverArriba() {
