@@ -64,17 +64,17 @@ public class Juego extends InterfaceJuego {
         }
         if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
             if(!jugador.colisionaIzquierda(islas)) {
-                jugador.moverIzquierda();
+                jugador.moverIzquierda(islas);
             }
         }
         if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
             if(!jugador.colisionaArriba(islas)) {
-                jugador.moverArriba();
+                jugador.moverArriba(islas);
             }
         }
         if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
             if(!jugador.colisionaAbajo(islas)) {
-                jugador.moverAbajo();
+                jugador.moverAbajo(islas);
             }
         }
 
