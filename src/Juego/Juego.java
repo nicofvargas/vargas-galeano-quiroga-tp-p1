@@ -14,6 +14,8 @@ public class Juego extends InterfaceJuego {
     private Gravedad gravedad;
     private Isla[] islas;
     private Duende duende;
+
+
     // Variables y métodos propios de cada grupo
     // ...
 
@@ -27,6 +29,7 @@ public class Juego extends InterfaceJuego {
         this.duende = new Duende();
         crearIslas();
         this.entorno.iniciar();
+
 
     }
 
@@ -51,10 +54,9 @@ public class Juego extends InterfaceJuego {
 
     public void tick()
     {
-        for (Isla isla : islas) {
-            isla.dibujar(entorno);
-        }
+
         jugador.dibujar(entorno);
+
 
         //control movimiento con teclas
         if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
