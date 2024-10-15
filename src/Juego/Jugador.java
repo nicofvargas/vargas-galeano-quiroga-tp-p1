@@ -60,10 +60,10 @@ public class Jugador {
         }
     }
 
-    public void saltar() {
-        if (!enElAire) { // Solo permitir saltar si el jugador está en el suelo
-            velocidadCaida = -10; // Asigna una velocidad de caída inicial negativa para saltar
-            enElAire = true; // Ahora el jugador está en el aire
+    public void saltar() { //
+        if (!enElAire) {
+            velocidadCaida = -10;
+            enElAire = true;
         }
     }
 
