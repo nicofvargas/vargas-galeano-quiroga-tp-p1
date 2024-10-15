@@ -27,6 +27,7 @@ public class Juego extends InterfaceJuego {
         this.duende = new Duende();
         crearIslas();
         this.entorno.iniciar();
+
     }
 
     private void crearIslas() {
