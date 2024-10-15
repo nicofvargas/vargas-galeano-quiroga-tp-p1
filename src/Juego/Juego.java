@@ -11,7 +11,6 @@ public class Juego extends InterfaceJuego {
     // El objeto Entorno que controla el tiempo y otros
     private Entorno entorno;
     private Jugador jugador;
-    private Gravedad gravedad;
     private Isla[] islas;
     private Duende duende;
 
@@ -23,8 +22,7 @@ public class Juego extends InterfaceJuego {
     Juego() //este metodo es solo un constructor
     {
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
-        this.jugador = new Jugador(entorno,gravedad);
-        this.gravedad = new Gravedad();
+        this.jugador = new Jugador(entorno);
         this.islas = new Isla[15];
         this.duende = new Duende();
         crearIslas();
@@ -56,8 +54,11 @@ public class Juego extends InterfaceJuego {
     {
 
         jugador.dibujar(entorno);
+        jugador.aplicarGravedad(islas);
 
-
+        for(Isla isla : islas) {
+            isla.dibujar(entorno);
+        }
         //control movimiento con teclas
         if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
             if(!jugador.colisionaDerecha(islas)) {
