@@ -2,8 +2,6 @@ package Juego;
 
 
 
-import java.awt.Color;
-
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
@@ -13,6 +11,10 @@ public class Juego extends InterfaceJuego {
     private Jugador jugador;
     private Isla[] islas;
     private Duende duende;
+    private Tortuga tortuga;
+
+    private Tortuga[]tortugas;
+
 
 
     // Variables y métodos propios de cada grupo
@@ -27,7 +29,9 @@ public class Juego extends InterfaceJuego {
         this.duende = new Duende();
         crearIslas();
         this.entorno.iniciar();
-
+        this.tortuga= new Tortuga(50, 50, 100);
+        this.tortugas= new Tortuga[5];
+        crearTortugas();
 
     }
 
@@ -48,13 +52,23 @@ public class Juego extends InterfaceJuego {
         }
         this.islas[14] = new Isla((800 - anchoIsla) / 2, 50, anchoIsla, altoIsla); // Última isla
     }
+    private void crearTortugas(){
+        double ancho = 100;
+        double alto = 100;
+        double x = 50;
 
+        for (int i = 0; i < 5; i++){
+            this.tortuga = new Tortuga(ancho,alto, x*2*i);
+            System.out.println("entra");
+        }
+    }
 
     public void tick()
     {
 
         jugador.dibujar(entorno);
         jugador.aplicarGravedad(islas);
+        tortuga.dibujar(entorno);
 
         for(Isla isla : islas) {
             isla.dibujar(entorno);
