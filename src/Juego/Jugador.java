@@ -25,6 +25,7 @@ public class Jugador {
         this.velocidadCaida = 0;
         this.enElAire=true; //esto cuando terminemos sera false solo lo pongo para pruebas como true
     }
+    //getters
     public double getX() {
         return this.x;
     }
@@ -85,48 +86,64 @@ public class Jugador {
     //colision con objetos
 
     public boolean colisionaDerecha(Isla[] islas) {
-        for (Isla isla : islas) {
-            if ((this.x + this.ancho / 2 >= isla.getX() - isla.getAncho() / 2) &&
-                    (this.x < isla.getX()) &&
-                    (this.y + this.alto / 2 > isla.getY() - isla.getAlto() / 2) &&
-                    (this.y - this.alto / 2 < isla.getY() + isla.getAlto() / 2)) {
-                return true;
+        for(Isla isla : islas) {
+            if(isla==null) {
+                continue;
+            }
+            if(this.x+(this.ancho/2) == isla.getX()-(isla.getAncho()/2)) {
+                if(this.y+(this.alto/2) > isla.getY()-(isla.getAlto()/2)  &&  this.y-(this.alto/2) < isla.getY()+(isla.getAlto()/2)) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     public boolean colisionaIzquierda(Isla[] islas) {
-        for (Isla isla : islas) {
-            if ((this.x - this.ancho / 2 <= isla.getX() + isla.getAncho() / 2) &&
-                    (this.x > isla.getX()) &&
-                    (this.y + this.alto / 2 > isla.getY() - isla.getAlto() / 2) &&
-                    (this.y - this.alto / 2 < isla.getY() + isla.getAlto() / 2)) {
-                return true;
+        for(Isla isla : islas) {
+            if(isla==null) {
+                continue;
+            }
+            if(this.x-(this.ancho/2) == isla.getX()+(isla.getAncho()/2)+1) {
+                if(this.y+(this.alto/2) > isla.getY()-(isla.getAlto()/2)  &&  this.y-(this.alto/2) < isla.getY()+(isla.getAlto()/2)) {
+                    return true;
+                }
             }
         }
         return false;
     }
 
     public boolean colisionaArriba(Isla[] islas) {
-        for (Isla isla : islas) {
-            if ((this.y - this.alto / 2 <= isla.getY() + isla.getAlto() / 2) &&
-                    (this.y > isla.getY()) &&
-                    (this.x + this.ancho / 2 > isla.getX() - isla.getAncho() / 2) &&
-                    (this.x - this.ancho / 2 < isla.getX() + isla.getAncho() / 2)) {
-                return true;
+        for(Isla isla : islas) {
+            if(isla==null) {
+                continue;
+            }
+            double bordeSuperiorPersonaje = this.y - (this.alto / 2);
+            double bordeInferiorIsla = isla.getY() + (isla.getAlto() / 2);
+
+            if(bordeSuperiorPersonaje <= bordeInferiorIsla && bordeSuperiorPersonaje>= bordeInferiorIsla-velocidad) {
+                if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
+                    this.y=(int) bordeInferiorIsla+(this.alto/2);
+                    return true;
+                }
             }
         }
         return false;
     }
 
     public boolean colisionaAbajo(Isla[] islas) {
-        for (Isla isla : islas) {
-            if ((this.y + this.alto / 2 >= isla.getY() - isla.getAlto() / 2) &&
-                    (this.y < isla.getY()) &&
-                    (this.x + this.ancho / 2 > isla.getX() - isla.getAncho() / 2) &&
-                    (this.x - this.ancho / 2 < isla.getX() + isla.getAncho() / 2)) {
-                return true;
+        for(Isla isla : islas) {
+            if(isla==null) {
+                continue;
+            }
+            double bordeInferiorPersonaje = this.y + (this.alto / 2);
+            double bordeSuperiorIsla = isla.getY() - (isla.getAlto() / 2);
+
+            if(bordeInferiorPersonaje>=bordeSuperiorIsla && bordeInferiorPersonaje<=bordeSuperiorIsla +velocidad) {
+                if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
+                    this.y=(int) bordeSuperiorIsla-(this.alto/2);
+                    return true;
+                }
             }
         }
         return false;
