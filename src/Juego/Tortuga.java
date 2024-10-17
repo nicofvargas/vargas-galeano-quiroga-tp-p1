@@ -14,8 +14,8 @@ public class Tortuga {
     //voy a comentar todo lo que de error para hacer pruebas en las otras clases
     //private Isla islaActual;
 
-    public Tortuga(double ancho, double alto,double x) {
-        this.x = 100;
+    public Tortuga(double x, double y, double ancho, double alto) {
+        this.x = 200;
         this.y = 100;
         this.ancho = 100;
         this.alto = 100;

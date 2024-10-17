@@ -15,7 +15,7 @@ public class Duende {
     //private boolean muere;
     //private boolean rescatado;
 
-    public Duende(double ancho, double alto,double x) {
+    public Duende() {
         this.x = 100;
         this.y = 100;
         this.ancho = 100;
