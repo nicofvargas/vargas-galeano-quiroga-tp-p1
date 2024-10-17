@@ -69,7 +69,7 @@ public class Jugador {
         }
     }
 
-    public void saltar() { //
+    public void saltar(Isla[] islas) { //
         if (!enElAire) {
             velocidadCaida = -10;
             enElAire = true;
@@ -98,7 +98,7 @@ public class Jugador {
 
             if (bordeDerechoPersonaje >= bordeIzquierdoIsla && bordeDerechoPersonaje <= bordeIzquierdoIsla + velocidad) {
                 if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
-                    this.x = (int) bordeIzquierdoIsla - (this.ancho / 2);
+                    this.x = bordeIzquierdoIsla - (this.ancho / 2);
                     return true;
                 }
             }
@@ -118,7 +118,7 @@ public class Jugador {
 
             if (bordeIzquierdoPersonaje <= bordeDerechoIsla && bordeIzquierdoPersonaje >= bordeDerechoIsla - velocidad) {
                 if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
-                    this.x = (int) bordeDerechoIsla + (this.ancho / 2);
+                    this.x = bordeDerechoIsla + (this.ancho / 2);
                     return true;
                 }
             }
@@ -137,7 +137,7 @@ public class Jugador {
 
             if(bordeSuperiorPersonaje <= bordeInferiorIsla && bordeSuperiorPersonaje>= bordeInferiorIsla-velocidad) {
                 if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
-                    this.y=(int) bordeInferiorIsla+(this.alto/2);
+                    this.y=bordeInferiorIsla+(this.alto/2);
                     return true;
                 }
             }
@@ -155,7 +155,7 @@ public class Jugador {
 
             if(bordeInferiorPersonaje>=bordeSuperiorIsla && bordeInferiorPersonaje<=bordeSuperiorIsla +velocidad) {
                 if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
-                    this.y=(int) bordeSuperiorIsla-(this.alto/2);
+                    this.y=bordeSuperiorIsla-(this.alto/2);
                     return true;
                 }
             }
@@ -168,7 +168,7 @@ public class Jugador {
             velocidadCaida+=gravedad;
             this.y+=velocidadCaida;
         }
-        if(colisionaAbajo(islas)) {
+        if(colisionaAbajo(islas) || colisionaArriba(islas)) {
             enElAire=false;
             velocidadCaida=0;
         }
