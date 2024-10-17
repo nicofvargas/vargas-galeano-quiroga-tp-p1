@@ -5,13 +5,14 @@ import entorno.Entorno;
 import java.awt.*;
 
 public class Isla {
-    private double x;
-    private double y;
-    private double ancho;
-    private double alto;
+    private int x;
+    private int y;
+    private int ancho;
+    private int alto;
 
     // Constructor que establece las posiciones y dimensiones de una isla
-    public Isla(double x, double y, double ancho, double alto) {
+    public Isla(int x, int y, int ancho, int alto) {
+        super();
         this.x = x;
         this.y = y;
         this.ancho = ancho;
@@ -20,7 +21,7 @@ public class Isla {
 
     // Método que dibuja la isla en el entorno
     public void dibujar(Entorno entorno) {
-        entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.yellow);
+        entorno.dibujarRectangulo(x, y, ancho, alto, 0, Color.yellow);
     }
 
     public double getX() {
