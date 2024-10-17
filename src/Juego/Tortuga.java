@@ -14,13 +14,23 @@ public class Tortuga {
     //voy a comentar todo lo que de error para hacer pruebas en las otras clases
     //private Isla islaActual;
 
-    public Tortuga(double x, double y, double ancho, double alto) {
-        this.x = 200;
-        this.y = 100;
-        this.ancho = 100;
-        this.alto = 100;
+    public Tortuga(double x, double y) {
+        this.x = x;
+        this.y = y;
+        this.ancho = 50;
+        this.alto = 50;
         estaEnIsla = false;
         //islaActual = null;
+    }
+    private void crearTortugas(Tortuga[] tortugas){
+
+        int indice=0;
+        for (int i = 0; i < 5; i++) {
+            double x = 50;
+            double y = 50;
+            tortugas[indice] = new Tortuga(50 * i , 50 * i );
+            indice++;
+        }
     }
 
 
