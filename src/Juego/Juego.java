@@ -25,9 +25,9 @@ public class Juego extends InterfaceJuego {
     {
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
         this.jugador = new Jugador(entorno);
-        this.islas = new Isla[15];
+        islas=crearIslas(entorno);
         this.duende = new Duende();
-        crearIslas();
+
         this.entorno.iniciar();
 
         this.tortugas= new Tortuga[5];
@@ -35,28 +35,31 @@ public class Juego extends InterfaceJuego {
 
     }
 
-    private void crearIslas() {
-        double anchoIsla = 100;
-        double altoIsla = 25;
-        double separacion = 75;
-        double[] posicionesY = {500, 400, 300, 200, 100};
-
-        int indice = 0;
-        for (int i = 0; i < posicionesY.length; i++) {
-            for (int j = 0; j < 5 - i; j++) {
-                double x = ((200 + (anchoIsla * i)) / 2 + (j * (anchoIsla + separacion)));
-                double y = posicionesY[i];
-                this.islas[indice] = new Isla(x, y, anchoIsla, altoIsla);
+    public static Isla[] crearIslas(Entorno entorno) {
+        int pisos=5;
+        Isla[] islas=new Isla[pisos*(pisos+1)/2];
+        int y=0;
+        int x=0;
+        int separacion=75;
+        int indice=0;
+        for(int i=1 ;i<=pisos; i++) {
+            x=x-30;
+            y=y+100;
+            int expansion=-40*i;
+            for(int j=1 ; j<=i; j++) {
+                x=(entorno.ancho()-expansion)/(i+1)*j+expansion/2;
+                islas[indice]= new Isla(x,y,100,30);
                 indice++;
             }
         }
-        this.islas[14] = new Isla((800 - anchoIsla) / 2, 50, anchoIsla, altoIsla); // Última isla
+
+        return islas;
     }
     private void crearTortugas(){
 
         int indice=0;
         for (int i = 0; i < 5; i++) {
-            double x = 50;
+            double x = 150;
             double y = 50;
             tortugas[indice] = new Tortuga(50 * i , 50 * i );
             indice++;
@@ -77,10 +80,11 @@ public class Juego extends InterfaceJuego {
         duende.dibujar(entorno);
         duende.aplicarGravedad(islas);
 
-        for(Isla isla : islas) {
-            isla.dibujar(entorno);
+        for(Isla isla: islas) {
+            if(isla!=null) {
+                isla.dibujar(entorno);
+            }
         }
-
         //control movimiento con teclas
         if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
             if(!jugador.colisionaDerecha(islas)) {
