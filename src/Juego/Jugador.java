@@ -48,7 +48,7 @@ public class Jugador {
             }
         }
     }
-    public void moverIzquierda(Isla[] islas) {
+    public void moverIzquierda(Entorno entorno,Isla[] islas) {
         this.x -= velocidad;
         if(hayColisionIzq()) {
             if(colisionaIzquierda(islas)) {
@@ -56,13 +56,13 @@ public class Jugador {
             }
         }
     }
-    public void moverArriba(Isla[] islas) {
+    public void moverArriba(Entorno entorno,Isla[] islas) {
         this.y-=velocidad;
         if(colisionaArriba(islas)) {
             this.y+=velocidad;
         }
     }
-    public void moverAbajo(Isla[] islas) {
+    public void moverAbajo(Entorno entorno,Isla[] islas) {
         this.y+=velocidad;
         if(colisionaAbajo(islas)) {
             this.y-=velocidad;

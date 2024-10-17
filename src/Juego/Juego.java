@@ -93,7 +93,7 @@ public class Juego extends InterfaceJuego {
         }
         if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
             if(!jugador.colisionaIzquierda(islas)) {
-                jugador.moverIzquierda(islas);
+                jugador.moverIzquierda(entorno,islas);
             }
         }
         if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
@@ -104,7 +104,7 @@ public class Juego extends InterfaceJuego {
         }
         if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
             if(!jugador.colisionaAbajo(islas)) {
-                jugador.moverAbajo(islas);
+                jugador.moverAbajo(entorno,islas);
             }
         }
         jugador.aplicarGravedad(islas);
