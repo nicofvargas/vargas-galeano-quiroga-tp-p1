@@ -20,7 +20,7 @@ public class Jugador {
         this.y = 50;
         this.ancho = 50;
         this.alto = 50;
-        this.velocidad = 2;
+        this.velocidad = 4;
         this.gravedad = 0.3;
         this.velocidadCaida = 0;
         this.enElAire=true; //esto cuando terminemos sera false solo lo pongo para pruebas como true
@@ -158,20 +158,7 @@ public class Jugador {
             velocidadCaida=0;
         }
     }
-
-    //colision
-    public boolean estaColisionandoPorArriba(Isla[] islas) {
-        for (Isla isla : islas) {
-            if(islas==null) {
-                continue;
-            }
-            double bordeSuperiorPersonaje = this.y - (this.alto/2);
-            double bordeInferiorIsla = isla.getY() + (isla.getAlto()/2);
-          //  if (bordeSuperiorPersonaje<=bordeInferiorIsla && bordeSuperiorPersonaje)
-        }
-        return true; //cambiar es solo para que no haya error al compilar
-    }
-
+    
 
 
 }
