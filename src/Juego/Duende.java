@@ -47,4 +47,9 @@ public class Duende {
     public void moverDerecha(){
         this.x += velocidad;
     }
+    public void patronDeMovimiento(){
+
+    }
 }
+
+
