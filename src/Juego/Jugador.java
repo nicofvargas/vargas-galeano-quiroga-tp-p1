@@ -13,6 +13,7 @@ public class Jugador {
     private double gravedad;
     private double velocidadCaida;
     private boolean enElAire;
+    private String rutaJugador;
 
     public Jugador(Entorno entorno) {
         this.x = 100;
@@ -24,7 +25,12 @@ public class Jugador {
         this.velocidadCaida = 0;
         this.enElAire=true; //esto cuando terminemos sera false solo lo pongo para pruebas como true
     }
-
+    public double getX() {
+        return this.x;
+    }
+    public double getY() {
+        return this.y;
+    }
     //metodo para dibujar
     public void dibujar(Entorno entorno) {
         entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.blue);
@@ -135,5 +141,20 @@ public class Jugador {
             velocidadCaida=0;
         }
     }
+
+    //colision
+    public boolean estaColisionandoPorArriba(Isla[] islas) {
+        for (Isla isla : islas) {
+            if(islas==null) {
+                continue;
+            }
+            double bordeSuperiorPersonaje = this.y - (this.alto/2);
+            double bordeInferiorIsla = isla.getY() + (isla.getAlto()/2);
+          //  if (bordeSuperiorPersonaje<=bordeInferiorIsla && bordeSuperiorPersonaje)
+        }
+        return true; //cambiar es solo para que no haya error al compilar
+    }
+
+
 
 }
