@@ -22,16 +22,6 @@ public class Tortuga {
         estaEnIsla = false;
         //islaActual = null;
     }
-    private void crearTortugas(Tortuga[] tortugas){
-
-        int indice=0;
-        for (int i = 0; i < 5; i++) {
-            double x = 50;
-            double y = 50;
-            tortugas[indice] = new Tortuga(50 * i , 50 * i );
-            indice++;
-        }
-    }
 
 
     /*

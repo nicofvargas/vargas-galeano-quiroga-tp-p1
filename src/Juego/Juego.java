@@ -31,7 +31,7 @@ public class Juego extends InterfaceJuego {
         this.entorno.iniciar();
 
         this.tortugas= new Tortuga[5];
-
+        crearTortugas();
 
     }
 
@@ -52,7 +52,16 @@ public class Juego extends InterfaceJuego {
         }
         this.islas[14] = new Isla((800 - anchoIsla) / 2, 50, anchoIsla, altoIsla); // Última isla
     }
+    private void crearTortugas(){
 
+        int indice=0;
+        for (int i = 0; i < 5; i++) {
+            double x = 50;
+            double y = 50;
+            tortugas[indice] = new Tortuga(50 * i , 50 * i );
+            indice++;
+        }
+    }
 
 
 
