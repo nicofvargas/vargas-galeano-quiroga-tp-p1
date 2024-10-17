@@ -9,7 +9,7 @@ public class Duende {
     private double y;
     private double ancho;
     private double alto;
-    //private double velocidad;
+    private double velocidad;
     //private double salud;
     //private boolean colision;
     //private boolean muere;
@@ -27,6 +27,7 @@ public class Duende {
     public void dibujar(Entorno entorno) {
         entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 50, Color.white);
     }
+
 
 
 
