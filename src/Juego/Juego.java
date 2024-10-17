@@ -69,7 +69,6 @@ public class Juego extends InterfaceJuego {
     {
 
         jugador.dibujar(entorno);
-        jugador.aplicarGravedad(islas);
 
         for(Tortuga tortuga : tortugas){
             tortuga.dibujar(entorno);
@@ -81,6 +80,7 @@ public class Juego extends InterfaceJuego {
         for(Isla isla : islas) {
             isla.dibujar(entorno);
         }
+
         //control movimiento con teclas
         if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
             if(!jugador.colisionaDerecha(islas)) {
@@ -96,12 +96,15 @@ public class Juego extends InterfaceJuego {
             if(!jugador.colisionaArriba(islas)) {
                 jugador.saltar();
             }
+
         }
         if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
             if(!jugador.colisionaAbajo(islas)) {
                 jugador.moverAbajo(islas);
             }
         }
+        jugador.aplicarGravedad(islas);
+
 
         //duende.getX();
     }
