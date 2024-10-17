@@ -9,11 +9,11 @@ public class Duende {
     private double y;
     private double ancho;
     private double alto;
-    private double velocidad;
-    private double salud;
-    private boolean colision;
-    private boolean muere;
-    private boolean rescatado;
+    //private double velocidad;
+    //private double salud;
+    //private boolean colision;
+    //private boolean muere;
+    //private boolean rescatado;
 
     public Duende(double ancho, double alto,double x) {
         this.x = 100;
@@ -32,24 +32,24 @@ public class Duende {
 
 
     //getters
-    public double getX() {return this.x;}
+    //public double getX() {return this.x;}
 
-    public double getY() {return this.y;}
+   // public double getY() {return this.y;}
 
-    public double getAncho() {return this.ancho;}
+    //public double getAncho() {return this.ancho;}
 
-    public double getAlto() {return this.alto;}
+   // public double getAlto() {return this.alto;}
 
-    public void moverIzquierda(){
-        this.x -= velocidad;
-    }
+   // public void moverIzquierda(){
+        //this.x -= velocidad;
+    //}
 
-    public void moverDerecha(){
-        this.x += velocidad;
-    }
-    public void patronDeMovimiento(){
+    //public void moverDerecha(){
+        //this.x += velocidad;
+   // }
+    //public void patronDeMovimiento(){
 
-    }
+   // }
 }
 
 
