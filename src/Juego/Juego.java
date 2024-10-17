@@ -26,7 +26,7 @@ public class Juego extends InterfaceJuego {
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
         this.jugador = new Jugador(entorno);
         this.islas = new Isla[15];
-       // this.duende = new Duende();
+        this.duende = new Duende();
         crearIslas();
         this.entorno.iniciar();
 
@@ -74,6 +74,9 @@ public class Juego extends InterfaceJuego {
         for(Tortuga tortuga : tortugas){
             tortuga.dibujar(entorno);
         }
+
+        duende.dibujar(entorno);
+        duende.aplicarGravedad(islas);
 
         for(Isla isla : islas) {
             isla.dibujar(entorno);
