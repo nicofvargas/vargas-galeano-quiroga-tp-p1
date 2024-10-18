@@ -19,10 +19,10 @@ public class Jugador {
     private boolean miraIzq;
 
     public Jugador(Entorno entorno) {
-        this.x = 100;
-        this.y = 50;
-        this.ancho = 50;
-        this.alto = 50;
+        this.x = 65;
+        this.y = 456;
+        this.ancho = 20;
+        this.alto = 40;
         this.velocidad = 10;
         this.gravedad = 0.3;
         this.velocidadCaida = 0;

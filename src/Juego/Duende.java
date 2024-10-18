@@ -18,8 +18,8 @@ public class Duende {
     //private boolean rescatado;
 
     public Duende() {
-        this.x = 100;
-        this.y = 100;
+        this.x = 400;
+        this.y = 44;
         this.ancho = 20;
         this.alto = 30;
         this.velocidad = 2;
