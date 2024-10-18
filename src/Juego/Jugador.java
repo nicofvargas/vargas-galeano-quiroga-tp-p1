@@ -15,6 +15,8 @@ public class Jugador {
     private double velocidadSalto;
     private boolean enElAire;
     private String rutaJugador;
+    private boolean miraDerecha;
+    private boolean miraIzq;
 
     public Jugador(Entorno entorno) {
         this.x = 100;
@@ -33,6 +35,12 @@ public class Jugador {
     }
     public double getY() {
         return this.y;
+    }
+    public boolean getMiraDerecha() {
+        return miraDerecha;
+    }
+    public boolean getMiraIzq() {
+        return miraIzq;
     }
     //metodo para dibujar
     public void dibujar(Entorno entorno) {
