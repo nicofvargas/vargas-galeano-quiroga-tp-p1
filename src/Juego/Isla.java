@@ -36,5 +36,10 @@ public class Isla {
     public double getAlto() {
         return this.alto;
     }
+
+    public boolean contienePunto(double x, double y) {
+        return (x >= this.x - (ancho / 2) && x <= this.x + (ancho / 2) &&
+                y >= this.y - (alto / 2) && y <= this.y + (alto / 2));
+    }
 }
 

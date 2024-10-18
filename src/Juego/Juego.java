@@ -4,6 +4,7 @@ package Juego;
 
 import entorno.Entorno;
 import entorno.InterfaceJuego;
+import java.util.Random;
 
 public class Juego extends InterfaceJuego {
     // El objeto Entorno que controla el tiempo y otros
@@ -15,11 +16,8 @@ public class Juego extends InterfaceJuego {
 
     private Tortuga[]tortugas;
 
-
-
     // Variables y métodos propios de cada grupo
     // ...
-
 
     Juego() //este metodo es solo un constructor
     {
@@ -27,12 +25,9 @@ public class Juego extends InterfaceJuego {
         this.jugador = new Jugador(entorno);
         islas=crearIslas(entorno);
         this.duende = new Duende();
-
         this.entorno.iniciar();
-
-        this.tortugas= new Tortuga[5];
+        this.tortugas = new Tortuga[5];
         crearTortugas();
-
     }
 
     public static Isla[] crearIslas(Entorno entorno) {
@@ -52,29 +47,32 @@ public class Juego extends InterfaceJuego {
                 indice++;
             }
         }
-
         return islas;
     }
-    private void crearTortugas(){
-
-        int indice=0;
+    private void crearTortugas() {
+        Random random = new Random();
         for (int i = 0; i < 5; i++) {
-            double x = 150;
+            double x;
+            if (random.nextBoolean()) {
+                x = random.nextDouble() * (350-50);
+            } else {
+                x = 450 + random.nextDouble() * (750 - 450);
+            }
             double y = 50;
-            tortugas[indice] = new Tortuga(50 * i , 50 * i );
-            indice++;
+            tortugas[i] = new Tortuga(x, y);
         }
     }
 
 
-
     public void tick()
     {
-
         jugador.dibujar(entorno);
 
-        for(Tortuga tortuga : tortugas){
-            tortuga.dibujar(entorno);
+        for (Tortuga tortuga : tortugas) {
+            if (tortuga != null) {
+                tortuga.actualizarPosicion(islas);
+                tortuga.dibujar(entorno);
+            }
         }
 
         duende.dibujar(entorno);

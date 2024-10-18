@@ -3,16 +3,17 @@ package Juego;
 import entorno.Entorno;
 
 import java.awt.*;
+import java.util.Random;
+
 public class Tortuga {
     private double x;
     private double y;
-
     private double ancho;
     private double alto;
-
     private boolean estaEnIsla;
-    //voy a comentar todo lo que de error para hacer pruebas en las otras clases
-    //private Isla islaActual;
+    private Isla islaActual;
+    private double velocidadMovimiento;
+    private boolean moviendoDerecha;
 
     public Tortuga(double x, double y) {
         this.x = x;
@@ -20,47 +21,58 @@ public class Tortuga {
         this.ancho = 50;
         this.alto = 50;
         estaEnIsla = false;
-        //islaActual = null;
+        islaActual = null;
+        velocidadMovimiento = 0.8;
+        moviendoDerecha = true;
     }
 
+    public void caer() {
+        if (!estaEnIsla) {
+            y++;
+        }
+    }
 
-    /*
-        public void caer() {
-            if (!estaEnIsla) {
-                y++;
-            }
+    public void aterrizarEnIsla(Isla isla) {
+        if (!estaEnIsla) {
+            double alturaIsla = isla.getAlto();
+            y = isla.getY() - (alturaIsla / 2) - (alto / 2);
+            estaEnIsla = true;
+            islaActual = isla;
         }
+    }
 
-        public void aterrizarEnIsla(Isla isla) {
-            if (!estaEnIsla) {
-                y = isla.getY();
-                estaEnIsla = true;
-                islaActual = isla;
+    public void actualizarPosicion(Isla[] islas) {
+        caer();
+        for (Isla isla : islas) {
+            if (isla.contienePunto(x, y)) {
+                aterrizarEnIsla(isla);
+                break;
             }
         }
+        if (estaEnIsla) {
+            moverEnIsla();
+        }
+    }
 
-        public void actualizarPosicion(List<Isla> islas) {
-            caer();
-            for (Isla isla : islas) {
-                if (isla.contienePunto(x, y)) {
-                    aterrizarEnIsla(isla);
-                    break;
-                }
+    private void moverEnIsla() {
+        if (moviendoDerecha) {
+            x += velocidadMovimiento;
+            if (x + ancho / 2 > islaActual.getX() + islaActual.getAncho() / 2) {
+                moviendoDerecha = false; // Cambia dirección
             }
-            if (estaEnIsla) {
-                moverEnIsla();
+        } else {
+            x -= velocidadMovimiento;
+            if (x - ancho / 2 < islaActual.getX() - islaActual.getAncho() / 2) {
+                moviendoDerecha = true; // Cambia dirección
             }
         }
-        public boolean estaEnIsla(Isla isla) {
-            return islaActual == isla;
-        }
-     */
+    }
+
     public void dibujar(Entorno entorno) {
         entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.green);
     }
 
-
-    //getters
+    // Getters
     public double getX() {
         return this.x;
     }
@@ -73,5 +85,4 @@ public class Tortuga {
     public double getAlto() {
         return this.alto;
     }
-
 }
