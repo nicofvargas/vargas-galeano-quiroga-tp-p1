@@ -1,5 +1,9 @@
 package Juego;
 
+import entorno.Entorno;
+
+import java.awt.*;
+
 public class bolaFuego {
     private double x;
     private double y;
@@ -18,6 +22,10 @@ public class bolaFuego {
         this.activa=true;
     }
 
+    public void dibujar(Entorno entorno) {
+        entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.red);
+    }
+
     public int setDireccion(Jugador jugador) {
         if (jugador.getMiraDerecha()) {
             return direccion=1;
@@ -28,7 +36,7 @@ public class bolaFuego {
     }
 
     public void mover(Jugador jugador) {
-        this.x=velocidad*setDireccion(jugador);
+        this.x+=velocidad*setDireccion(jugador);
     }
 
     //colisiones
@@ -110,6 +118,15 @@ public class bolaFuego {
             }
         }
         return false;
+    }
+
+    //colision con ventana
+    public boolean hayColisionIzq() {
+        return this.x - this.ancho / 2 <= 0; //le resto el ancho dividido dos porque sino se pasa de la ventana ya que X es el medio del rectangulo
+    }
+
+    public boolean hayColisionDer(Entorno entorno) {
+        return this.x + this.ancho / 2 >= entorno.ancho(); //aca lo mismo pero a la inversa le falta medio rectangulo para llegar a colisionar
     }
 
 }
