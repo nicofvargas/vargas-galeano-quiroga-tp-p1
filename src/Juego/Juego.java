@@ -77,6 +77,9 @@ public class Juego extends InterfaceJuego {
 
         duende.dibujar(entorno);
         duende.aplicarGravedad(islas);
+        duende.patronDeMovimiento();
+
+
 
         for(Isla isla: islas) {
             if(isla!=null) {
@@ -107,8 +110,6 @@ public class Juego extends InterfaceJuego {
         }
         jugador.aplicarGravedad(islas);
 
-
-        //duende.getX();
     }
 
 

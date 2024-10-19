@@ -12,6 +12,11 @@ public class Duende {
     private double velocidad;
     private double gravedad;
     private double velocidadCaida;
+    private boolean direccionElegida; // Para verificar si ya se eligió una dirección
+    private int direccion;
+    private boolean enElAire;
+    private boolean estaEnIsla;
+    private Isla islaActual;
     //private double salud;
     //private boolean colision;
     //private boolean muere;
@@ -23,51 +28,16 @@ public class Duende {
         this.ancho = 20;
         this.alto = 30;
         this.velocidad = 2;
-        this.gravedad=0.3;
-        this.velocidadCaida=0;
+        this.gravedad = 0.3;
+        this.velocidadCaida = 0;
+        this.direccionElegida = false;
+        this.enElAire = false;
+        this.estaEnIsla=false;
 
     }
 
     public void dibujar(Entorno entorno) {
         entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.red);
-    }
-
-    public boolean colisionaIzquierda(Isla[] islas) {
-        for (Isla isla : islas) {
-            if (isla == null) {
-                continue;
-            }
-
-            double bordeIzquierdoDuende = this.x - (this.ancho / 2);
-            double bordeDerechoIsla = isla.getX() + (isla.getAncho() / 2);
-
-            if (bordeIzquierdoDuende <= bordeDerechoIsla && bordeIzquierdoDuende >= bordeDerechoIsla - velocidad) {
-                if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
-                    this.x = bordeDerechoIsla + (this.ancho / 2);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public boolean colisionaDerecha(Isla[] islas) {
-        for (Isla isla : islas) {
-            if (isla == null) {
-                continue;
-            }
-
-            double bordeDerechoDuende = this.x + (this.ancho / 2);
-            double bordeIzquierdoIsla = isla.getX() - (isla.getAncho() / 2);
-
-            if (bordeDerechoDuende >= bordeIzquierdoIsla && bordeDerechoDuende <= bordeIzquierdoIsla + velocidad) {
-                if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
-                    this.x = bordeIzquierdoIsla - (this.ancho / 2);
-                    return true;
-                }
-            }
-        }
-        return false;
     }
 
     public boolean colisionaAbajo(Isla[] islas) {
@@ -87,39 +57,35 @@ public class Duende {
         }
         return false;
     }
-
-    public boolean colisionaArriba(Isla[] islas) {
-        for(Isla isla : islas) {
-            if(isla==null) {
+    private void ajustarPosicionDuende(Isla[] islas) {
+        for (Isla isla : islas) {
+            if (isla == null) {
                 continue;
             }
-            double bordeSuperiorDuende = this.y - (this.alto / 2);
-            double bordeInferiorIsla = isla.getY() + (isla.getAlto() / 2);
 
-            if(bordeSuperiorDuende <= bordeInferiorIsla && bordeSuperiorDuende>= bordeInferiorIsla-velocidad) {
-                if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
-                    this.y=bordeInferiorIsla+(this.alto/2);
-                    return true;
-                }
+
+            if (this.x + (this.ancho / 2) > isla.getX() - (isla.getAncho() / 2) &&
+                    this.x - (this.ancho / 2) < isla.getX() + (isla.getAncho() / 2)) {
+
+
+                this.y = isla.getY() - (isla.getAlto() / 2) - (this.alto / 2);
+                break;
             }
         }
-        return false;
     }
 
     public void aplicarGravedad(Isla[] islas) {
-        if(!colisionaAbajo(islas)) {
+        if(enElAire=true) {
             velocidadCaida+=gravedad;
             this.y+=velocidadCaida;
         }
-        else {
+        if(colisionaAbajo(islas)) {
+            enElAire=false;
             velocidadCaida=0;
         }
+
+
     }
-
-
-
-
-
     //getters
     public double getX() {return this.x;}
 
@@ -129,17 +95,16 @@ public class Duende {
 
    public double getAlto() {return this.alto;}
 
-   public void moverIzquierda(){
-        this.x -= velocidad;
-    }
-
-    public void moverDerecha(){
-        this.x += velocidad;
-   }
-    public void patronDeMovimiento(){
-
-
+    public void patronDeMovimiento() {
+        if (!direccionElegida) {
+            this.direccion = (int) (Math.random() * 2) + 1;
+            this.direccion = (this.direccion == 1) ? 1 : -1;
+            this.direccionElegida = true;
+        }
+        this.x += velocidad * direccion;
     }
 }
+
+
 
 
