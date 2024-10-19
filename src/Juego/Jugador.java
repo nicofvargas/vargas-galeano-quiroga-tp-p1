@@ -50,6 +50,8 @@ public class Jugador {
     //metodos para mover
     public void moverDerecha(Entorno entorno, Isla[] islas) {
         this.x += velocidad;
+        this.miraIzq=false;
+        this.miraDerecha=true;
         if (hayColisionDer(entorno)) { //esto es para que no se pase del borde de ventana
             if(colisionaDerecha(islas)) { //esto comprueba si hay colision con isla vuelve para atras
                 this.x -= velocidad;
@@ -58,6 +60,8 @@ public class Jugador {
     }
     public void moverIzquierda(Isla[] islas) {
         this.x -= velocidad;
+        this.miraDerecha=false;
+        this.miraIzq=true;
         if(hayColisionIzq()) {
             if(colisionaIzquierda(islas)) {
                 this.x+=velocidad;
