@@ -13,8 +13,8 @@ public class Juego extends InterfaceJuego {
     private Isla[] islas;
     private Duende duende;
     private Tortuga tortuga;
-
     private Tortuga[]tortugas;
+    private bolaFuego bolaFuego;
 
     // Variables y métodos propios de cada grupo
     // ...
@@ -28,6 +28,7 @@ public class Juego extends InterfaceJuego {
         this.entorno.iniciar();
         this.tortugas = new Tortuga[5];
         crearTortugas();
+        this.bolaFuego=null;
     }
 
     public static Isla[] crearIslas(Entorno entorno) {
@@ -67,6 +68,7 @@ public class Juego extends InterfaceJuego {
     public void tick()
     {
         jugador.dibujar(entorno);
+        jugador.aplicarGravedad(islas);
 
         for (Tortuga tortuga : tortugas) {
             if (tortuga != null) {
@@ -103,12 +105,27 @@ public class Juego extends InterfaceJuego {
             }
 
         }
-        if (entorno.estaPresionada(entorno.TECLA_ABAJO)) {
-            if(!jugador.colisionaAbajo(islas)) {
-                jugador.moverAbajo(islas);
+        if (entorno.estaPresionada(entorno.TECLA_ESPACIO) && bolaFuego==null) {
+            bolaFuego = new bolaFuego(jugador);
+        }
+
+        //aca compruebo el estado de bola de fuego
+        if(bolaFuego!=null) {
+            bolaFuego.mover(jugador);
+            bolaFuego.dibujar(entorno);
+            //aca compruebo si colisiona con alguna isla
+            if(bolaFuego.colisionaDerecha(islas) || bolaFuego.colisionaIzquierda(islas)) {
+                bolaFuego = null;
+            }
+            //aca compruebo si colisiona con alguna tortuga
+            else if (bolaFuego.colisionaDerechaTortu(tortugas) || bolaFuego.colisionaIzqTortu(tortugas)) {
+                bolaFuego = null;
+            }
+            else if (bolaFuego.hayColisionDer(entorno) || bolaFuego.hayColisionIzq()) {
+                bolaFuego = null;
             }
         }
-        jugador.aplicarGravedad(islas);
+
 
     }
 
