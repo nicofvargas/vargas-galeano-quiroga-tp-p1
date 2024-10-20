@@ -20,23 +20,22 @@ public class bolaFuego {
         this.alto=30;
         this.velocidad=7;
         this.activa=true;
+        //este if lo pongo en el constructor para evitar que cambie la direccion de la bola de fuego al lanzarse
+        if(jugador.getMiraDerecha()) {
+            this.direccion=1;
+        }
+        else {
+            this.direccion=-1;
+        }
     }
 
     public void dibujar(Entorno entorno) {
         entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.red);
     }
 
-    public int setDireccion(Jugador jugador) {
-        if (jugador.getMiraDerecha()) {
-            return direccion=1;
-        }
-        else {
-            return direccion=-1;
-        }
-    }
 
     public void mover(Jugador jugador) {
-        this.x+=velocidad*setDireccion(jugador);
+        this.x+=velocidad*this.direccion;
     }
 
     //colisiones
