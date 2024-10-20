@@ -19,7 +19,7 @@ public class Juego extends InterfaceJuego {
     // Variables y métodos propios de cada grupo
     // ...
 
-    Juego() //este metodo es solo un constructor
+    Juego() //este es solo un constructor
     {
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
         this.jugador = new Jugador(entorno);
