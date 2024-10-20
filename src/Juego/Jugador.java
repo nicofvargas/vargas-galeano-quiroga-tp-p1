@@ -83,7 +83,7 @@ public class Jugador {
 
     public void saltar(Isla[] islas) { //
         if (!enElAire) {
-            velocidadCaida = -10;
+            velocidadCaida = -8;
             enElAire = true;
         }
     }
@@ -108,7 +108,7 @@ public class Jugador {
             double bordeDerechoPersonaje = this.x + (this.ancho / 2);
             double bordeIzquierdoIsla = isla.getX() - (isla.getAncho() / 2);
 
-            if (bordeDerechoPersonaje >= bordeIzquierdoIsla && bordeDerechoPersonaje <= bordeIzquierdoIsla + (velocidad*2)) {
+            if (bordeDerechoPersonaje >= bordeIzquierdoIsla && bordeDerechoPersonaje <= bordeIzquierdoIsla + fixVelocidadColision()) {
                 if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
                     this.x = bordeIzquierdoIsla - (this.ancho / 2);
                     return true;
@@ -128,7 +128,7 @@ public class Jugador {
             double bordeIzquierdoPersonaje = this.x - (this.ancho / 2);
             double bordeDerechoIsla = isla.getX() + (isla.getAncho() / 2);
 
-            if (bordeIzquierdoPersonaje <= bordeDerechoIsla && bordeIzquierdoPersonaje >= bordeDerechoIsla - (velocidad*2)) {
+            if (bordeIzquierdoPersonaje <= bordeDerechoIsla && bordeIzquierdoPersonaje >= bordeDerechoIsla - fixVelocidadColision()) {
                 if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
                     this.x = bordeDerechoIsla + (this.ancho / 2);
                     return true;
@@ -147,7 +147,7 @@ public class Jugador {
             double bordeSuperiorPersonaje = this.y - (this.alto / 2);
             double bordeInferiorIsla = isla.getY() + (isla.getAlto() / 2);
 
-            if(bordeSuperiorPersonaje <= bordeInferiorIsla && bordeSuperiorPersonaje>= bordeInferiorIsla-(velocidad*2)) {
+            if(bordeSuperiorPersonaje <= bordeInferiorIsla && bordeSuperiorPersonaje>= bordeInferiorIsla-fixVelocidadColision()) {
                 if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
                     this.y=bordeInferiorIsla+(this.alto/2);
                     return true;
@@ -165,7 +165,7 @@ public class Jugador {
             double bordeInferiorPersonaje = this.y + (this.alto / 2);
             double bordeSuperiorIsla = isla.getY() - (isla.getAlto() / 2);
 
-            if(bordeInferiorPersonaje>=bordeSuperiorIsla && bordeInferiorPersonaje<=bordeSuperiorIsla +(velocidad*2)) {
+            if(bordeInferiorPersonaje>=bordeSuperiorIsla && bordeInferiorPersonaje<=bordeSuperiorIsla +fixVelocidadColision()) {
                 if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
                     this.y=bordeSuperiorIsla-(this.alto/2);
                     return true;
@@ -178,6 +178,9 @@ public class Jugador {
     public void aplicarGravedad(Isla[] islas) {
         if(enElAire=true) {
             velocidadCaida+=gravedad;
+            if (velocidadCaida>10) {
+                velocidadCaida=10;
+            }
             this.y+=velocidadCaida;
         }
         if(colisionaAbajo(islas) || colisionaArriba(islas)) {
@@ -185,6 +188,10 @@ public class Jugador {
             velocidadCaida=0;
         }
 
+    }
+
+    public double fixVelocidadColision() {
+        return 10;
     }
 
 }
