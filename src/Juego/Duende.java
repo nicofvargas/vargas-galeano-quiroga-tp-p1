@@ -48,7 +48,7 @@ public class Duende {
             double bordeInferiorDuende = this.y + (this.alto / 2);
             double bordeSuperiorIsla = isla.getY() - (isla.getAlto() / 2);
 
-            if(bordeInferiorDuende>=bordeSuperiorIsla && bordeInferiorDuende<=bordeSuperiorIsla +velocidad) {
+            if(bordeInferiorDuende>=bordeSuperiorIsla && bordeInferiorDuende<=bordeSuperiorIsla +(velocidad+8)) {
                 if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
                     this.y=bordeSuperiorIsla-(this.alto/2);
                     return true;
