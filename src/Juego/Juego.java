@@ -108,6 +108,10 @@ public class Juego extends InterfaceJuego {
                 isla.dibujar(entorno);
             }
         }
+        //aca controla si colisiona con una tortuga
+        if (jugador!=null && (jugador.colisionaAbajoTortu(tortugas) || jugador.colisionaArribaTortu(tortugas) || jugador.colisionaDerechaTortu(tortugas) || jugador.colisionaIzquierdaTortu(tortugas))) {
+            jugador=null;
+        }
         //control movimiento con teclas
         if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
             if(!jugador.colisionaDerecha(islas)) {
