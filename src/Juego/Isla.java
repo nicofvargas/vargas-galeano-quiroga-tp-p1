@@ -5,10 +5,12 @@ import entorno.Entorno;
 import java.awt.*;
 
 public class Isla {
-    private int x;
-    private int y;
+    private double x;
+    private double y;
     private int ancho;
     private int alto;
+    private boolean tortugaEnIsla;
+    private boolean estaEnIsla;
 
     // Constructor que establece las posiciones y dimensiones de una isla
     public Isla(int x, int y, int ancho, int alto) {
@@ -17,6 +19,13 @@ public class Isla {
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
+        this.tortugaEnIsla = false;
+    }
+    public boolean hayTortuga() {
+        return tortugaEnIsla;
+    }
+    public void establecerTortuga(boolean estado) {
+        this.tortugaEnIsla = estado;
     }
 
     // Método que dibuja la isla en el entorno
@@ -38,8 +47,8 @@ public class Isla {
     }
 
     public boolean contienePunto(double x, double y) {
-        return (x >= this.x - (ancho / 2) && x <= this.x + (ancho / 2) &&
-                y >= this.y - (alto / 2) && y <= this.y + (alto / 2));
+
+        return (x >= this.x +10 && x <= this.x + ancho+20 && y >= this.y-10 && y <= this.y + alto-10);
     }
 }
 

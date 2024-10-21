@@ -63,18 +63,39 @@ public class Juego extends InterfaceJuego {
             tortugas[i] = new Tortuga(x, y);
         }
     }
+    public void verificarTortugasMuertas() {
+        for (int i = 0; i < tortugas.length; i++) {
+            // Verifica que tortugas[i] no sea null
+            if (tortugas[i] != null && !tortugas[i].estaViva()) {
+                tortugas[i] = crearNuevaTortuga(); // Reemplaza la tortuga muerta
+            }
+        }
+    }
+    private Tortuga crearNuevaTortuga() {
+        Random random = new Random();
+        double x;
+        if (random.nextBoolean()) {
+            x = random.nextDouble() * (350 - 50);
+        } else {
+            x = 450 + random.nextDouble() * (750 - 450);
+        }
+        double y = 50;
+        return new Tortuga(x, y);
+    }
 
 
     public void tick()
     {
         jugador.dibujar(entorno);
         jugador.aplicarGravedad(islas);
+        verificarTortugasMuertas();
 
         for (Tortuga tortuga : tortugas) {
             if (tortuga != null) {
                 tortuga.actualizarPosicion(islas);
                 tortuga.dibujar(entorno);
             }
+
         }
 
         duende.dibujar(entorno);
