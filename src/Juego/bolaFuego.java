@@ -69,7 +69,7 @@ public class bolaFuego {
             double bordeIzquierdoPersonaje = this.x - (this.ancho / 2);
             double bordeDerechoIsla = isla.getX() + (isla.getAncho() / 2);
 
-            if (bordeIzquierdoPersonaje <= bordeDerechoIsla && bordeIzquierdoPersonaje >= bordeDerechoIsla - velocidad) {
+            if (bordeIzquierdoPersonaje <= bordeDerechoIsla && bordeIzquierdoPersonaje >= bordeDerechoIsla - 10) {
                 if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
                     this.x = bordeDerechoIsla + (this.ancho / 2);
                     return true;
@@ -89,7 +89,7 @@ public class bolaFuego {
             double bordeDerechoBolaFuego = this.x + (this.ancho / 2);
             double bordeIzquierdoTortuga = tortuga.getX() - (tortuga.getAncho() / 2);
 
-            if (bordeDerechoBolaFuego >= bordeIzquierdoTortuga && bordeDerechoBolaFuego <= bordeIzquierdoTortuga + velocidad) {
+            if (bordeDerechoBolaFuego >= bordeIzquierdoTortuga && bordeDerechoBolaFuego <= bordeIzquierdoTortuga + 10) {
                 if (this.y + (this.alto / 2) > tortuga.getY() - (tortuga.getAlto() / 2) && this.y - (this.alto / 2) < tortuga.getY() + (tortuga.getAlto() / 2)) {
                     this.x = bordeIzquierdoTortuga - (this.ancho / 2); //esto me parece que lo voy a cambiar asi la colision se ve mas real
                     return true;
@@ -109,7 +109,7 @@ public class bolaFuego {
             double bordeIzqBolaFuego = this.x + (this.ancho / 2);
             double bordeDerechoTortuga = tortuga.getX() - (tortuga.getAncho() / 2);
 
-            if (bordeIzqBolaFuego >= bordeDerechoTortuga && bordeIzqBolaFuego <= bordeDerechoTortuga + velocidad) {
+            if (bordeIzqBolaFuego >= bordeDerechoTortuga && bordeIzqBolaFuego <= bordeDerechoTortuga + 10) {
                 if (this.y + (this.alto / 2) > tortuga.getY() - (tortuga.getAlto() / 2) && this.y - (this.alto / 2) < tortuga.getY() + (tortuga.getAlto() / 2)) {
                     this.x = bordeDerechoTortuga - (this.ancho / 2); //esto me parece que lo voy a cambiar asi la colision se ve mas real
                     return true;
