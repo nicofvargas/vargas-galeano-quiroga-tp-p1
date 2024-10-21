@@ -174,6 +174,85 @@ public class Jugador {
         }
         return false;
     }
+
+    //metodos de colision con tortuga
+    public boolean colisionaDerechaTortu(Tortuga[] tortugas) {
+        for (Tortuga tortuga : tortugas) {
+            if (tortuga == null) {
+                continue;
+            }
+
+            double bordeDerechoPersonaje = this.x + (this.ancho / 2);
+            double bordeIzquierdoTortu = tortuga.getX() - (tortuga.getAncho() / 2);
+
+            if (bordeDerechoPersonaje >= bordeIzquierdoTortu && bordeDerechoPersonaje <= bordeIzquierdoTortu + fixVelocidadColision()) {
+                if (this.y + (this.alto / 2) > tortuga.getY() - (tortuga.getAlto() / 2) && this.y - (this.alto / 2) < tortuga.getY() + (tortuga.getAlto() / 2)) {
+                    this.x = bordeIzquierdoTortu - (this.ancho / 2);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public boolean colisionaIzquierdaTortu(Tortuga[] tortugas) {
+        for (Tortuga tortuga : tortugas) {
+            if (tortuga == null) {
+                continue;
+            }
+
+            double bordeIzquierdoPersonaje = this.x - (this.ancho / 2);
+            double bordeDerechoTortu = tortuga.getX() + (tortuga.getAncho() / 2);
+
+            if (bordeIzquierdoPersonaje <= bordeDerechoTortu && bordeIzquierdoPersonaje >= bordeDerechoTortu - fixVelocidadColision()) {
+                if (this.y + (this.alto / 2) > tortuga.getY() - (tortuga.getAlto() / 2) && this.y - (this.alto / 2) < tortuga.getY() + (tortuga.getAlto() / 2)) {
+                    this.x = bordeDerechoTortu + (this.ancho / 2);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public boolean colisionaArribaTortu(Tortuga[] tortugas) {
+        for(Tortuga tortuga : tortugas) {
+            if(tortuga==null) {
+                continue;
+            }
+            double bordeSuperiorPersonaje = this.y - (this.alto / 2);
+            double bordeInferiorTortu = tortuga.getY() + (tortuga.getAlto() / 2);
+
+            if(bordeSuperiorPersonaje <= bordeInferiorTortu && bordeSuperiorPersonaje>= bordeInferiorTortu-fixVelocidadColision()) {
+                if(this.x+(this.ancho/2) > tortuga.getX()-(tortuga.getAncho()/2)  &&  this.x-(this.ancho/2) < tortuga.getX()+(tortuga.getAncho()/2)) {
+                    this.y=bordeInferiorTortu+(this.alto/2);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean colisionaAbajoTortu(Tortuga[] tortugas) {
+        for(Tortuga tortuga : tortugas) {
+            if(tortuga==null) {
+                continue;
+            }
+            double bordeInferiorPersonaje = this.y + (this.alto / 2);
+            double bordeSuperiorTortuga = tortuga.getY() - (tortuga.getAlto() / 2);
+
+            if(bordeInferiorPersonaje>=bordeSuperiorTortuga && bordeInferiorPersonaje<=bordeSuperiorTortuga +fixVelocidadColision()) {
+                if(this.x+(this.ancho/2) > tortuga.getX()-(tortuga.getAncho()/2)  &&  this.x-(this.ancho/2) < tortuga.getX()+(tortuga.getAncho()/2)) {
+                    this.y=bordeSuperiorTortuga-(this.alto/2);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     //gravedad
     public void aplicarGravedad(Isla[] islas) {
         if(enElAire=true) {
@@ -187,8 +266,8 @@ public class Jugador {
             enElAire=false;
             velocidadCaida=0;
         }
-
     }
+
 
     public double fixVelocidadColision() {
         return 10;
