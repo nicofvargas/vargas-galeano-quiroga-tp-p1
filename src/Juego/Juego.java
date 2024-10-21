@@ -100,9 +100,8 @@ public class Juego extends InterfaceJuego {
 
         duende.dibujar(entorno);
         duende.aplicarGravedad(islas);
-        duende.patronDeMovimiento();
-
-
+        duende.duendeEnElAire(islas);
+        duende.patronDeMovimiento(islas);
 
         for(Isla isla: islas) {
             if(isla!=null) {
