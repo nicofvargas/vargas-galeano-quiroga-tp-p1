@@ -84,69 +84,72 @@ public class Juego extends InterfaceJuego {
     }
 
 
-    public void tick()
-    {
-        jugador.dibujar(entorno);
-        jugador.aplicarGravedad(islas);
-        verificarTortugasMuertas();
-
-        for (Tortuga tortuga : tortugas) {
-            if (tortuga != null) {
-                tortuga.actualizarPosicion(islas);
-                tortuga.dibujar(entorno);
-            }
-
-        }
-
-        duende.dibujar(entorno);
-        duende.aplicarGravedad(islas);
-        duende.duendeEnElAire(islas);
-        duende.patronDeMovimiento(islas);
-
-        for(Isla isla: islas) {
-            if(isla!=null) {
-                isla.dibujar(entorno);
-            }
-        }
+    public void tick() {
         //aca controla si colisiona con una tortuga
         if (jugador!=null && (jugador.colisionaAbajoTortu(tortugas) || jugador.colisionaArribaTortu(tortugas) || jugador.colisionaDerechaTortu(tortugas) || jugador.colisionaIzquierdaTortu(tortugas))) {
             jugador=null;
         }
-        //control movimiento con teclas
-        if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
-            if(!jugador.colisionaDerecha(islas)) {
-                jugador.moverDerecha(entorno,islas);
-            }
-        }
-        if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
-            if(!jugador.colisionaIzquierda(islas)) {
-                jugador.moverIzquierda(islas);
-            }
-        }
-        if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
-            if(!jugador.colisionaArriba(islas)) {
-                jugador.saltar(islas);
+
+        if(jugador!=null) {
+            jugador.dibujar(entorno);
+            jugador.aplicarGravedad(islas);
+            verificarTortugasMuertas();
+
+            for (Tortuga tortuga : tortugas) {
+                if (tortuga != null) {
+                    tortuga.actualizarPosicion(islas);
+                    tortuga.dibujar(entorno);
+                }
+
             }
 
-        }
-        if (entorno.estaPresionada(entorno.TECLA_ESPACIO) && bolaFuego==null) {
-            bolaFuego = new bolaFuego(jugador);
-        }
+            duende.dibujar(entorno);
+            duende.aplicarGravedad(islas);
+            duende.duendeEnElAire(islas);
+            duende.patronDeMovimiento(islas);
 
-        //aca compruebo el estado de bola de fuego
-        if(bolaFuego!=null) {
-            bolaFuego.mover(jugador);
-            bolaFuego.dibujar(entorno);
-            //aca compruebo si colisiona con alguna isla
-            if(bolaFuego.colisionaDerecha(islas) || bolaFuego.colisionaIzquierda(islas)) {
-                bolaFuego = null;
+            for(Isla isla: islas) {
+                if(isla!=null) {
+                    isla.dibujar(entorno);
+                }
             }
-            //aca compruebo si colisiona con alguna tortuga
-            else if (bolaFuego.colisionaDerechaTortu(tortugas) || bolaFuego.colisionaIzqTortu(tortugas)) {
-                bolaFuego = null;
+
+            //control movimiento con teclas
+            if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
+                if(!jugador.colisionaDerecha(islas)) {
+                    jugador.moverDerecha(entorno,islas);
+                }
             }
-            else if (bolaFuego.hayColisionDer(entorno) || bolaFuego.hayColisionIzq()) {
-                bolaFuego = null;
+            if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
+                if(!jugador.colisionaIzquierda(islas)) {
+                    jugador.moverIzquierda(islas);
+                }
+            }
+            if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
+                if(!jugador.colisionaArriba(islas)) {
+                    jugador.saltar(islas);
+                }
+
+            }
+            if (entorno.estaPresionada(entorno.TECLA_ESPACIO) && bolaFuego==null) {
+                bolaFuego = new bolaFuego(jugador);
+            }
+
+            //aca compruebo el estado de bola de fuego
+            if(bolaFuego!=null) {
+                bolaFuego.mover(jugador);
+                bolaFuego.dibujar(entorno);
+                //aca compruebo si colisiona con alguna isla
+                if(bolaFuego.colisionaDerecha(islas) || bolaFuego.colisionaIzquierda(islas)) {
+                    bolaFuego = null;
+                }
+                //aca compruebo si colisiona con alguna tortuga
+                else if (bolaFuego.colisionaDerechaTortu(tortugas) || bolaFuego.colisionaIzqTortu(tortugas)) {
+                    bolaFuego = null;
+                }
+                else if (bolaFuego.hayColisionDer(entorno) || bolaFuego.hayColisionIzq()) {
+                    bolaFuego = null;
+                }
             }
         }
 
