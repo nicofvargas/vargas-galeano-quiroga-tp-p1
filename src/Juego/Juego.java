@@ -15,6 +15,7 @@ public class Juego extends InterfaceJuego {
     private Tortuga tortuga;
     private Tortuga[]tortugas;
     private bolaFuego bolaFuego;
+    private Hud ui;
 
     // Variables y métodos propios de cada grupo
     // ...
@@ -29,6 +30,7 @@ public class Juego extends InterfaceJuego {
         this.tortugas = new Tortuga[5];
         crearTortugas();
         this.bolaFuego=null;
+        this.ui = new Hud();
     }
 
     public static Isla[] crearIslas(Entorno entorno) {
@@ -93,7 +95,11 @@ public class Juego extends InterfaceJuego {
         if(jugador!=null) {
             jugador.dibujar(entorno);
             jugador.aplicarGravedad(islas);
-            verificarTortugasMuertas();
+            ui.dibujarCronometro(entorno);
+            ui.dibujarDuendesSalvados(entorno);
+            ui.dibujarDuendesMuertos(entorno);
+            ui.dibujarEnemigosEliminados(entorno);
+            //verificarTortugasMuertas(); esto lo comento por ahora no hace nada
 
             for (Tortuga tortuga : tortugas) {
                 if (tortuga != null) {
