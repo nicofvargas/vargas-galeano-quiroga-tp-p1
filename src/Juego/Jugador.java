@@ -42,6 +42,8 @@ public class Jugador {
     public boolean getMiraIzq() {
         return miraIzq;
     }
+    public double getAncho() { return this.ancho; }
+    public double getAlto() { return this.alto; }
     //metodo para dibujar
     public void dibujar(Entorno entorno) {
         entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.blue);
