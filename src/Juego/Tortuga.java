@@ -142,14 +142,14 @@ public class Tortuga {
         }
     }
 
-    //metodos de colision con Jugador (LEER CLASE JUGADOR PUEDEn REUTILIZAR TODOS LOS METODOS DE COLISION EN TODAS LAS CLASES)
-    public boolean colisionaDerechaJugador(Jugador jugador) {
+    //metodos de colision con BolaFuego (LEER CLASE JUGADOR PUEDEn REUTILIZAR TODOS LOS METODOS DE COLISION EN TODAS LAS CLASES)
+    public boolean colisionaDerechaBolaFuego(bolaFuego bolaFuego) {
         double bordeDerechoTortuga = this.x + (this.ancho / 2);
-        double bordeIzquierdoJugador = jugador.getX() - (jugador.getAncho() / 2);
+        double bordeIzquierdoBolaFuego = bolaFuego.getX() - (bolaFuego.getAncho() / 2);
 
-        if (bordeDerechoTortuga >= bordeIzquierdoJugador && bordeDerechoTortuga <= bordeIzquierdoJugador + 10) {
-            if (this.y + (this.alto / 2) > jugador.getY() - (jugador.getAlto() / 2) && this.y - (this.alto / 2) < jugador.getY() + (jugador.getAlto() / 2)) {
-                this.x = bordeIzquierdoJugador - (this.ancho / 2);
+        if (bordeDerechoTortuga >= bordeIzquierdoBolaFuego && bordeDerechoTortuga <= bordeIzquierdoBolaFuego + 10) {
+            if (this.y + (this.alto / 2) > bolaFuego.getY() - (bolaFuego.getAlto() / 2) && this.y - (this.alto / 2) < bolaFuego.getY() + (bolaFuego.getAlto() / 2)) {
+                this.x = bordeIzquierdoBolaFuego - (this.ancho / 2);
                 return true;
             }
         }
@@ -157,13 +157,13 @@ public class Tortuga {
     }
 
 
-    public boolean colisionaIzquierdaJugador(Jugador jugador) {
+    public boolean colisionaIzquierdaBolaFuego(bolaFuego bolaFuego) {
         double bordeIzquierdoTortu = this.x - (this.ancho / 2);
-        double bordeDerechoJugador = jugador.getX() + (jugador.getAncho() / 2);
+        double bordeDerechoBolaFuego = bolaFuego.getX() + (bolaFuego.getAncho() / 2);
 
-        if (bordeIzquierdoTortu <= bordeDerechoJugador && bordeIzquierdoTortu >= bordeDerechoJugador - 10) {
-            if (this.y + (this.alto / 2) > jugador.getY() - (jugador.getAlto() / 2) && this.y - (this.alto / 2) < jugador.getY() + (jugador.getAlto() / 2)) {
-                this.x = bordeDerechoJugador + (this.ancho / 2);
+        if (bordeIzquierdoTortu <= bordeDerechoBolaFuego && bordeIzquierdoTortu >= bordeDerechoBolaFuego - 10) {
+            if (this.y + (this.alto / 2) > bolaFuego.getY() - (bolaFuego.getAlto() / 2) && this.y - (this.alto / 2) < bolaFuego.getY() + (bolaFuego.getAlto() / 2)) {
+                this.x = bordeDerechoBolaFuego + (this.ancho / 2);
                 return true;
             }
         }
@@ -171,26 +171,26 @@ public class Tortuga {
     }
 
 
-    public boolean colisionaArribaJugador(Jugador jugador) {
+    public boolean colisionaArribaBolaFuego(bolaFuego bolaFuego) {
         double bordeSuperiorTortu = this.y - (this.alto / 2);
-        double bordeInferiorJugador = jugador.getY() + (jugador.getAlto() / 2);
+        double bordeInferiorBolaFuego = bolaFuego.getY() + (bolaFuego.getAlto() / 2);
 
-        if(bordeSuperiorTortu <= bordeInferiorJugador && bordeSuperiorTortu>= bordeInferiorJugador-10) {
-            if(this.x+(this.ancho/2) > jugador.getX()-(jugador.getAncho()/2)  &&  this.x-(this.ancho/2) < jugador.getX()+(jugador.getAncho()/2)) {
-                this.y=bordeInferiorJugador+(this.alto/2);
+        if(bordeSuperiorTortu <= bordeInferiorBolaFuego && bordeSuperiorTortu>= bordeInferiorBolaFuego-10) {
+            if(this.x+(this.ancho/2) > bolaFuego.getX()-(bolaFuego.getAncho()/2)  &&  this.x-(this.ancho/2) < bolaFuego.getX()+(bolaFuego.getAncho()/2)) {
+                this.y=bordeInferiorBolaFuego+(this.alto/2);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean colisionaAbajoJugador(Jugador jugador) {
+    public boolean colisionaAbajoBolaFuego(bolaFuego bolaFuego) {
         double bordeInferiorTortu = this.y + (this.alto / 2);
-        double bordeSuperiorJugador = jugador.getY() - (jugador.getAlto() / 2);
+        double bordeSuperiorBolaFuego = bolaFuego.getY() - (bolaFuego.getAlto() / 2);
 
-        if(bordeInferiorTortu>=bordeSuperiorJugador && bordeInferiorTortu<=bordeSuperiorJugador +10) {
-            if(this.x+(this.ancho/2) > jugador.getX()-(jugador.getAncho()/2)  &&  this.x-(this.ancho/2) < jugador.getX()+(jugador.getAncho()/2)) {
-                this.y=bordeSuperiorJugador-(this.alto/2);
+        if(bordeInferiorTortu>=bordeSuperiorBolaFuego && bordeInferiorTortu<=bordeSuperiorBolaFuego +10) {
+            if(this.x+(this.ancho/2) > bolaFuego.getX()-(bolaFuego.getAncho()/2)  &&  this.x-(this.ancho/2) < bolaFuego.getX()+(bolaFuego.getAncho()/2)) {
+                this.y=bordeSuperiorBolaFuego-(this.alto/2);
                 return true;
             }
         }
