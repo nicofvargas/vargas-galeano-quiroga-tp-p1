@@ -46,9 +46,9 @@ public class Isla {
         return this.alto;
     }
 
-    public boolean contienePunto(double x, double y) {
-
-        return (x >= this.x +10 && x <= this.x + ancho+20 && y >= this.y-10 && y <= this.y + alto-10);
+    public boolean contienePunto(double px, double py) {
+        double margen = 5;
+        return (px >= x - ancho / 2 - margen && px <= x + ancho / 2 + margen &&
+                py >= y - alto / 2 - margen && py <= y + alto / 2 + margen);
     }
 }
-

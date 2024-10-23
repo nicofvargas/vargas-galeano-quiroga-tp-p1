@@ -61,8 +61,8 @@ public class Juego extends InterfaceJuego {
             } else {
                 x = 450 + random.nextDouble() * (750 - 450);
             }
-            double y = 50;
-            tortugas[i] = new Tortuga(x, y);
+            double y =20;
+            tortugas[i] = new Tortuga(x, y+10);
         }
     }
     public void verificarTortugasMuertas() {
@@ -83,6 +83,7 @@ public class Juego extends InterfaceJuego {
         }
         double y = 50;
         return new Tortuga(x, y);
+
     }
 
 
@@ -105,6 +106,7 @@ public class Juego extends InterfaceJuego {
                 if (tortuga != null) {
                     tortuga.actualizarPosicion(islas);
                     tortuga.dibujar(entorno);
+
                 }
 
             }

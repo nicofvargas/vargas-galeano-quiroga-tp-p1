@@ -36,28 +36,36 @@ public class Tortuga {
 
     public void caer() {
         if (!estaEnIsla) {
-            y++;
+            y += velocidad; // Ajusta la velocidad si es necesario
+            if (y > 600) { // Suponiendo que 600 es el límite inferior
+                y = 600; // Evitar que se mueva más allá de este límite
+                morir(); // Lógica para morir si cae demasiado
+            }
         }
     }
 
     public void aterrizarEnIsla(Isla isla) {
         if (!estaEnIsla && isla != null && !isla.hayTortuga()) {
             if (isla.contienePunto(this.x, this.y)) {
+                // Ajustar la posición de la tortuga para que esté sobre la isla
                 double alturaIsla = isla.getAlto();
-                y = isla.getY() - (alturaIsla / 2) - (this.alto / 2);
+                y = isla.getY() - (alturaIsla / 2) - (this.alto / 2) + 5; // Ajusta el +5 según sea necesario
                 estaEnIsla = true;
                 islaActual = isla;
                 isla.establecerTortuga(true);
             }
         }
     }
-    public void mover(double deltaX, double deltaY, Isla [] islas) {
+    public void mover(double deltaX, double deltaY, Isla[] islas) {
         this.x += deltaX;
         this.y += deltaY;
 
         // Verificar si la tortuga está en posición de aterrizar
         for (Isla isla : islas) {
-            aterrizarEnIsla(isla);
+            if (isla.contienePunto(this.x, this.y) && !estaEnIsla) {
+                aterrizarEnIsla(isla);
+                break; // Salir del bucle una vez que aterrice
+            }
         }
     }
     public void actualizarPosicion(Isla[] islas) {
@@ -78,8 +86,10 @@ public class Tortuga {
         }
     }
     private boolean colisionConIsla(Isla isla) {
-        return (this.x >= isla.getX() && this.x <= isla.getX()+ isla.getAncho()&&
-                this.y >= isla.getY() && this.y <= isla.getY() + isla.getAlto());
+        return (this.x + this.ancho / 2 >= isla.getX() - isla.getAncho() / 2 &&
+                this.x - this.ancho / 2 <= isla.getX() + isla.getAncho() / 2 &&
+                this.y + this.alto / 2 >= isla.getY() - isla.getAlto() / 2 &&
+                this.y - this.alto / 2 <= isla.getY() + isla.getAlto() / 2);
     }
 
     private void moverEnIsla() {
