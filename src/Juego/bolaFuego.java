@@ -128,4 +128,18 @@ public class bolaFuego {
         return this.x + this.ancho / 2 >= entorno.ancho(); //aca lo mismo pero a la inversa le falta medio rectangulo para llegar a colisionar
     }
 
+    //getters
+    public double getX() {
+        return this.x;
+    }
+    public double getY() {
+        return this.y;
+    }
+    public double getAncho() {
+        return this.ancho;
+    }
+    public double getAlto() {
+        return this.alto;
+    }
+
 }
