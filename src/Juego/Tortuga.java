@@ -14,8 +14,7 @@ public class Tortuga {
     private Isla islaActual;
     private double velocidadMovimiento;
     private boolean moviendoDerecha;
-    private boolean debeAterrizar;
-    private boolean estaAterrizando;
+
     private int velocidad = 2;
     private boolean viva;
     //atributos usados en gravedad
@@ -32,22 +31,10 @@ public class Tortuga {
         islaActual = null;
         velocidadMovimiento = 0.8;
         moviendoDerecha = true;
-        this.debeAterrizar = false;
-        this.estaAterrizando = false;
         this.viva = true;
         this.enElAire=true;
         this.velocidadCaida=0;
         this.gravedad=0.3;
-    }
-
-    public void caer() {
-        if (!estaEnIsla) {
-            y += velocidad; // Ajusta la velocidad si es necesario
-            if (y > 600) { // Suponiendo que 600 es el límite inferior
-                y = 600; // Evitar que se mueva más allá de este límite
-                morir(); // Lógica para morir si cae demasiado
-            }
-        }
     }
 
     public void aterrizarEnIsla(Isla isla) {
@@ -55,40 +42,27 @@ public class Tortuga {
             if (isla.contienePunto(this.x, this.y)) {
                 // Ajustar la posición de la tortuga para que esté sobre la isla
                 double alturaIsla = isla.getAlto();
-                y = isla.getY() - (alturaIsla / 2) - (this.alto / 2) + 5; // Ajusta el +5 según sea necesario
+                y = isla.getY() - (alturaIsla / 2) - (this.alto / 2) + 5;
                 estaEnIsla = true;
                 islaActual = isla;
                 isla.establecerTortuga(true);
             }
         }
     }
-    public void mover(double deltaX, double deltaY, Isla[] islas) {
-        this.x += deltaX;
-        this.y += deltaY;
 
-        // Verificar si la tortuga está en posición de aterrizar
-        for (Isla isla : islas) {
-            if (isla.contienePunto(this.x, this.y) && !estaEnIsla) {
-                aterrizarEnIsla(isla);
-                break; // Salir del bucle una vez que aterrice
-            }
-        }
-    }
     public void actualizarPosicion(Isla[] islas) {
-
         if (!estaEnIsla) {
-            this.y += velocidad; // La tortuga cae
+            this.y += velocidad;                     // cae del cielo
         }
-
-        // Verificar colisión con islas
+        // Verificar colisión con isla
         for (Isla isla : islas) {
             if (isla != null && this.colisionConIsla(isla)) {
-                this.aterrizarEnIsla(isla);
+                this.aterrizarEnIsla(isla);        //si aterriza corta
                 break;
             }
         }
-        if (estaEnIsla && islaActual != null) {
-            moverEnIsla();
+        if (estaEnIsla && islaActual != null) { //si esta en isla la hace que se mueva de un lado para otro
+            moverEnIsla();                      //llama a mover en isla
         }
     }
     private boolean colisionConIsla(Isla isla) {
@@ -136,11 +110,6 @@ public class Tortuga {
         return viva;
     }
 
-    public void morir() {
-        if(getY()>600) {
-            viva = false;
-        }
-    }
 
     //metodos de colision con BolaFuego (LEER CLASE JUGADOR PUEDEn REUTILIZAR TODOS LOS METODOS DE COLISION EN TODAS LAS CLASES)
     public boolean colisionaDerechaBolaFuego(bolaFuego bolaFuego) {
