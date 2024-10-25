@@ -22,6 +22,7 @@ public class Tortuga {
     private boolean enElAire;
     private double velocidadCaida;
     private double gravedad;
+    private boolean miraIzq;
 
     public Tortuga(double x, double y) {
         this.x = x;
@@ -38,6 +39,10 @@ public class Tortuga {
         this.enElAire=true;
         this.velocidadCaida=0;
         this.gravedad=0.3;
+
+    }
+    public boolean getMiraIzq() {
+        return miraIzq;
     }
 
     public void caer() {

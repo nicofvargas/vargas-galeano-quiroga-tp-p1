@@ -57,12 +57,12 @@ public class Juego extends InterfaceJuego {
         for (int i = 0; i < 5; i++) {
             double x;
             if (random.nextBoolean()) {
-                x = random.nextDouble() * (350-50);
+                x = random.nextDouble() * (350);
             } else {
                 x = 450 + random.nextDouble() * (750 - 450);
             }
-            double y =20;
-            tortugas[i] = new Tortuga(x, y+10);
+            double y =30;
+            tortugas[i] = new Tortuga(x+10, y+10);
         }
     }
     public void verificarTortugasMuertas() {
@@ -110,7 +110,7 @@ public class Juego extends InterfaceJuego {
                 }
 
             }
-
+            
             duende.dibujar(entorno);
             duende.aplicarGravedad(islas);
             duende.duendeEnElAire(islas);
@@ -121,6 +121,7 @@ public class Juego extends InterfaceJuego {
                     isla.dibujar(entorno);
                 }
             }
+
 
             //control movimiento con teclas
             if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {

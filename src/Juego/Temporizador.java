@@ -2,7 +2,8 @@ package Juego;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Temporizador {
+public class
+Temporizador {
 
     private int segundosRestantes;
     private Timer timer;
