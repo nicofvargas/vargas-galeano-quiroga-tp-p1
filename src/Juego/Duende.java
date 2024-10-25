@@ -8,6 +8,7 @@ import java.util.HashMap;
 
 import java.util.Map;
 
+import java.util.List;
 
 public class Duende {
     private double x;
@@ -18,11 +19,10 @@ public class Duende {
     private double gravedad;
     private double velocidadCaida;
     private int direccion;
-    private boolean direccionElegida;
     private boolean enElAire;
     private boolean estaEnIsla;
     private Isla islaActual;
-    //private double salud;
+    private  int maximoDuendes = 4;
     private Map<Isla ,Integer>direccionesPorIsla;
     //private boolean colision;
     //private boolean muere;
@@ -47,6 +47,13 @@ public class Duende {
             enElAire = true;
         }
         return false;
+    }
+
+    public  void crearDuendes(List<Duende> duendes) {
+        while (duendes.size() < maximoDuendes) {
+            Duende nuevoDuende = new Duende();
+            duendes.add(nuevoDuende);
+        }
     }
 
     public void dibujar(Entorno entorno) {

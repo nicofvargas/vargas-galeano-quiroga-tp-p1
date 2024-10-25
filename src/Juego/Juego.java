@@ -5,6 +5,8 @@ package Juego;
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 import java.util.Random;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Juego extends InterfaceJuego {
     // El objeto Entorno que controla el tiempo y otros
@@ -12,6 +14,7 @@ public class Juego extends InterfaceJuego {
     private Jugador jugador;
     private Isla[] islas;
     private Duende duende;
+    private List<Duende> duendes;
     private Tortuga tortuga;
     private Tortuga[]tortugas;
     private bolaFuego bolaFuego;
@@ -26,6 +29,8 @@ public class Juego extends InterfaceJuego {
         this.jugador = new Jugador(entorno);
         islas=crearIslas(entorno);
         this.duende = new Duende();
+        this.duendes = new ArrayList<>();
+        duende.crearDuendes(duendes);
         this.entorno.iniciar();
         this.tortugas = new Tortuga[5];
         crearTortugas();
@@ -110,11 +115,20 @@ public class Juego extends InterfaceJuego {
                 }
 
             }
-            
-            duende.dibujar(entorno);
-            duende.aplicarGravedad(islas);
-            duende.duendeEnElAire(islas);
-            duende.patronDeMovimiento(islas);
+
+            for (Duende duende : duendes) {
+                if(duende==null){
+                    continue;
+                }
+                if(duende!=null){
+                    duende.dibujar(entorno);
+                    duende.aplicarGravedad(islas);
+                    duende.patronDeMovimiento(islas);
+                    duende.crearDuendes(duendes);
+                    duende.duendeEnElAire(islas);
+                }
+
+            }
 
             for(Isla isla: islas) {
                 if(isla!=null) {
