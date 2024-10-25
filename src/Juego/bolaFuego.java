@@ -106,8 +106,8 @@ public class bolaFuego {
                 continue;
             }
 
-            double bordeIzqBolaFuego = this.x + (this.ancho / 2);
-            double bordeDerechoTortuga = tortuga.getX() - (tortuga.getAncho() / 2);
+            double bordeIzqBolaFuego = this.x - (this.ancho / 2);
+            double bordeDerechoTortuga = tortuga.getX() + (tortuga.getAncho() / 2);
 
             if (bordeIzqBolaFuego >= bordeDerechoTortuga && bordeIzqBolaFuego <= bordeDerechoTortuga + 10) {
                 if (this.y + (this.alto / 2) > tortuga.getY() - (tortuga.getAlto() / 2) && this.y - (this.alto / 2) < tortuga.getY() + (tortuga.getAlto() / 2)) {

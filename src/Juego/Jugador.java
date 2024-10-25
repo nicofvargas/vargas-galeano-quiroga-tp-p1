@@ -236,7 +236,7 @@ public class Jugador {
         return false;
     }
 
-   public boolean colisionaAbajoTortu(Tortuga[] tortugas) {
+    public boolean colisionaAbajoTortu(Tortuga[] tortugas) {
         for(Tortuga tortuga : tortugas) {
             if(tortuga==null) {
                 continue;
