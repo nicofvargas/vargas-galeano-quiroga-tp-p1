@@ -17,15 +17,16 @@ public class Hud {
     //aca los metodos que actualizan cada valor
     public void setCronometro(Entorno entorno) {
         this.cronometro=entorno.tiempo()/1000;
+
     }
-    public void setDuendesSalvados(int salvado) {
-        this.duendesSalvados+=salvado;
+    public void setDuendesSalvado() {
+        this.duendesSalvados++;
     }
-    public void setDuendesMuertos(int muerto) {
-        this.duendesMuertos+=muerto;
+    public void setDuendesMuerto() {
+        this.duendesMuertos++;
     }
-    public void setEnemigosEliminados(int enemigosEliminado) {
-        this.enemigosEliminados = enemigosEliminado;
+    public void setEnemigosEliminado() {
+        this.enemigosEliminados++;
     }
     //getters
     public int getCronometro() {
