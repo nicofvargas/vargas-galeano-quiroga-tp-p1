@@ -128,17 +128,26 @@ public class Juego extends InterfaceJuego {
 
             }
 
-            for (Duende duende : duendes) {
-                if(duende==null){
+            for (int i = 0; i<duendes.size();i++) {
+                Duende duende = duendes.get(i);
+                if (duende==null) {
+                    duendes.set(i, new Duende(casa));
                     continue;
                 }
-                if(duende!=null){
-                    duende.dibujar(entorno);
-                    duende.aplicarGravedad(islas);
-                    duende.patronDeMovimiento(islas);
-                    duende.duendeEnElAire(islas);
+                duende.dibujar(entorno);
+                duende.aplicarGravedad(islas);
+                duende.patronDeMovimiento(islas);
+                duende.duendeEnElAire(islas);
+                //verifico colision con tortugas
+                if (duende.colisionaIzquierdaTortu(tortugas) || duende.colisionaDerechaTortu(tortugas) || duende.colisionaAbajoTortu(tortugas) || duende.colisionaArribaTortu(tortugas)) {
+                    duendes.set(i,null);
+                    ui.setDuendesMuerto();
                 }
-
+                //colision con jugador
+                if(duende.colisionaAbajoJugador(jugador) || duende.colisionaArribaJugador(jugador) || duende.colisionaDerechaJugador(jugador) || duende.colisionaIzquierdaJugador(jugador)) {
+                    duendes.set(i, null);
+                    ui.setDuendesSalvado();
+                }
             }
 
             for(Isla isla: islas) {
