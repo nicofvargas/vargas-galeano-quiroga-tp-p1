@@ -51,10 +51,17 @@ public class Duende {
 
     public static void crearDuendesConDelay(List<Duende> duendes, int maximoDuendes, Casa casa) {
         new Thread(() -> {
-            while (duendes.size() < maximoDuendes) {
-                Duende nuevoDuende = new Duende(casa);
+            while (duendesVivos(duendes) < maximoDuendes) {
                 synchronized (duendes) {
-                    duendes.add(nuevoDuende);
+                    for (int i = 0; i < duendes.size(); i++) {
+                        if (duendes.get(i) == null) {
+                            duendes.set(i, new Duende(casa));
+                        }
+                    }
+                    // Si hay espacio para más duendes, agrega uno nuevo
+                    if (duendes.size() < maximoDuendes) {
+                        duendes.add(new Duende(casa));
+                    }
                 }
                 try {
                     Thread.sleep(2000);
@@ -64,6 +71,17 @@ public class Duende {
                 }
             }
         }).start();
+    }
+
+    public static int duendesVivos(List<Duende> duendes) {
+        int contador=0;
+        for (Duende duende : duendes) {
+            if (duende!=null) {
+                contador++;
+            }
+        }
+        return contador;
+
     }
 
     public void dibujar(Entorno entorno) {
@@ -114,6 +132,140 @@ public class Duende {
             }
             this.x += velocidad * direccion;
         }
+    }
+
+    //metodos de colision con tortuga
+    public boolean colisionaDerechaTortu(Tortuga[] tortugas) {
+        for (Tortuga tortuga : tortugas) {
+            if (tortuga == null) {
+                continue;
+            }
+
+            double bordeDerechoPersonaje = this.x + (this.ancho / 2);
+            double bordeIzquierdoTortu = tortuga.getX() - (tortuga.getAncho() / 2);
+
+            if (bordeDerechoPersonaje >= bordeIzquierdoTortu && bordeDerechoPersonaje <= bordeIzquierdoTortu + 10) {
+                if (this.y + (this.alto / 2) > tortuga.getY() - (tortuga.getAlto() / 2) && this.y - (this.alto / 2) < tortuga.getY() + (tortuga.getAlto() / 2)) {
+                    this.x = bordeIzquierdoTortu - (this.ancho / 2);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public boolean colisionaIzquierdaTortu(Tortuga[] tortugas) {
+        for (Tortuga tortuga : tortugas) {
+            if (tortuga == null) {
+                continue;
+            }
+
+            double bordeIzquierdoPersonaje = this.x - (this.ancho / 2);
+            double bordeDerechoTortu = tortuga.getX() + (tortuga.getAncho() / 2);
+
+            if (bordeIzquierdoPersonaje <= bordeDerechoTortu && bordeIzquierdoPersonaje >= bordeDerechoTortu - 10) {
+                if (this.y + (this.alto / 2) > tortuga.getY() - (tortuga.getAlto() / 2) && this.y - (this.alto / 2) < tortuga.getY() + (tortuga.getAlto() / 2)) {
+                    this.x = bordeDerechoTortu + (this.ancho / 2);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public boolean colisionaArribaTortu(Tortuga[] tortugas) {
+        for(Tortuga tortuga : tortugas) {
+            if(tortuga==null) {
+                continue;
+            }
+            double bordeSuperiorPersonaje = this.y - (this.alto / 2);
+            double bordeInferiorTortu = tortuga.getY() + (tortuga.getAlto() / 2);
+
+            if(bordeSuperiorPersonaje <= bordeInferiorTortu && bordeSuperiorPersonaje>= bordeInferiorTortu-10) {
+                if(this.x+(this.ancho/2) > tortuga.getX()-(tortuga.getAncho()/2)  &&  this.x-(this.ancho/2) < tortuga.getX()+(tortuga.getAncho()/2)) {
+                    this.y=bordeInferiorTortu+(this.alto/2);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean colisionaAbajoTortu(Tortuga[] tortugas) {
+        for(Tortuga tortuga : tortugas) {
+            if (tortuga == null) {
+                continue;
+            }
+            double bordeInferiorPersonaje = this.y + (this.alto / 2);
+            double bordeSuperiorTortuga = tortuga.getY() - (tortuga.getAlto() / 2);
+
+            if (bordeInferiorPersonaje >= bordeSuperiorTortuga && bordeInferiorPersonaje <= bordeSuperiorTortuga + 10) {
+                if (this.x + (this.ancho / 2) > tortuga.getX() - (tortuga.getAncho() / 2) && this.x - (this.ancho / 2) < tortuga.getX() + (tortuga.getAncho() / 2)) {
+                    this.y = bordeSuperiorTortuga - (this.alto / 2);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    //colision con jugador
+    public boolean colisionaDerechaJugador(Jugador jugador) {
+        double bordeDerechoDuende = this.x + (this.ancho / 2);
+        double bordeIzquierdoJugador = jugador.getX() - (jugador.getAncho() / 2);
+
+        if (bordeDerechoDuende >= bordeIzquierdoJugador && bordeDerechoDuende <= bordeIzquierdoJugador + 10) {
+            if (this.y + (this.alto / 2) > jugador.getY() - (jugador.getAlto() / 2) && this.y - (this.alto / 2) < jugador.getY() + (jugador.getAlto() / 2)) {
+                this.x = bordeIzquierdoJugador - (this.ancho / 2);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean colisionaIzquierdaJugador(Jugador jugador) {
+        double bordeIzquierdoDuende = this.x - (this.ancho / 2);
+        double bordeDerechoJugador = jugador.getX() + (jugador.getAncho() / 2);
+
+        if (bordeIzquierdoDuende <= bordeDerechoJugador && bordeIzquierdoDuende >= bordeDerechoJugador - 10) {
+            if (this.y + (this.alto / 2) > jugador.getY() - (jugador.getAlto() / 2) && this.y - (this.alto / 2) < jugador.getY() + (jugador.getAlto() / 2)) {
+                this.x = bordeDerechoJugador + (this.ancho / 2);
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    public boolean colisionaArribaJugador(Jugador jugador) {
+        double bordeSuperiorDuende = this.y - (this.alto / 2);
+        double bordeInferiorJugador = jugador.getY() + (jugador.getAlto() / 2);
+
+        if(bordeSuperiorDuende <= bordeInferiorJugador && bordeSuperiorDuende>= bordeInferiorJugador-10) {
+            if(this.x+(this.ancho/2) > jugador.getX()-(jugador.getAncho()/2)  &&  this.x-(this.ancho/2) < jugador.getX()+(jugador.getAncho()/2)) {
+                this.y=bordeInferiorJugador+(this.alto/2);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean colisionaAbajoJugador(Jugador jugador) {
+        double bordeInferiorDuende = this.y + (this.alto / 2);
+        double bordeSuperiorJugador = jugador.getY() - (jugador.getAlto() / 2);
+
+        if(bordeInferiorDuende>=bordeSuperiorJugador && bordeInferiorDuende<=bordeSuperiorJugador +10) {
+            if(this.x+(this.ancho/2) > jugador.getX()-(jugador.getAncho()/2)  &&  this.x-(this.ancho/2) < jugador.getX()+(jugador.getAncho()/2)) {
+                this.y=bordeSuperiorJugador-(this.alto/2);
+                return true;
+            }
+        }
+
+        return false;
+
     }
 }
 
