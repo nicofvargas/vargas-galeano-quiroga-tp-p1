@@ -19,6 +19,7 @@ public class Juego extends InterfaceJuego {
     private Tortuga[]tortugas;
     private bolaFuego bolaFuego;
     private Hud ui;
+    private Casa casa;
     private int maximoDuendes=4;
     private int ultimo;
 
@@ -30,9 +31,10 @@ public class Juego extends InterfaceJuego {
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
         this.jugador = new Jugador(entorno);
         islas=crearIslas(entorno);
-        this.duende = new Duende();
+        this.casa = new Casa(islas);
+        this.duende = new Duende(casa);
         this.duendes = new ArrayList<>();
-        Duende.crearDuendesConDelay(duendes, maximoDuendes);
+        Duende.crearDuendesConDelay(duendes, maximoDuendes, casa);
         this.entorno.iniciar();
         this.tortugas = new Tortuga[5];
         crearTortugas();
@@ -104,6 +106,7 @@ public class Juego extends InterfaceJuego {
         if(jugador!=null) {
             jugador.dibujar(entorno);
             jugador.aplicarGravedad(islas);
+            casa.dibujar(entorno);
             ui.setCronometro(entorno);
             ui.dibujarCronometro(entorno);
             ui.dibujarDuendesSalvados(entorno);
