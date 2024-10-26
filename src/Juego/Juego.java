@@ -19,6 +19,7 @@ public class Juego extends InterfaceJuego {
     private Tortuga[]tortugas;
     private bolaFuego bolaFuego;
     private Hud ui;
+    private int maximoDuendes=4;
 
     // Variables y métodos propios de cada grupo
     // ...
@@ -30,7 +31,7 @@ public class Juego extends InterfaceJuego {
         islas=crearIslas(entorno);
         this.duende = new Duende();
         this.duendes = new ArrayList<>();
-        duende.crearDuendes(duendes);
+        Duende.crearDuendesConDelay(duendes, maximoDuendes);
         this.entorno.iniciar();
         this.tortugas = new Tortuga[5];
         crearTortugas();
@@ -124,7 +125,6 @@ public class Juego extends InterfaceJuego {
                     duende.dibujar(entorno);
                     duende.aplicarGravedad(islas);
                     duende.patronDeMovimiento(islas);
-                    duende.crearDuendes(duendes);
                     duende.duendeEnElAire(islas);
                 }
 

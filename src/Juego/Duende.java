@@ -49,11 +49,21 @@ public class Duende {
         return false;
     }
 
-    public  void crearDuendes(List<Duende> duendes) {
-        while (duendes.size() < maximoDuendes) {
-            Duende nuevoDuende = new Duende();
-            duendes.add(nuevoDuende);
-        }
+    public static void crearDuendesConDelay(List<Duende> duendes, int maximoDuendes) {
+        new Thread(() -> {
+            while (duendes.size() < maximoDuendes) {
+                Duende nuevoDuende = new Duende();
+                synchronized (duendes) {
+                    duendes.add(nuevoDuende);
+                }
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+
+                }
+            }
+        }).start();
     }
 
     public void dibujar(Entorno entorno) {
