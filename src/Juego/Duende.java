@@ -28,9 +28,9 @@ public class Duende {
     //private boolean muere;
     //private boolean rescatado;
 
-    public Duende() {
-        this.x = 400;
-        this.y = 44;
+    public Duende(Casa casa) {
+        this.x = casa.getX();
+        this.y = casa.getY();
         this.ancho = 20;
         this.alto = 30;
         this.velocidad = 1;
@@ -49,10 +49,10 @@ public class Duende {
         return false;
     }
 
-    public static void crearDuendesConDelay(List<Duende> duendes, int maximoDuendes) {
+    public static void crearDuendesConDelay(List<Duende> duendes, int maximoDuendes, Casa casa) {
         new Thread(() -> {
             while (duendes.size() < maximoDuendes) {
-                Duende nuevoDuende = new Duende();
+                Duende nuevoDuende = new Duende(casa);
                 synchronized (duendes) {
                     duendes.add(nuevoDuende);
                 }
