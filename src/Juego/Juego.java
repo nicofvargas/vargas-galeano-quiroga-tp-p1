@@ -20,6 +20,7 @@ public class Juego extends InterfaceJuego {
     private bolaFuego bolaFuego;
     private Hud ui;
     private int maximoDuendes=4;
+    private int ultimo;
 
     // Variables y métodos propios de cada grupo
     // ...
@@ -37,6 +38,7 @@ public class Juego extends InterfaceJuego {
         crearTortugas();
         this.bolaFuego=null;
         this.ui = new Hud();
+        this.ultimo= ui.getCronometro();
     }
 
     public static Isla[] crearIslas(Entorno entorno) {
@@ -102,12 +104,18 @@ public class Juego extends InterfaceJuego {
         if(jugador!=null) {
             jugador.dibujar(entorno);
             jugador.aplicarGravedad(islas);
+            ui.setCronometro(entorno);
             ui.dibujarCronometro(entorno);
             ui.dibujarDuendesSalvados(entorno);
             ui.dibujarDuendesMuertos(entorno);
             ui.dibujarEnemigosEliminados(entorno);
-            //verificarTortugasMuertas(); esto lo comento por ahora no hace nada
-
+            //pruebas lean e interpreten el comportamiento esto mismo puede usarse para tortuga y duende, obvio que con tiempos distintos y variables distintas
+            int tiempoactual = ui.getCronometro();
+            int intervalo=2;
+            if(tiempoactual - ultimo >= intervalo) { //estemetodo no se va a usar lo puse solo para probar el temporizador
+                bolaFuego = new bolaFuego(jugador);
+                ultimo=tiempoactual;
+            }
             for (Tortuga tortuga : tortugas) {
                 if (tortuga != null) {
                     tortuga.actualizarPosicion(islas);
@@ -169,6 +177,7 @@ public class Juego extends InterfaceJuego {
                 //aca compruebo si colisiona con alguna tortuga
                 else if (bolaFuego.colisionaDerechaTortu(tortugas) || bolaFuego.colisionaIzqTortu(tortugas)) {
                     bolaFuego = null;
+                    ui.setEnemigosEliminado();
                 }
                 else if (bolaFuego.hayColisionDer(entorno) || bolaFuego.hayColisionIzq()) {
                     bolaFuego = null;
