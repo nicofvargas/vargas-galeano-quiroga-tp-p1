@@ -134,6 +134,11 @@ public class Juego extends InterfaceJuego {
                     duendes.set(i, new Duende(casa));
                     continue;
                 }
+                if (duende.getX() < 0 || duende.getX() > entorno.ancho() || duende.getY() < 0 || duende.getY() > entorno.alto()) {
+                    duendes.set(i, null);
+                    ui.setDuendesMuerto();
+                    continue;
+                }
                 duende.dibujar(entorno);
                 duende.aplicarGravedad(islas);
                 duende.patronDeMovimiento(islas);
