@@ -72,7 +72,7 @@ public class Juego extends InterfaceJuego {
                 x = 450 + random.nextDouble() * (750 - 450);
             }
             double y =30;
-            tortugas[i] = new Tortuga(x+10, y+10);
+            tortugas[i] = new Tortuga(x+5, y+10);
         }
     }
     public void verificarTortugasMuertas() {
