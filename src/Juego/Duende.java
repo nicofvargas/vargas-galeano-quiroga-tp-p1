@@ -33,7 +33,7 @@ public class Duende {
         this.y = casa.getY();
         this.ancho = 20;
         this.alto = 30;
-        this.velocidad = 1;
+        this.velocidad = 0.7;
         this.gravedad = 0.1;
         this.velocidadCaida = 0;
         this.enElAire = false;
@@ -64,7 +64,7 @@ public class Duende {
                     }
                 }
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
 

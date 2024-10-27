@@ -187,17 +187,22 @@ public class Juego extends InterfaceJuego {
                     bolaFuego = null;
                 }
                 //aca compruebo si colisiona con alguna tortuga
-                else if (bolaFuego.colisionaDerechaTortu(tortugas) || bolaFuego.colisionaIzqTortu(tortugas)) {
-                    bolaFuego = null;
-                    ui.setEnemigosEliminado();
+                else if (bolaFuego != null) {
+                    for (int i = 0; i < tortugas.length; i++) {
+                        if (tortugas[i] != null && tortugas[i].colisionaConBolaFuego(bolaFuego)){
+                            tortugas[i] = null;
+                            bolaFuego = null;
+                            ui.setEnemigosEliminado();
+                            verificarTortugasMuertas();
+                            break;
+                        }
+                    }
                 }
-                else if (bolaFuego.hayColisionDer(entorno) || bolaFuego.hayColisionIzq()) {
-                    bolaFuego = null;
-                }
+
             }
+
+
         }
-
-
     }
 
 

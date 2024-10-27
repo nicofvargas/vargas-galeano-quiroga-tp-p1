@@ -55,7 +55,28 @@ public class Tortuga {
         }
     }
 
-    public void aterrizarEnIsla(Isla isla) {
+    public boolean colisionaConBolaFuego(bolaFuego bolaFuego){
+        double bordeIzquierdoTortuga = this.x - (this.ancho / 2);
+        double bordeDerechoTortuga = this.x + (this.ancho / 2);
+        double bordeSuperiorTortuga = this.y - (this.alto / 2);
+        double bordeInferiorTortuga = this.y + (this.alto / 2);
+
+        double bordeIzquierdoBola = bolaFuego.getX() - (bolaFuego.getAncho() / 2);
+        double bordeDerechoBola = bolaFuego.getX() + (bolaFuego.getAncho() / 2);
+        double bordeSuperiorBola = bolaFuego.getY() - (bolaFuego.getAlto() / 2);
+        double bordeInferiorBola = bolaFuego.getY() + (bolaFuego.getAlto() / 2);
+
+        return (bordeDerechoTortuga > bordeIzquierdoBola && bordeIzquierdoTortuga < bordeDerechoBola &&
+                bordeInferiorTortuga > bordeSuperiorBola && bordeSuperiorTortuga < bordeInferiorBola);
+
+        }
+
+
+
+
+
+
+        public void aterrizarEnIsla(Isla isla) {
         if (!estaEnIsla && isla != null && !isla.hayTortuga()) {
             if (isla.contienePunto(this.x, this.y)) {
                 // Ajustar la posición de la tortuga para que esté sobre la isla
@@ -118,7 +139,7 @@ public class Tortuga {
     }
 
     public void dibujar(Entorno entorno) {
-        entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.green);
+            entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.green);
     }
 
     // Getters y setters
@@ -294,4 +315,6 @@ public class Tortuga {
             velocidadCaida=0;
         }
     }
+
+
 }
