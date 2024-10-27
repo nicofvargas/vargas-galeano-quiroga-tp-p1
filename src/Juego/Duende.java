@@ -71,7 +71,6 @@ public class Duende {
                     Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-
                 }
             }
         }).start();

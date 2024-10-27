@@ -47,6 +47,8 @@ public class Juego extends InterfaceJuego {
 
     }
 
+
+    // a ver
     public static Isla[] crearIslas(Entorno entorno) {
         int pisos=5;
         Isla[] islas=new Isla[pisos*(pisos+1)/2];
