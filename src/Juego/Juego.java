@@ -11,6 +11,8 @@ import java.util.List;
 public class Juego extends InterfaceJuego {
     // El objeto Entorno que controla el tiempo y otros
     private Entorno entorno;
+    private Menu menu;
+    private boolean juegoIniciado = false;
     private Jugador jugador;
     private Isla[] islas;
     private Duende duende;
@@ -28,7 +30,9 @@ public class Juego extends InterfaceJuego {
 
     Juego() //este es solo un constructor
     {
-        this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
+        this.entorno = new Entorno(this, "Al rescate de los Gnomos", 800, 600);
+        this.menu = new Menu(entorno);
+        this.entorno.iniciar();
         this.jugador = new Jugador(entorno);
         islas=crearIslas(entorno);
         this.casa = new Casa(islas);
@@ -98,117 +102,135 @@ public class Juego extends InterfaceJuego {
 
 
     public void tick() {
-        //aca controla si colisiona con una tortuga
-        if (jugador!=null && (jugador.colisionaAbajoTortu(tortugas) || jugador.colisionaArribaTortu(tortugas) || jugador.colisionaDerechaTortu(tortugas) || jugador.colisionaIzquierdaTortu(tortugas))) {
-            jugador=null;
-        }
 
-        if(jugador!=null) {
-            jugador.dibujar(entorno);
-            jugador.aplicarGravedad(islas);
-            casa.dibujar(entorno);
-            ui.setCronometro(entorno);
-            ui.dibujarCronometro(entorno);
-            ui.dibujarDuendesSalvados(entorno);
-            ui.dibujarDuendesMuertos(entorno);
-            ui.dibujarEnemigosEliminados(entorno);
-            //pruebas lean e interpreten el comportamiento esto mismo puede usarse para tortuga y duende, obvio que con tiempos distintos y variables distintas
-            int tiempoactual = ui.getCronometro();
-            int intervalo=2;
-            if(tiempoactual - ultimo >= intervalo) { //estemetodo no se va a usar lo puse solo para probar el temporizador
-                bolaFuego = new bolaFuego(jugador);
-                ultimo=tiempoactual;
+        if (!juegoIniciado) {
+            menu.dibujar();
+
+            if (menu.botonIniciarPresionado()) {
+                juegoIniciado = true;
+                // Lógica para iniciar la partida
+            } else if (menu.botonSalirPresionado()) {
+                System.exit(0); // Cierra el juego
             }
-            for (Tortuga tortuga : tortugas) {
-                if (tortuga != null) {
-                    tortuga.actualizarPosicion(islas);
-                    tortuga.dibujar(entorno);
-
-                }
-
+        } else{
+            if (jugador!=null && (jugador.colisionaAbajoTortu(tortugas) || jugador.colisionaArribaTortu(tortugas) || jugador.colisionaDerechaTortu(tortugas) || jugador.colisionaIzquierdaTortu(tortugas))) {
+                jugador=null;
             }
 
-            for (int i = 0; i<duendes.size();i++) {
-                Duende duende = duendes.get(i);
-                if (duende==null) {
-                    duendes.set(i, new Duende(casa));
-                    continue;
+            if(jugador!=null) {
+                jugador.dibujar(entorno);
+                jugador.aplicarGravedad(islas);
+                casa.dibujar(entorno);
+                ui.setCronometro(entorno);
+                ui.dibujarCronometro(entorno);
+                ui.dibujarDuendesSalvados(entorno);
+                ui.dibujarDuendesMuertos(entorno);
+                ui.dibujarEnemigosEliminados(entorno);
+                //pruebas lean e interpreten el comportamiento esto mismo puede usarse para tortuga y duende, obvio que con tiempos distintos y variables distintas
+                int tiempoactual = ui.getCronometro();
+                int intervalo=2;
+                if(tiempoactual - ultimo >= intervalo) { //estemetodo no se va a usar lo puse solo para probar el temporizador
+                    bolaFuego = new bolaFuego(jugador);
+                    ultimo=tiempoactual;
                 }
-                if (duende.getX() < 0 || duende.getX() > entorno.ancho() || duende.getY() < 0 || duende.getY() > entorno.alto()) {
-                    duendes.set(i, null);
-                    ui.setDuendesMuerto();
-                    continue;
-                }
-                duende.dibujar(entorno);
-                duende.aplicarGravedad(islas);
-                duende.patronDeMovimiento(islas);
-                duende.duendeEnElAire(islas);
-                //verifico colision con tortugas
-                if (duende.colisionaIzquierdaTortu(tortugas) || duende.colisionaDerechaTortu(tortugas) || duende.colisionaAbajoTortu(tortugas) || duende.colisionaArribaTortu(tortugas)) {
-                    duendes.set(i,null);
-                    ui.setDuendesMuerto();
-                }
-                //colision con jugador
-                if(duende.colisionaAbajoJugador(jugador) || duende.colisionaArribaJugador(jugador) || duende.colisionaDerechaJugador(jugador) || duende.colisionaIzquierdaJugador(jugador)) {
-                    duendes.set(i, null);
-                    ui.setDuendesSalvado();
-                }
-            }
+                for (Tortuga tortuga : tortugas) {
+                    if (tortuga != null) {
+                        tortuga.actualizarPosicion(islas);
+                        tortuga.dibujar(entorno);
 
-            for(Isla isla: islas) {
-                if(isla!=null) {
-                    isla.dibujar(entorno);
-                }
-            }
+                    }
 
-
-            //control movimiento con teclas
-            if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
-                if(!jugador.colisionaDerecha(islas)) {
-                    jugador.moverDerecha(entorno,islas);
-                }
-            }
-            if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
-                if(!jugador.colisionaIzquierda(islas)) {
-                    jugador.moverIzquierda(islas);
-                }
-            }
-            if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
-                if(!jugador.colisionaArriba(islas)) {
-                    jugador.saltar(islas);
                 }
 
-            }
-            if (entorno.estaPresionada(entorno.TECLA_ESPACIO) && bolaFuego==null) {
-                bolaFuego = new bolaFuego(jugador);
-            }
-
-            //aca compruebo el estado de bola de fuego
-            if(bolaFuego!=null) {
-                bolaFuego.mover(jugador);
-                bolaFuego.dibujar(entorno);
-                //aca compruebo si colisiona con alguna isla
-                if(bolaFuego.colisionaDerecha(islas) || bolaFuego.colisionaIzquierda(islas)) {
-                    bolaFuego = null;
-                }
-                //aca compruebo si colisiona con alguna tortuga
-                else if (bolaFuego != null) {
-                    for (int i = 0; i < tortugas.length; i++) {
-                        if (tortugas[i] != null && tortugas[i].colisionaConBolaFuego(bolaFuego)){
-                            tortugas[i] = null;
-                            bolaFuego = null;
-                            ui.setEnemigosEliminado();
-                            verificarTortugasMuertas();
-                            break;
-                        }
+                for (int i = 0; i<duendes.size();i++) {
+                    Duende duende = duendes.get(i);
+                    if (duende==null) {
+                        duendes.set(i, new Duende(casa));
+                        continue;
+                    }
+                    if (duende.getX() < 0 || duende.getX() > entorno.ancho() || duende.getY() < 0 || duende.getY() > entorno.alto()) {
+                        duendes.set(i, null);
+                        ui.setDuendesMuerto();
+                        continue;
+                    }
+                    duende.dibujar(entorno);
+                    duende.aplicarGravedad(islas);
+                    duende.patronDeMovimiento(islas);
+                    duende.duendeEnElAire(islas);
+                    //verifico colision con tortugas
+                    if (duende.colisionaIzquierdaTortu(tortugas) || duende.colisionaDerechaTortu(tortugas) || duende.colisionaAbajoTortu(tortugas) || duende.colisionaArribaTortu(tortugas)) {
+                        duendes.set(i,null);
+                        ui.setDuendesMuerto();
+                    }
+                    //colision con jugador
+                    if(duende.colisionaAbajoJugador(jugador) || duende.colisionaArribaJugador(jugador) || duende.colisionaDerechaJugador(jugador) || duende.colisionaIzquierdaJugador(jugador)) {
+                        duendes.set(i, null);
+                        ui.setDuendesSalvado();
                     }
                 }
 
+                for(Isla isla: islas) {
+                    if(isla!=null) {
+                        isla.dibujar(entorno);
+                    }
+                }
+
+
+                //control movimiento con teclas
+                if (entorno.estaPresionada(entorno.TECLA_DERECHA)) {
+                    if(!jugador.colisionaDerecha(islas)) {
+                        jugador.moverDerecha(entorno,islas);
+                    }
+                }
+                if (entorno.estaPresionada(entorno.TECLA_IZQUIERDA)) {
+                    if(!jugador.colisionaIzquierda(islas)) {
+                        jugador.moverIzquierda(islas);
+                    }
+                }
+                if (entorno.estaPresionada(entorno.TECLA_ARRIBA)) {
+                    if(!jugador.colisionaArriba(islas)) {
+                        jugador.saltar(islas);
+                    }
+
+                }
+                if (entorno.estaPresionada(entorno.TECLA_ESPACIO) && bolaFuego==null) {
+                    bolaFuego = new bolaFuego(jugador);
+                }
+
+                //aca compruebo el estado de bola de fuego
+                if(bolaFuego!=null) {
+                    bolaFuego.mover(jugador);
+                    bolaFuego.dibujar(entorno);
+                    //aca compruebo si colisiona con alguna isla
+                    if(bolaFuego.colisionaDerecha(islas) || bolaFuego.colisionaIzquierda(islas)) {
+                        bolaFuego = null;
+                    }
+                    //aca compruebo si colisiona con alguna tortuga
+                    else if (bolaFuego != null) {
+                        for (int i = 0; i < tortugas.length; i++) {
+                            if (tortugas[i] != null && tortugas[i].colisionaConBolaFuego(bolaFuego)){
+                                tortugas[i] = null;
+                                bolaFuego = null;
+                                ui.setEnemigosEliminado();
+                                verificarTortugasMuertas();
+                                break;
+                            }
+                        }
+                    }
+
+                }
+
+
             }
-
-
         }
     }
+
+
+
+
+
+
+
 
 
     @SuppressWarnings("unused")
