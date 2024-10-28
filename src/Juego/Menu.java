@@ -1,13 +1,17 @@
 package Juego;
 
 import entorno.Entorno;
-import java.awt.Color;
+import entorno.Herramientas;
+
+import java.awt.*;
 
 public class Menu {
     private Entorno entorno;
     private int botonIniciarX, botonIniciarY, botonSalirX, botonSalirY;
     private int anchoBoton = 200;
     private int altoBoton = 50;
+    private String rutaFondo ="images/Menu/fondo.jpeg";
+    private Image fondo;
 
     public Menu(Entorno entorno) {
         this.entorno = entorno;
@@ -15,6 +19,8 @@ public class Menu {
         botonIniciarY = entorno.alto() / 2 - 50;
         botonSalirX = entorno.ancho() / 2;
         botonSalirY = entorno.alto() / 2 + 50;
+
+
     }
 
     public void dibujar() {

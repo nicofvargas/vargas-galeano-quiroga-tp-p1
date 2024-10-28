@@ -4,13 +4,18 @@ package Juego;
 
 import entorno.Entorno;
 import entorno.InterfaceJuego;
+
+import javax.swing.*;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 public class Juego extends InterfaceJuego {
     // El objeto Entorno que controla el tiempo y otros
     private Entorno entorno;
+    private Menu menu;
     private Jugador jugador;
     private Isla[] islas;
     private Duende duende;
@@ -24,12 +29,15 @@ public class Juego extends InterfaceJuego {
     private int ultimo;
     private double[] posicionesX={35,85,165,650,715,765};
     private Random random = new Random();
+    private boolean juegoiniciado=false;
     // Variables y métodos propios de cada grupo
     // ...
 
     Juego() //este es solo un constructor
     {
-        this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
+        this.entorno = new Entorno(this, "Al rescate de los Gnomos", 800, 600);
+        this.menu = new Menu(entorno);
+        this.entorno.iniciar();
         this.jugador = new Jugador(entorno);
         this.ui = new Hud();
         this.bolaFuego=null;
@@ -41,6 +49,7 @@ public class Juego extends InterfaceJuego {
         this.entorno.iniciar();
         this.ultimo= ui.getCronometro();
         this.tortugas = new Tortuga[3];
+
 
 
 
@@ -84,7 +93,16 @@ public class Juego extends InterfaceJuego {
     }
 
     public void tick() {
-        //aca controla si colisiona con una tortuga
+        if (!juegoiniciado) {
+            menu.dibujar();
+            if (menu.botonIniciarPresionado()) {
+                juegoiniciado = true;
+
+            } else if (menu.botonSalirPresionado()) {
+                System.exit(0);
+            }
+        } else{
+
         if (jugador!=null && (jugador.colisionaAbajoTortu(tortugas) || jugador.colisionaArribaTortu(tortugas) || jugador.colisionaDerechaTortu(tortugas) || jugador.colisionaIzquierdaTortu(tortugas))) {
             jugador=null;
         }
@@ -200,6 +218,7 @@ public class Juego extends InterfaceJuego {
 
 
         }
+    }
     }
 
 
