@@ -1,6 +1,7 @@
 package Juego;
 
 import entorno.Entorno;
+import entorno.Herramientas;
 
 import java.awt.*;
 
@@ -10,6 +11,8 @@ public class Isla {
     private int ancho;
     private int alto;
     private boolean tortugaEnIsla;
+    private String rutaIsla="Images/Isla/isla.png";
+    private Image imagenIsla;
     // Constructor que establece las posiciones y dimensiones de una isla
     public Isla(int x, int y, int ancho, int alto) {
         super();
@@ -18,6 +21,8 @@ public class Isla {
         this.ancho = ancho;
         this.alto = alto;
         this.tortugaEnIsla = false;
+        this.imagenIsla = Herramientas.cargarImagen(rutaIsla).getScaledInstance(this.ancho,this.alto,Image.SCALE_SMOOTH);
+
     }
     public boolean hayTortuga() {
         return tortugaEnIsla;
@@ -28,7 +33,7 @@ public class Isla {
 
     // Método que dibuja la isla en el entorno
     public void dibujar(Entorno entorno) {
-        entorno.dibujarRectangulo(x, y, ancho, alto, 0, Color.yellow);
+        entorno.dibujarImagen(imagenIsla,this.x,this.y,0);
     }
 
     public double getX() {

@@ -1,6 +1,7 @@
 package Juego;
 
 import entorno.Entorno;
+import entorno.Herramientas;
 
 import java.awt.*;
 
@@ -11,6 +12,7 @@ import java.util.Map;
 import java.util.List;
 
 public class Duende {
+
     private double x;
     private double y;
     private double ancho;
@@ -27,6 +29,10 @@ public class Duende {
     //private boolean colision;
     //private boolean muere;
     //private boolean rescatado;
+    private String rutaDerecha="Images/Duende/duendederecha.png";
+    private String rutaIzq="Images/Duende/duendeizq.png";
+    private Image imagenDerecha;
+    private Image imagenIzq;
 
     public Duende(Casa casa) {
         this.x = casa.getX();
@@ -39,6 +45,8 @@ public class Duende {
         this.enElAire = false;
         this.estaEnIsla=false;
         this.direccionesPorIsla = new HashMap<>();
+        this.imagenDerecha = Herramientas.cargarImagen(rutaDerecha).getScaledInstance((int) this.ancho,(int) this.alto, Image.SCALE_SMOOTH);
+        this.imagenIzq = Herramientas.cargarImagen(rutaIzq).getScaledInstance((int) this.ancho,(int) this.alto, Image.SCALE_SMOOTH);
 
     }
     public double getX() {return this.x;}
@@ -85,10 +93,6 @@ public class Duende {
         }
         return contador;
 
-    }
-
-    public void dibujar(Entorno entorno) {
-        entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.red);
     }
 
     public boolean colisionaAbajo(Isla[] islas) {
@@ -269,6 +273,20 @@ public class Duende {
 
         return false;
 
+    }
+    public void dibujar(Entorno entorno) {
+        if(direccion()) {
+            entorno.dibujarImagen(imagenDerecha,this.x,this.y,0);
+        }
+        else {
+            entorno.dibujarImagen(imagenIzq,this.x,this.y,0);
+        }
+    }
+    public boolean direccion() {
+        if(direccion==1) {
+            return true;
+        }
+        return false;
     }
 }
 

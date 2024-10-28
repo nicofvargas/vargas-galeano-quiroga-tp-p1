@@ -22,7 +22,6 @@ public class Juego extends InterfaceJuego {
     private Casa casa;
     private int maximoDuendes=4;
     private int ultimo;
-    private int ultimo1;
     private double[] posicionesX={35,85,165,650,715,765};
     private Random random = new Random();
     // Variables y métodos propios de cada grupo
@@ -32,6 +31,7 @@ public class Juego extends InterfaceJuego {
     {
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
         this.jugador = new Jugador(entorno);
+        this.ui = new Hud();
         this.bolaFuego=null;
         islas=crearIslas(entorno);
         this.casa = new Casa(islas);
@@ -39,7 +39,6 @@ public class Juego extends InterfaceJuego {
         this.duendes = new ArrayList<>();
         Duende.crearDuendesConDelay(duendes, maximoDuendes, casa);
         this.entorno.iniciar();
-        this.ui = new Hud();
         this.ultimo= ui.getCronometro();
         this.tortugas = new Tortuga[3];
 

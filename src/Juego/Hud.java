@@ -1,8 +1,11 @@
 package Juego;
 
 import entorno.Entorno;
-
+import entorno.Herramientas;
+import java.awt.*;
 public class Hud {
+    private String rutaFondo="Images/Fondo/fondo.jpg";
+    private Image fondo;
     private int cronometro;
     private int duendesSalvados;
     private int duendesMuertos;
@@ -13,11 +16,14 @@ public class Hud {
         this.duendesSalvados=0;
         this.duendesMuertos=0;
         this.enemigosEliminados=0;
+        this.fondo = Herramientas.cargarImagen(rutaFondo).getScaledInstance(800,600,500);
     }
     //aca los metodos que actualizan cada valor
     public void setCronometro(Entorno entorno) {
         this.cronometro=entorno.tiempo()/1000;
-
+    }
+    public void dibujarFondo(Entorno entorno) {
+        entorno.dibujarImagen(fondo,400,300,0);
     }
     public void setDuendesSalvado() {
         this.duendesSalvados++;
