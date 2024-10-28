@@ -90,6 +90,7 @@ public class Juego extends InterfaceJuego {
         }
 
         if(jugador!=null) {
+            ui.dibujarFondo(entorno);
             jugador.dibujar(entorno);
             jugador.aplicarGravedad(islas);
             casa.dibujar(entorno);
