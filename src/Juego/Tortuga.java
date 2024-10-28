@@ -1,6 +1,7 @@
 package Juego;
 
 import entorno.Entorno;
+import entorno.Herramientas;
 
 import java.awt.*;
 import java.util.List;
@@ -19,10 +20,15 @@ public class Tortuga {
     private boolean estaAterrizando;
     private int velocidad = 2;
     private boolean viva;
+    private boolean miraIzq;
     //atributos usados en gravedad
     private boolean enElAire;
     private double velocidadCaida;
     private double gravedad;
+    private String rutaCaminaDerecha="Images/Tortuga/transparent-mario-spiked-turtle-with-red-mushroom-on-head661f16350cb837.55097172.png";
+    private String rutaCaminaIzq="Images/Tortuga/tortugaizq.png";
+    private Image caminaDerecha;
+    private Image caminaIzq;
 
     private Random random = new Random();
 
@@ -41,6 +47,9 @@ public class Tortuga {
         this.enElAire = true;
         this.velocidadCaida = 0;
         this.gravedad = 0.3;
+        this.caminaDerecha= Herramientas.cargarImagen(rutaCaminaDerecha).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
+        this.caminaIzq= Herramientas.cargarImagen(rutaCaminaIzq).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
+
 
     }
 
@@ -90,7 +99,7 @@ public class Tortuga {
         if (estaEnIsla && islaActual != null) {
             moverEnIsla();
         }
-}
+    }
     private boolean colisionConIsla(Isla isla) {
         return (this.x + this.ancho / 2 >= isla.getX() - isla.getAncho() / 2 &&
                 this.x - this.ancho / 2 <= isla.getX() + isla.getAncho() / 2 &&
@@ -113,7 +122,18 @@ public class Tortuga {
     }
 
     public void dibujar(Entorno entorno) {
-        entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.green);
+        if(moviendoDerecha) {
+            entorno.dibujarImagen(caminaDerecha,this.x,this.y,0);
+        }
+        else {
+            entorno.dibujarImagen(caminaIzq,this.x,this.y,0);
+        }
+    }
+    public void dibujarCaminaDerecha(Entorno entorno) {
+        entorno.dibujarImagen(caminaDerecha,this.x,this.y,0);
+    }
+    public void dibujarCaminaIzq(Entorno entorno) {
+        entorno.dibujarImagen(caminaIzq,this.x,this.y,0);
     }
 
     // Getters y setters

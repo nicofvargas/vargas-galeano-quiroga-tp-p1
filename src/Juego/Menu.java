@@ -10,22 +10,28 @@ public class Menu {
     private int botonIniciarX, botonIniciarY, botonSalirX, botonSalirY;
     private int anchoBoton = 200;
     private int altoBoton = 50;
-    private String rutaFondo ="images/Menu/fondo.jpeg";
+    private String rutaFondo ="images/Menu/fondo.png";
     private Image fondo;
+    private int ancho, alto;
 
     public Menu(Entorno entorno) {
         this.entorno = entorno;
+        this.ancho = entorno.ancho();
+        this.alto = entorno.alto();
         botonIniciarX = entorno.ancho() / 2;
         botonIniciarY = entorno.alto() / 2 - 50;
         botonSalirX = entorno.ancho() / 2;
         botonSalirY = entorno.alto() / 2 + 50;
+        this.fondo = Herramientas.cargarImagen(rutaFondo).getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
 
 
     }
 
     public void dibujar() {
 
-        entorno.cambiarFont("Arial", 36, Color.BLUE);
+        entorno.dibujarImagen(fondo, ancho / 2, alto / 2, 0);
+
+        entorno.cambiarFont("Goudy Old Style", 36, Color.BLUE);
         entorno.escribirTexto("Al rescate de los Gnomos", entorno.ancho() / 2 - 200, entorno.alto() / 4);
 
         entorno.dibujarRectangulo(botonIniciarX, botonIniciarY, anchoBoton, altoBoton, 0, Color.GREEN);
@@ -34,7 +40,7 @@ public class Menu {
 
         entorno.dibujarRectangulo(botonSalirX, botonSalirY, anchoBoton, altoBoton, 0, Color.RED);
         entorno.cambiarFont("Arial", 20, Color.WHITE);
-        entorno.escribirTexto("Salir de la Partida", botonSalirX - 70, botonSalirY + 5);
+        entorno.escribirTexto("Salir de la Partida", botonSalirX - 75, botonSalirY + 5);
     }
 
     public boolean botonIniciarPresionado() {

@@ -206,7 +206,7 @@ public class Juego extends InterfaceJuego {
             //aca compruebo el estado de bola defuego
             if(bolaFuego!=null) {
                 bolaFuego.mover(jugador);
-                bolaFuego.dibujar(entorno);
+                bolaFuego.dibujar(entorno,jugador);
                 //aca compruebo si colisiona con alguna isla
                 if(bolaFuego.colisionaDerecha(islas) || bolaFuego.colisionaIzquierda(islas)) {
                     bolaFuego = null;

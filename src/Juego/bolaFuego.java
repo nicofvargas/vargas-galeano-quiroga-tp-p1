@@ -1,6 +1,7 @@
 package Juego;
 
 import entorno.Entorno;
+import entorno.Herramientas;
 
 import java.awt.*;
 
@@ -12,6 +13,11 @@ public class bolaFuego {
     private double velocidad;
     private int direccion;
     private boolean activa;
+    private String rutaCaminaDerecha="Images/BolaFuego/bolafuegoderecha.png";
+    private String rutaCaminaIzq="Images/BolaFuego/bolafuegoizq.png";
+
+    private Image caminaDerecha;
+    private Image caminaIzq;
 
     public bolaFuego(Jugador jugador) {
         this.x=jugador.getX();
@@ -20,6 +26,9 @@ public class bolaFuego {
         this.alto=30;
         this.velocidad=7;
         this.activa=true;
+        this.caminaDerecha= Herramientas.cargarImagen(rutaCaminaDerecha).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
+        this.caminaIzq= Herramientas.cargarImagen(rutaCaminaIzq).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
+
         //este if lo pongo en el constructor para evitar que cambie la direccion de la bola de fuego al lanzarse
         if(jugador.getMiraDerecha()) {
             this.direccion=1;
@@ -29,10 +38,14 @@ public class bolaFuego {
         }
     }
 
-    public void dibujar(Entorno entorno) {
-        entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.red);
+    public void dibujar(Entorno entorno, Jugador jugador) {
+        if (jugador.getMiraDerecha()) {
+            entorno.dibujarImagen(caminaDerecha,this.x,this.y,0);
+        }
+        else{
+            entorno.dibujarImagen(caminaIzq, this.x, this.y, 0);
+        }
     }
-
 
     public void mover(Jugador jugador) {
         this.x+=velocidad*this.direccion;
