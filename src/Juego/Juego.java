@@ -192,7 +192,7 @@ public class Juego extends InterfaceJuego {
                 bolaFuego = new bolaFuego(jugador);
             }
 
-            //aca compruebo el estado de bola de fuego
+            //aca compruebo el estado de bola defuego
             if(bolaFuego!=null) {
                 bolaFuego.mover(jugador);
                 bolaFuego.dibujar(entorno);
