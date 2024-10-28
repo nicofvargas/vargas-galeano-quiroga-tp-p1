@@ -23,8 +23,8 @@ public class Juego extends InterfaceJuego {
     private int maximoDuendes=4;
     private int ultimo;
     private int ultimo1;
-
-
+    private double[] posicionesX={35,85,165,650,715,765};
+    private Random random = new Random();
     // Variables y métodos propios de cada grupo
     // ...
 
@@ -32,21 +32,36 @@ public class Juego extends InterfaceJuego {
     {
         this.entorno = new Entorno(this, "Proyecto para TP", 800, 600);
         this.jugador = new Jugador(entorno);
+        this.bolaFuego=null;
         islas=crearIslas(entorno);
         this.casa = new Casa(islas);
         this.duende = new Duende(casa);
         this.duendes = new ArrayList<>();
         Duende.crearDuendesConDelay(duendes, maximoDuendes, casa);
         this.entorno.iniciar();
-        this.tortugas = new Tortuga[5];
-        crearTortugas();
-        this.bolaFuego=null;
         this.ui = new Hud();
         this.ultimo= ui.getCronometro();
-        this.ultimo1=ui.getCronometro();
+        this.tortugas = new Tortuga[3];
+
+
 
     }
-
+    //aca obtengo una posicion aleatoria de X para tortugas
+    public double getPosicionAleatoria() {
+        return posicionesX[random.nextInt(posicionesX.length)];
+    }
+    //aca compruebo que la posicion no esta siendo usada
+    public boolean estaSiendoUsada(Tortuga[] tortugas, double posRandom) {
+        for (Tortuga tortuga : tortugas) {
+            if(tortuga==null) {
+                continue;
+            }
+            if(tortuga!=null && posRandom==tortuga.getX()) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // a ver
     public static Isla[] crearIslas(Entorno entorno) {
@@ -69,42 +84,6 @@ public class Juego extends InterfaceJuego {
         return islas;
     }
 
-    private void crearTortugas() {
-        Random random = new Random();
-        for (int i = 0; i < 5; i++) {
-            double x;
-            double y = 30;
-                if (i < 2) {
-                    x = 50 + random.nextInt(140);
-                } else {
-                    x = 600 + random.nextInt(130);
-                }
-                tortugas[i] = new Tortuga(x + 5, y + 10);
-            }
-    }
-    public void verificarTortugasMuertas() {
-        for (int i = 0; i < tortugas.length; i++) {
-
-            if (tortugas[i] != null && !tortugas[i].estaViva()) {
-                tortugas[i] = crearNuevaTortuga();
-            }
-        }
-    }
-    private Tortuga crearNuevaTortuga() {
-        Random random = new Random();
-
-        double x;
-        if (random.nextBoolean()) {
-            x = random.nextDouble() * (350 - 50);
-        } else {
-            x = 450 + random.nextDouble() * (750 - 450);
-        }
-        double y = 50;
-        return new Tortuga(x, y);
-
-    }
-
-
     public void tick() {
         //aca controla si colisiona con una tortuga
         if (jugador!=null && (jugador.colisionaAbajoTortu(tortugas) || jugador.colisionaArribaTortu(tortugas) || jugador.colisionaDerechaTortu(tortugas) || jugador.colisionaIzquierdaTortu(tortugas))) {
@@ -120,21 +99,39 @@ public class Juego extends InterfaceJuego {
             ui.dibujarDuendesSalvados(entorno);
             ui.dibujarDuendesMuertos(entorno);
             ui.dibujarEnemigosEliminados(entorno);
+
+            for(Isla isla: islas) {
+                if(isla!=null) {
+                    isla.dibujar(entorno);
+                }
+            }
             //pruebas lean e interpreten el comportamiento esto mismo puede usarse para tortuga y duende, obvio que con tiempos distintos y variables distintas
             int tiempoactual = ui.getCronometro();
             int intervalo=2;
-            if(tiempoactual - ultimo >= intervalo) { //estemetodo no se va a usar lo puse solo para probar el temporizador
-                bolaFuego = new bolaFuego(jugador);
-                ultimo=tiempoactual;
-            }
 
 
-            for (Tortuga tortuga : tortugas) {
-                    if (tortuga != null) {
-                        tortuga.actualizarPosicion(islas);
-                        tortuga.dibujar(entorno);
 
+            for (int i=0; i <tortugas.length; i++) {
+                if(tortugas[i]==null) {
+                    if(tiempoactual - ultimo >= intervalo) {
+                        double posRandom= getPosicionAleatoria();
+                        if(!estaSiendoUsada(tortugas,posRandom)) {
+                            tortugas[i]= new Tortuga(posRandom);
+                            ultimo=tiempoactual;
+                        }
+                    }
                 }
+                if(tortugas[i]!=null) {
+                    tortugas[i].actualizarPosicion(islas);
+                    tortugas[i].dibujar(entorno);
+                    if(bolaFuego!=null) {
+                        if(tortugas[i].colisionaAbajoBolaFuego(bolaFuego) || tortugas[i].colisionaIzquierdaBolaFuego(bolaFuego) || tortugas[i].colisionaDerechaBolaFuego(bolaFuego)) {
+                            tortugas[i]=null;
+                            bolaFuego=null;
+                        }
+                    }
+                }
+
             }
 
             for (int i = 0; i<duendes.size();i++) {
@@ -164,11 +161,7 @@ public class Juego extends InterfaceJuego {
                 }
             }
 
-            for(Isla isla: islas) {
-                if(isla!=null) {
-                    isla.dibujar(entorno);
-                }
-            }
+
 
 
             //control movimiento con teclas
@@ -200,19 +193,9 @@ public class Juego extends InterfaceJuego {
                 if(bolaFuego.colisionaDerecha(islas) || bolaFuego.colisionaIzquierda(islas)) {
                     bolaFuego = null;
                 }
-                //aca compruebo si colisiona con alguna tortuga
-                else if (bolaFuego != null) {
-                    for (int i = 0; i < tortugas.length; i++) {
-                        if (tortugas[i] != null && tortugas[i].colisionaConBolaFuego(bolaFuego)){
-                            tortugas[i] = null;
-                            bolaFuego = null;
-                            ui.setEnemigosEliminado();
-                            verificarTortugasMuertas();
-                            break;
-                        }
-                    }
+                else if (bolaFuego.hayColisionDer(entorno) || bolaFuego.hayColisionIzq()) {
+                    bolaFuego = null;
                 }
-
             }
 
 
