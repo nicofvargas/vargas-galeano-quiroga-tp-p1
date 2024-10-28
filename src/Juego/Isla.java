@@ -47,7 +47,7 @@ public class Isla {
     }
 
     public boolean contienePunto(double px, double py) {
-        double margen = 5;
+        double margen = 10;
         return (px >= x - ancho / 2 - margen && px <= x + ancho / 2 + margen &&
                 py >= y - alto / 2 - margen && py <= y + alto / 2 + margen);
     }

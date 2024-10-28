@@ -22,7 +22,6 @@ public class Tortuga {
     private boolean enElAire;
     private double velocidadCaida;
     private double gravedad;
-    private boolean miraIzq;
 
     public Tortuga(double x, double y) {
         this.x = x;
@@ -40,19 +39,6 @@ public class Tortuga {
         this.velocidadCaida=0;
         this.gravedad=0.3;
 
-    }
-    public boolean getMiraIzq() {
-        return miraIzq;
-    }
-
-    public void caer() {
-        if (!estaEnIsla) {
-            y += velocidad; // Ajusta la velocidad si es necesario
-            if (y > 600) { // Suponiendo que 600 es el límite inferior
-                y = 600; // Evitar que se mueva más allá de este límite
-                morir(); // Lógica para morir si cae demasiado
-            }
-        }
     }
 
     public boolean colisionaConBolaFuego(bolaFuego bolaFuego){
@@ -81,25 +67,14 @@ public class Tortuga {
             if (isla.contienePunto(this.x, this.y)) {
                 // Ajustar la posición de la tortuga para que esté sobre la isla
                 double alturaIsla = isla.getAlto();
-                y = isla.getY() - (alturaIsla / 2) - (this.alto / 2) + 5; // Ajusta el +5 según sea necesario
+                y = isla.getY() - (alturaIsla / 2) - (this.alto / 2); // Ajusta el +5 según sea necesario
                 estaEnIsla = true;
                 islaActual = isla;
                 isla.establecerTortuga(true);
             }
         }
     }
-    public void mover(double deltaX, double deltaY, Isla[] islas) {
-        this.x += deltaX;
-        this.y += deltaY;
 
-        // Verificar si la tortuga está en posición de aterrizar
-        for (Isla isla : islas) {
-            if (isla.contienePunto(this.x, this.y) && !estaEnIsla) {
-                aterrizarEnIsla(isla);
-                break; // Salir del bucle una vez que aterrice
-            }
-        }
-    }
     public void actualizarPosicion(Isla[] islas) {
 
         if (!estaEnIsla) {
@@ -162,11 +137,6 @@ public class Tortuga {
         return viva;
     }
 
-    public void morir() {
-        if(getY()>600) {
-            viva = false;
-        }
-    }
 
     //metodos de colision con BolaFuego (LEER CLASE JUGADOR PUEDEn REUTILIZAR TODOS LOS METODOS DE COLISION EN TODAS LAS CLASES)
     public boolean colisionaDerechaBolaFuego(bolaFuego bolaFuego) {
