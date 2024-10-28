@@ -3,6 +3,7 @@ package Juego;
 import entorno.Entorno;
 
 import java.awt.*;
+import java.util.List;
 import java.util.Random;
 
 public class Tortuga {
@@ -23,10 +24,12 @@ public class Tortuga {
     private double velocidadCaida;
     private double gravedad;
 
-    public Tortuga(double x, double y) {
-        this.x = x;
-        this.y = y;
-        this.ancho = 50;
+    private Random random = new Random();
+
+    public Tortuga(double posRandom) {
+        this.x = posRandom;
+        this.y = 0;
+        this.ancho = 40;
         this.alto = 50;
         estaEnIsla = false;
         islaActual = null;
@@ -56,10 +59,6 @@ public class Tortuga {
                 bordeInferiorTortuga > bordeSuperiorBola && bordeSuperiorTortuga < bordeInferiorBola);
 
         }
-
-
-
-
 
 
         public void aterrizarEnIsla(Isla isla) {
@@ -195,64 +194,6 @@ public class Tortuga {
 
     //colision con Islas
 
-    public boolean colisionaDerecha(Isla[] islas) {
-        for (Isla isla : islas) {
-            if (isla == null) {
-                continue;
-            }
-
-            double bordeDerechoPersonaje = this.x + (this.ancho / 2);
-            double bordeIzquierdoIsla = isla.getX() - (isla.getAncho() / 2);
-
-            if (bordeDerechoPersonaje >= bordeIzquierdoIsla && bordeDerechoPersonaje <= bordeIzquierdoIsla + 10) {
-                if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
-                    this.x = bordeIzquierdoIsla - (this.ancho / 2);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
-    public boolean colisionaIzquierda(Isla[] islas) {
-        for (Isla isla : islas) {
-            if (isla == null) {
-                continue;
-            }
-
-            double bordeIzquierdoPersonaje = this.x - (this.ancho / 2);
-            double bordeDerechoIsla = isla.getX() + (isla.getAncho() / 2);
-
-            if (bordeIzquierdoPersonaje <= bordeDerechoIsla && bordeIzquierdoPersonaje >= bordeDerechoIsla - 10) {
-                if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
-                    this.x = bordeDerechoIsla + (this.ancho / 2);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
-    public boolean colisionaArriba(Isla[] islas) {
-        for(Isla isla : islas) {
-            if(isla==null) {
-                continue;
-            }
-            double bordeSuperiorPersonaje = this.y - (this.alto / 2);
-            double bordeInferiorIsla = isla.getY() + (isla.getAlto() / 2);
-
-            if(bordeSuperiorPersonaje <= bordeInferiorIsla && bordeSuperiorPersonaje>= bordeInferiorIsla-10) {
-                if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
-                    this.y=bordeInferiorIsla+(this.alto/2);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
     public boolean colisionaAbajo(Isla[] islas) {
         for(Isla isla : islas) {
             if(isla==null) {
@@ -270,21 +211,5 @@ public class Tortuga {
         }
         return false;
     }
-
-    //gravedad
-    public void aplicarGravedad(Isla[] islas) {
-        if(enElAire=true) {
-            velocidadCaida+=gravedad;
-            if (velocidadCaida>10) {
-                velocidadCaida=10;
-            }
-            this.y+=velocidadCaida;
-        }
-        if(colisionaAbajo(islas)) {
-            enElAire=false;
-            velocidadCaida=0;
-        }
-    }
-
 
 }
