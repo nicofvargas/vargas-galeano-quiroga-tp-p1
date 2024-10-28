@@ -11,7 +11,7 @@ public class Tortuga {
     private double y;
     private double ancho;
     private double alto;
-    private boolean estaEnIsla;
+    boolean estaEnIsla;
     private Isla islaActual;
     private double velocidadMovimiento;
     private boolean moviendoDerecha;
@@ -38,13 +38,13 @@ public class Tortuga {
         this.debeAterrizar = false;
         this.estaAterrizando = false;
         this.viva = true;
-        this.enElAire=true;
-        this.velocidadCaida=0;
-        this.gravedad=0.3;
+        this.enElAire = true;
+        this.velocidadCaida = 0;
+        this.gravedad = 0.3;
 
     }
 
-    public boolean colisionaConBolaFuego(bolaFuego bolaFuego){
+    public boolean colisionaConBolaFuego(bolaFuego bolaFuego) {
         double bordeIzquierdoTortuga = this.x - (this.ancho / 2);
         double bordeDerechoTortuga = this.x + (this.ancho / 2);
         double bordeSuperiorTortuga = this.y - (this.alto / 2);
@@ -58,10 +58,10 @@ public class Tortuga {
         return (bordeDerechoTortuga > bordeIzquierdoBola && bordeIzquierdoTortuga < bordeDerechoBola &&
                 bordeInferiorTortuga > bordeSuperiorBola && bordeSuperiorTortuga < bordeInferiorBola);
 
-        }
+    }
 
 
-        public void aterrizarEnIsla(Isla isla) {
+    public void aterrizarEnIsla(Isla isla) {
         if (!estaEnIsla && isla != null && !isla.hayTortuga()) {
             if (isla.contienePunto(this.x, this.y)) {
                 // Ajustar la posición de la tortuga para que esté sobre la isla
@@ -72,25 +72,25 @@ public class Tortuga {
                 isla.establecerTortuga(true);
             }
         }
+
     }
 
-    public void actualizarPosicion(Isla[] islas) {
 
+    public void actualizarPosicion(Isla[] islas) {
         if (!estaEnIsla) {
             this.y += velocidad; // La tortuga cae
         }
-
         // Verificar colisión con islas
         for (Isla isla : islas) {
             if (isla != null && this.colisionConIsla(isla)) {
                 this.aterrizarEnIsla(isla);
                 break;
-            }
+            }isla.establecerTortuga(false);
         }
         if (estaEnIsla && islaActual != null) {
             moverEnIsla();
         }
-    }
+}
     private boolean colisionConIsla(Isla isla) {
         return (this.x + this.ancho / 2 >= isla.getX() - isla.getAncho() / 2 &&
                 this.x - this.ancho / 2 <= isla.getX() + isla.getAncho() / 2 &&
@@ -113,24 +113,33 @@ public class Tortuga {
     }
 
     public void dibujar(Entorno entorno) {
-            entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.green);
+        entorno.dibujarRectangulo(this.x, this.y, this.ancho, this.alto, 0, Color.green);
     }
 
     // Getters y setters
     public double getX() {
         return this.x;
     }
+
     public double getY() {
         return this.y;
     }
+
     public double getAncho() {
         return this.ancho;
     }
+
     public double getAlto() {
         return this.alto;
     }
-    public boolean getViva() { return this.viva; }
-    public void setViva(boolean viva) { this.viva = viva; }
+
+    public boolean getViva() {
+        return this.viva;
+    }
+
+    public void setViva(boolean viva) {
+        this.viva = viva;
+    }
 
     public boolean estaViva() {
         return viva;
@@ -170,9 +179,9 @@ public class Tortuga {
         double bordeSuperiorTortu = this.y - (this.alto / 2);
         double bordeInferiorBolaFuego = bolaFuego.getY() + (bolaFuego.getAlto() / 2);
 
-        if(bordeSuperiorTortu <= bordeInferiorBolaFuego && bordeSuperiorTortu>= bordeInferiorBolaFuego-10) {
-            if(this.x+(this.ancho/2) > bolaFuego.getX()-(bolaFuego.getAncho()/2)  &&  this.x-(this.ancho/2) < bolaFuego.getX()+(bolaFuego.getAncho()/2)) {
-                this.y=bordeInferiorBolaFuego+(this.alto/2);
+        if (bordeSuperiorTortu <= bordeInferiorBolaFuego && bordeSuperiorTortu >= bordeInferiorBolaFuego - 10) {
+            if (this.x + (this.ancho / 2) > bolaFuego.getX() - (bolaFuego.getAncho() / 2) && this.x - (this.ancho / 2) < bolaFuego.getX() + (bolaFuego.getAncho() / 2)) {
+                this.y = bordeInferiorBolaFuego + (this.alto / 2);
                 return true;
             }
         }
@@ -183,9 +192,9 @@ public class Tortuga {
         double bordeInferiorTortu = this.y + (this.alto / 2);
         double bordeSuperiorBolaFuego = bolaFuego.getY() - (bolaFuego.getAlto() / 2);
 
-        if(bordeInferiorTortu>=bordeSuperiorBolaFuego && bordeInferiorTortu<=bordeSuperiorBolaFuego +10) {
-            if(this.x+(this.ancho/2) > bolaFuego.getX()-(bolaFuego.getAncho()/2)  &&  this.x-(this.ancho/2) < bolaFuego.getX()+(bolaFuego.getAncho()/2)) {
-                this.y=bordeSuperiorBolaFuego-(this.alto/2);
+        if (bordeInferiorTortu >= bordeSuperiorBolaFuego && bordeInferiorTortu <= bordeSuperiorBolaFuego + 10) {
+            if (this.x + (this.ancho / 2) > bolaFuego.getX() - (bolaFuego.getAncho() / 2) && this.x - (this.ancho / 2) < bolaFuego.getX() + (bolaFuego.getAncho() / 2)) {
+                this.y = bordeSuperiorBolaFuego - (this.alto / 2);
                 return true;
             }
         }
@@ -195,21 +204,20 @@ public class Tortuga {
     //colision con Islas
 
     public boolean colisionaAbajo(Isla[] islas) {
-        for(Isla isla : islas) {
-            if(isla==null) {
+        for (Isla isla : islas) {
+            if (isla == null) {
                 continue;
             }
             double bordeInferiorPersonaje = this.y + (this.alto / 2);
             double bordeSuperiorIsla = isla.getY() - (isla.getAlto() / 2);
 
-            if(bordeInferiorPersonaje>=bordeSuperiorIsla && bordeInferiorPersonaje<=bordeSuperiorIsla +10) {
-                if(this.x+(this.ancho/2) > isla.getX()-(isla.getAncho()/2)  &&  this.x-(this.ancho/2) < isla.getX()+(isla.getAncho()/2)) {
-                    this.y=bordeSuperiorIsla-(this.alto/2);
+            if (bordeInferiorPersonaje >= bordeSuperiorIsla && bordeInferiorPersonaje <= bordeSuperiorIsla + 10) {
+                if (this.x + (this.ancho / 2) > isla.getX() - (isla.getAncho() / 2) && this.x - (this.ancho / 2) < isla.getX() + (isla.getAncho() / 2)) {
+                    this.y = bordeSuperiorIsla - (this.alto / 2);
                     return true;
                 }
             }
         }
         return false;
     }
-
 }

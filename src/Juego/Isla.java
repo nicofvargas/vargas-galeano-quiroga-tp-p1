@@ -10,8 +10,6 @@ public class Isla {
     private int ancho;
     private int alto;
     private boolean tortugaEnIsla;
-    private boolean estaEnIsla;
-
     // Constructor que establece las posiciones y dimensiones de una isla
     public Isla(int x, int y, int ancho, int alto) {
         super();
