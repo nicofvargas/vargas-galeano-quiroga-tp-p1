@@ -12,7 +12,6 @@ public class bolaFuego {
     private double alto;
     private double velocidad;
     private int direccion;
-    private boolean activa;
     private String rutaCaminaDerecha="Images/BolaFuego/bolafuegoderecha.png";
     private String rutaCaminaIzq="Images/BolaFuego/bolafuegoizq.png";
     private Image caminaDerecha;
@@ -37,7 +36,7 @@ public class bolaFuego {
     }
 
     public void dibujar(Entorno entorno, Jugador jugador) {
-        if (jugador.getMiraDerecha()) {
+        if (direccion==1) {
             entorno.dibujarImagen(caminaDerecha,this.x,this.y,0);
         }
         else{
@@ -49,8 +48,7 @@ public class bolaFuego {
         this.x+=velocidad*this.direccion;
     }
 
-    //colisiones
-    //islas
+    //colisione islas
     public boolean colisionaDerecha(Isla[] islas) {
         for (Isla isla : islas) {
             if (isla == null) {
@@ -69,7 +67,6 @@ public class bolaFuego {
         }
         return false;
     }
-
 
     public boolean colisionaIzquierda(Isla[] islas) {
         for (Isla isla : islas) {
@@ -94,7 +91,6 @@ public class bolaFuego {
     public boolean hayColisionIzq() {
         return this.x - this.ancho / 2 <= 0; //le resto el ancho dividido dos porque sino se pasa de la ventana ya que X es el medio del rectangulo
     }
-
     public boolean hayColisionDer(Entorno entorno) {
         return this.x + this.ancho / 2 >= entorno.ancho(); //aca lo mismo pero a la inversa le falta medio rectangulo para llegar a colisionar
     }

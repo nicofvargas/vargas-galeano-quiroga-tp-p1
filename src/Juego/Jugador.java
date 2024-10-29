@@ -6,6 +6,7 @@ import entorno.Herramientas;
 import java.awt.*;
 
 public class Jugador {
+    //atributos de clase
     private double x;
     private double y;
     private double ancho;
@@ -21,7 +22,7 @@ public class Jugador {
     private Image caminaDerecha;
     private Image caminaIzq;
 
-
+    //Constructor
     public Jugador(Entorno entorno) {
         this.x = 65;
         this.y = 456;
@@ -47,8 +48,12 @@ public class Jugador {
     public boolean getMiraIzq() {
         return miraIzq;
     }
-    public double getAncho() { return this.ancho; }
-    public double getAlto() { return this.alto; }
+    public double getAncho() {
+        return this.ancho;
+    }
+    public double getAlto() {
+        return this.alto;
+    }
     //metodos para mostrar en pantalla
     public void dibujar(Entorno entorno) {
         if(this.miraIzq) {
@@ -93,7 +98,6 @@ public class Jugador {
     public boolean hayColisionIzq() {
         return this.x - this.ancho / 2 <= 0; //le resto el ancho dividido dos porque sino se pasa de la ventana ya que X es el medio del rectangulo
     }
-
     public boolean hayColisionDer(Entorno entorno) {
         return this.x + this.ancho / 2 >= entorno.ancho(); //aca lo mismo pero a la inversa le falta medio rectangulo para llegar a colisionar
     }
@@ -102,7 +106,6 @@ public class Jugador {
     }
 
     //colision con objetos
-
     public boolean colisionaDerecha(Isla[] islas) {
         for (Isla isla : islas) {
             if (isla == null) {
@@ -122,7 +125,6 @@ public class Jugador {
         return false;
     }
 
-
     public boolean colisionaIzquierda(Isla[] islas) {
         for (Isla isla : islas) {
             if (isla == null) {
@@ -141,7 +143,6 @@ public class Jugador {
         }
         return false;
     }
-
 
     public boolean colisionaArriba(Isla[] islas) {
         for(Isla isla : islas) {
@@ -199,7 +200,6 @@ public class Jugador {
         return false;
     }
 
-
     public boolean colisionaIzquierdaTortu(Tortuga[] tortugas) {
         for (Tortuga tortuga : tortugas) {
             if (tortuga == null) {
@@ -218,7 +218,6 @@ public class Jugador {
         }
         return false;
     }
-
 
     public boolean colisionaArribaTortu(Tortuga[] tortugas) {
         for(Tortuga tortuga : tortugas) {
@@ -255,7 +254,6 @@ public class Jugador {
         }
         return false;
     }
-
 
     //gravedad
     public void aplicarGravedad(Isla[] islas) {
