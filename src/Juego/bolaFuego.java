@@ -50,7 +50,7 @@ public class bolaFuego {
         this.x+=velocidad*this.direccion;
     }
 
-    //colisione islas
+    //colisiones islas
     public boolean colisionaDerecha(Isla[] islas) {
         for (Isla isla : islas) {
             if (isla == null) {

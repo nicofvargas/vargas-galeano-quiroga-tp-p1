@@ -200,7 +200,7 @@ public class Juego extends InterfaceJuego {
                 }
 
             }
-            if (entorno.estaPresionada(entorno.TECLA_ESPACIO) && bolaFuego==null) {
+            if (entorno.estaPresionada('c') && bolaFuego==null) {
                 bolaFuego = new bolaFuego(jugador);
             }
 
