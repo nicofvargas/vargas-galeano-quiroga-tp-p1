@@ -10,15 +10,22 @@ public class Hud {
     private int duendesSalvados;
     private int duendesMuertos;
     private int enemigosEliminados;
-
+    private int inicioJuego;
     public Hud() {
         this.cronometro=0;
+        this.inicioJuego=0;
         this.duendesSalvados=0;
         this.duendesMuertos=0;
         this.enemigosEliminados=0;
         this.fondo = Herramientas.cargarImagen(rutaFondo).getScaledInstance(800,600,500);
     }
     //aca los metodos que actualizan cada valor
+    public void iniciarCronometro(Entorno entorno) {
+        this.inicioJuego = entorno.tiempo();
+    }
+    public void actualizarCronometro(Entorno entorno) {
+        this.cronometro = (entorno.tiempo() - this.inicioJuego) / 1000;
+    }
     public void setCronometro(Entorno entorno) {
         this.cronometro=entorno.tiempo()/1000;
     }
