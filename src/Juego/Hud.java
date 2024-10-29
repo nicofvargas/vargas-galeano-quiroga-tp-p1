@@ -64,15 +64,17 @@ public class Hud {
 
     //metodos para dibujar
     public void dibujarCronometro(Entorno entorno) {
-        entorno.escribirTexto(cronometroStr(),700,25);
+        entorno.cambiarFont("arial",18,Color.red,Font.BOLD);
+        entorno.escribirTexto(cronometroStr(),680,25);
     }
     public void dibujarDuendesSalvados(Entorno entorno) {
+        entorno.cambiarFont("arial",13,Color.darkGray,Font.BOLD);
         entorno.escribirTexto(duendesSalvadosStr(),25,25);
     }
     public void dibujarDuendesMuertos(Entorno entorno) {
-        entorno.escribirTexto(duendesMuertosStr(),150,25);
+        entorno.escribirTexto(duendesMuertosStr(),230,25);
     }
     public void dibujarEnemigosEliminados(Entorno entorno) {
-        entorno.escribirTexto(enemigosEliminadosStr(),300,25);
+        entorno.escribirTexto(enemigosEliminadosStr(),420,25);
     }
 }
