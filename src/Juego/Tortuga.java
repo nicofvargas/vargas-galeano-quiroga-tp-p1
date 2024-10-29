@@ -16,21 +16,15 @@ public class Tortuga {
     private Isla islaActual;
     private double velocidadMovimiento;
     private boolean moviendoDerecha;
-    private boolean debeAterrizar;
-    private boolean estaAterrizando;
     private int velocidad = 2;
-    private boolean viva;
-    private boolean miraIzq;
+
     //atributos usados en gravedad
-    private boolean enElAire;
-    private double velocidadCaida;
-    private double gravedad;
+
     private String rutaCaminaDerecha="Images/Tortuga/transparent-mario-spiked-turtle-with-red-mushroom-on-head661f16350cb837.55097172.png";
     private String rutaCaminaIzq="Images/Tortuga/tortugaizq.png";
     private Image caminaDerecha;
     private Image caminaIzq;
 
-    private Random random = new Random();
 
     public Tortuga(double posRandom) {
         this.x = posRandom;
@@ -41,12 +35,7 @@ public class Tortuga {
         islaActual = null;
         velocidadMovimiento = 0.8;
         moviendoDerecha = true;
-        this.debeAterrizar = false;
-        this.estaAterrizando = false;
-        this.viva = true;
-        this.enElAire = true;
-        this.velocidadCaida = 0;
-        this.gravedad = 0.3;
+
         this.caminaDerecha= Herramientas.cargarImagen(rutaCaminaDerecha).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
         this.caminaIzq= Herramientas.cargarImagen(rutaCaminaIzq).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
 
@@ -69,13 +58,12 @@ public class Tortuga {
 
     }
 
-
     public void aterrizarEnIsla(Isla isla) {
         if (!estaEnIsla && isla != null && !isla.hayTortuga()) {
             if (isla.contienePunto(this.x, this.y)) {
                 // Ajustar la posición de la tortuga para que esté sobre la isla
                 double alturaIsla = isla.getAlto();
-                y = isla.getY() - (alturaIsla / 2) - (this.alto / 2); // Ajusta el +5 según sea necesario
+                y = isla.getY() - (alturaIsla / 2) - (this.alto / 2);
                 estaEnIsla = true;
                 islaActual = isla;
                 isla.establecerTortuga(true);
@@ -84,7 +72,7 @@ public class Tortuga {
 
     }
 
-
+//aca verifica tortuga, caiga , y este en una isla
     public void actualizarPosicion(Isla[] islas) {
         if (!estaEnIsla) {
             this.y += velocidad; // La tortuga cae
@@ -106,7 +94,7 @@ public class Tortuga {
                 this.y + this.alto / 2 >= isla.getY() - isla.getAlto() / 2 &&
                 this.y - this.alto / 2 <= isla.getY() + isla.getAlto() / 2);
     }
-
+//para que se mueva, se usa en aterrizar
     private void moverEnIsla() {
         if (moviendoDerecha) {
             x += velocidadMovimiento;
@@ -153,17 +141,6 @@ public class Tortuga {
         return this.alto;
     }
 
-    public boolean getViva() {
-        return this.viva;
-    }
-
-    public void setViva(boolean viva) {
-        this.viva = viva;
-    }
-
-    public boolean estaViva() {
-        return viva;
-    }
 
 
     //metodos de colision con BolaFuego (LEER CLASE JUGADOR PUEDEn REUTILIZAR TODOS LOS METODOS DE COLISION EN TODAS LAS CLASES)
