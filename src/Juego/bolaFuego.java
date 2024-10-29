@@ -15,7 +15,6 @@ public class bolaFuego {
     private boolean activa;
     private String rutaCaminaDerecha="Images/BolaFuego/bolafuegoderecha.png";
     private String rutaCaminaIzq="Images/BolaFuego/bolafuegoizq.png";
-
     private Image caminaDerecha;
     private Image caminaIzq;
 
@@ -25,7 +24,6 @@ public class bolaFuego {
         this.ancho=30;
         this.alto=30;
         this.velocidad=7;
-        this.activa=true;
         this.caminaDerecha= Herramientas.cargarImagen(rutaCaminaDerecha).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
         this.caminaIzq= Herramientas.cargarImagen(rutaCaminaIzq).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
 
@@ -85,46 +83,6 @@ public class bolaFuego {
             if (bordeIzquierdoPersonaje <= bordeDerechoIsla && bordeIzquierdoPersonaje >= bordeDerechoIsla - 10) {
                 if (this.y + (this.alto / 2) > isla.getY() - (isla.getAlto() / 2) && this.y - (this.alto / 2) < isla.getY() + (isla.getAlto() / 2)) {
                     this.x = bordeDerechoIsla + (this.ancho / 2);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    //tortugas
-    public boolean colisionaDerechaTortu(Tortuga[] tortugas) {
-        for (Tortuga tortuga : tortugas) {
-            if (tortuga == null) {
-                continue;
-            }
-
-            double bordeDerechoBolaFuego = this.x + (this.ancho / 2);
-            double bordeIzquierdoTortuga = tortuga.getX() - (tortuga.getAncho() / 2);
-
-            if (bordeDerechoBolaFuego >= bordeIzquierdoTortuga && bordeDerechoBolaFuego <= bordeIzquierdoTortuga + 10) {
-                if (this.y + (this.alto / 2) > tortuga.getY() - (tortuga.getAlto() / 2) && this.y - (this.alto / 2) < tortuga.getY() + (tortuga.getAlto() / 2)) {
-                    this.x = bordeIzquierdoTortuga - (this.ancho / 2); //esto me parece que lo voy a cambiar asi la colision se ve mas real
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-
-    public boolean colisionaIzqTortu(Tortuga[] tortugas) {
-        for (Tortuga tortuga : tortugas) {
-            if (tortuga == null) {
-                continue;
-            }
-
-            double bordeIzqBolaFuego = this.x - (this.ancho / 2);
-            double bordeDerechoTortuga = tortuga.getX() + (tortuga.getAncho() / 2);
-
-            if (bordeIzqBolaFuego >= bordeDerechoTortuga && bordeIzqBolaFuego <= bordeDerechoTortuga + 10) {
-                if (this.y + (this.alto / 2) > tortuga.getY() - (tortuga.getAlto() / 2) && this.y - (this.alto / 2) < tortuga.getY() + (tortuga.getAlto() / 2)) {
-                    this.x = bordeDerechoTortuga - (this.ancho / 2); //esto me parece que lo voy a cambiar asi la colision se ve mas real
                     return true;
                 }
             }
