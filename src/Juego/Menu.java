@@ -15,6 +15,8 @@ public class Menu {
     private int ancho, alto;
 
     public Menu(Entorno entorno) {
+
+        Herramientas.loop("Musica/Menu/musicaMenu.wav");
         this.entorno = entorno;
         this.ancho = entorno.ancho();
         this.alto = entorno.alto();
@@ -31,15 +33,15 @@ public class Menu {
 
         entorno.dibujarImagen(fondo, ancho / 2, alto / 2, 0);
 
-        entorno.cambiarFont("Goudy Old Style", 36, Color.BLUE);
-        entorno.escribirTexto("Al rescate de los Gnomos", entorno.ancho() / 2 - 200, entorno.alto() / 4);
+        entorno.cambiarFont("Engravers MT", 50, Color.BLACK);
+        entorno.escribirTexto("Al rescate de los Gnomos", entorno.ancho() / 2 - 250, entorno.alto() / 4);
 
         entorno.dibujarRectangulo(botonIniciarX, botonIniciarY, anchoBoton, altoBoton, 0, Color.GREEN);
-        entorno.cambiarFont("Arial", 20, Color.WHITE);
+        entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
         entorno.escribirTexto("Iniciar Partida", botonIniciarX - 60, botonIniciarY + 5);
 
-        entorno.dibujarRectangulo(botonSalirX, botonSalirY, anchoBoton, altoBoton, 0, Color.RED);
-        entorno.cambiarFont("Arial", 20, Color.WHITE);
+        entorno.dibujarRectangulo(botonSalirX, botonSalirY, anchoBoton, altoBoton, 0,Color.red);
+        entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
         entorno.escribirTexto("Salir de la Partida", botonSalirX - 75, botonSalirY + 5);
     }
 
