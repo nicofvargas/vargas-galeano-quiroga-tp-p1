@@ -18,12 +18,9 @@ public class Jugador {
     private boolean miraIzq;
     private String rutaCaminaDerecha="Images/Mago/magocaminaderecha.png";
     private String rutaCaminaIzq="Images/Mago/magocaminaizq.png";
-    private String rutaAtaqueDerecha="Images/Mago/magoataquederecha.png";
-    private String rutaAtaqueIzq="Images/Mago/magoataqueizq.png";
     private Image caminaDerecha;
     private Image caminaIzq;
-    private Image ataqueDerecha;
-    private Image ataqueIzq;
+
 
     public Jugador(Entorno entorno) {
         this.x = 65;
@@ -35,9 +32,7 @@ public class Jugador {
         this.velocidadCaida = 0;
         this.enElAire=false;
         this.caminaDerecha= Herramientas.cargarImagen(rutaCaminaDerecha).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
-        this.caminaIzq= Herramientas.cargarImagen(rutaAtaqueIzq).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
-        this.ataqueDerecha= Herramientas.cargarImagen(rutaAtaqueDerecha).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
-        this.ataqueIzq= Herramientas.cargarImagen(rutaAtaqueIzq).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);//esto cuando terminemos sera false solo lo pongo para pruebas como true
+        this.caminaIzq= Herramientas.cargarImagen(rutaCaminaIzq).getScaledInstance((int)this.ancho,(int)this.alto,Image.SCALE_SMOOTH);
     }
     //getters
     public double getX() {
@@ -62,19 +57,6 @@ public class Jugador {
         else {
             entorno.dibujarImagen(caminaDerecha,this.x,this.y,0);
         }
-    }
-
-    public void dibujarCaminaDerecha(Entorno entorno) {
-        entorno.dibujarImagen(caminaDerecha,this.x,this.y,0);
-    }
-    public void dibujarCaminaIzq(Entorno entorno) {
-        entorno.dibujarImagen(caminaIzq,this.x,this.y,0);
-    }
-    public void dibujarAtaqueDerecha(Entorno entorno) {
-        entorno.dibujarImagen(ataqueDerecha,this.x,this.y,0);
-    }
-    public void dibujarAtaqueIzq(Entorno entorno) {
-        entorno.dibujarImagen(ataqueIzq,this.x,this.y,0);
     }
 
     //metodos para mover
