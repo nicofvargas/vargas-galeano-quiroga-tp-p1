@@ -44,6 +44,36 @@ public class Menu {
         entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
         entorno.escribirTexto("Salir de la Partida", botonSalirX - 75, botonSalirY + 5);
     }
+    public void dibujarVictoria() {
+
+        entorno.dibujarImagen(fondo, ancho / 2, alto / 2, 0);
+
+        entorno.cambiarFont("Engravers MT", 50, Color.BLUE);
+        entorno.escribirTexto("HAS GANADO", entorno.ancho() / 2 - 250, entorno.alto() / 4);
+
+        entorno.dibujarRectangulo(botonIniciarX, botonIniciarY, anchoBoton, altoBoton, 0, Color.GREEN);
+        entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
+        entorno.escribirTexto("Iniciar Partida", botonIniciarX - 60, botonIniciarY + 5);
+
+        entorno.dibujarRectangulo(botonSalirX, botonSalirY, anchoBoton, altoBoton, 0,Color.red);
+        entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
+        entorno.escribirTexto("Salir de la Partida", botonSalirX - 75, botonSalirY + 5);
+    }
+    public void dibujarDerrota() {
+
+        entorno.dibujarImagen(fondo, ancho / 2, alto / 2, 0);
+
+        entorno.cambiarFont("Engravers MT", 50, Color.RED);
+        entorno.escribirTexto("HAS PERDIDO", entorno.ancho() / 2 - 250, entorno.alto() / 4);
+
+        entorno.dibujarRectangulo(botonIniciarX, botonIniciarY, anchoBoton, altoBoton, 0, Color.GREEN);
+        entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
+        entorno.escribirTexto("Iniciar Partida", botonIniciarX - 60, botonIniciarY + 5);
+
+        entorno.dibujarRectangulo(botonSalirX, botonSalirY, anchoBoton, altoBoton, 0,Color.red);
+        entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
+        entorno.escribirTexto("Salir de la Partida", botonSalirX - 75, botonSalirY + 5);
+    }
 
     public boolean botonIniciarPresionado() {
         return entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO) &&
