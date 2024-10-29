@@ -103,7 +103,7 @@ public class Juego extends InterfaceJuego {
             }
         } else{
 
-        if (jugador!=null && (jugador.colisionaAbajoTortu(tortugas) || jugador.colisionaArribaTortu(tortugas) || jugador.colisionaDerechaTortu(tortugas) || jugador.colisionaIzquierdaTortu(tortugas))) {
+        if (jugador!=null && (jugador.colisionaAbajoTortu(tortugas) || jugador.colisionaArribaTortu(tortugas) || jugador.colisionaDerechaTortu(tortugas) || jugador.colisionaIzquierdaTortu(tortugas) || jugador.hayColisionVentanaAbajo(entorno))) {
             jugador=null;
         }
 
@@ -173,7 +173,7 @@ public class Juego extends InterfaceJuego {
                     ui.setDuendesMuerto();
                 }
                 //colision con jugador
-                if(duende.colisionaAbajoJugador(jugador) || duende.colisionaArribaJugador(jugador) || duende.colisionaDerechaJugador(jugador) || duende.colisionaIzquierdaJugador(jugador)) {
+                if((duende.colisionaAbajoJugador(jugador) || duende.colisionaArribaJugador(jugador) || duende.colisionaDerechaJugador(jugador) || duende.colisionaIzquierdaJugador(jugador)) && jugador.getY()>islas[1].getY()) {
                     duendes.set(i, null);
                     ui.setDuendesSalvado();
                 }
