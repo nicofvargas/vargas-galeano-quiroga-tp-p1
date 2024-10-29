@@ -46,7 +46,7 @@ public class bolaFuego {
         }
     }
 
-    public void mover(Jugador jugador) {
+    public void mover() {
         this.x+=velocidad*this.direccion;
     }
 
