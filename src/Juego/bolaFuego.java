@@ -6,6 +6,7 @@ import entorno.Herramientas;
 import java.awt.*;
 
 public class bolaFuego {
+    //atributos
     private double x;
     private double y;
     private double ancho;
@@ -17,6 +18,7 @@ public class bolaFuego {
     private Image caminaDerecha;
     private Image caminaIzq;
 
+    //constructor
     public bolaFuego(Jugador jugador) {
         this.x=jugador.getX();
         this.y=jugador.getY();
