@@ -30,6 +30,8 @@ public class Juego extends InterfaceJuego {
     private double[] posicionesX={35,85,165,650,715,765};
     private Random random = new Random();
     private boolean juegoiniciado=false;
+    private int condicionVictoria=5;
+    private int condicionDerrota=5;
     // Variables y métodos propios de cada grupo
     // ...
 
@@ -94,22 +96,23 @@ public class Juego extends InterfaceJuego {
             menu.dibujar();
             if (menu.botonIniciarPresionado()) {
                 juegoiniciado = true;
-
+                ui.iniciarCronometro(entorno);
             } else if (menu.botonSalirPresionado()) {
                 System.exit(0);
             }
-        } else{
+        }
+        else {
 
         if (jugador!=null && (jugador.colisionaAbajoTortu(tortugas) || jugador.colisionaArribaTortu(tortugas) || jugador.colisionaDerechaTortu(tortugas) || jugador.colisionaIzquierdaTortu(tortugas) || jugador.hayColisionVentanaAbajo(entorno))) {
             jugador=null;
         }
 
-        if(jugador!=null) {
+            if(jugador!=null) {
+            ui.actualizarCronometro(entorno);
             ui.dibujarFondo(entorno);
             jugador.dibujar(entorno);
             jugador.aplicarGravedad(islas);
             casa.dibujar(entorno);
-            ui.setCronometro(entorno);
             ui.dibujarCronometro(entorno);
             ui.dibujarDuendesSalvados(entorno);
             ui.dibujarDuendesMuertos(entorno);
@@ -162,6 +165,8 @@ public class Juego extends InterfaceJuego {
                     continue;
                 }
                 duende.dibujar(entorno);
+                duende.aplicarGravedad(islas);
+                duende.patronDeMovimiento(islas);
                 duende.duendeEnElAire(islas);
                 //verifico colision con tortugas
                 if (duende.colisionaIzquierdaTortu(tortugas) || duende.colisionaDerechaTortu(tortugas) || duende.colisionaAbajoTortu(tortugas) || duende.colisionaArribaTortu(tortugas)) {
@@ -210,6 +215,12 @@ public class Juego extends InterfaceJuego {
                 else if (bolaFuego.hayColisionDer(entorno) || bolaFuego.hayColisionIzq()) {
                     bolaFuego = null;
                 }
+            }
+            if(condicionVictoria==ui.getDuendesSalvados()) {
+                //aca mostrar menu victoria
+            }
+            if(condicionDerrota==ui.getDuendesMuertos()) {
+                //aca mostrar menu derrota
             }
 
 
