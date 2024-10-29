@@ -225,7 +225,6 @@ public class Duende {
 
         if (bordeDerechoDuende >= bordeIzquierdoJugador && bordeDerechoDuende <= bordeIzquierdoJugador + 10) {
             if (this.y + (this.alto / 2) > jugador.getY() - (jugador.getAlto() / 2) && this.y - (this.alto / 2) < jugador.getY() + (jugador.getAlto() / 2)) {
-                this.x = bordeIzquierdoJugador - (this.ancho / 2);
                 return true;
             }
         }
@@ -239,7 +238,6 @@ public class Duende {
 
         if (bordeIzquierdoDuende <= bordeDerechoJugador && bordeIzquierdoDuende >= bordeDerechoJugador - 10) {
             if (this.y + (this.alto / 2) > jugador.getY() - (jugador.getAlto() / 2) && this.y - (this.alto / 2) < jugador.getY() + (jugador.getAlto() / 2)) {
-                this.x = bordeDerechoJugador + (this.ancho / 2);
                 return true;
             }
         }
@@ -253,7 +251,6 @@ public class Duende {
 
         if(bordeSuperiorDuende <= bordeInferiorJugador && bordeSuperiorDuende>= bordeInferiorJugador-10) {
             if(this.x+(this.ancho/2) > jugador.getX()-(jugador.getAncho()/2)  &&  this.x-(this.ancho/2) < jugador.getX()+(jugador.getAncho()/2)) {
-                this.y=bordeInferiorJugador+(this.alto/2);
                 return true;
             }
         }
@@ -266,7 +263,6 @@ public class Duende {
 
         if(bordeInferiorDuende>=bordeSuperiorJugador && bordeInferiorDuende<=bordeSuperiorJugador +10) {
             if(this.x+(this.ancho/2) > jugador.getX()-(jugador.getAncho()/2)  &&  this.x-(this.ancho/2) < jugador.getX()+(jugador.getAncho()/2)) {
-                this.y=bordeSuperiorJugador-(this.alto/2);
                 return true;
             }
         }
