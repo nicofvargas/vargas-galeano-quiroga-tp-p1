@@ -37,7 +37,7 @@ public class bolaFuego {
         }
     }
 
-    public void dibujar(Entorno entorno, Jugador jugador) {
+    public void dibujar(Entorno entorno) {
         if (direccion==1) {
             entorno.dibujarImagen(caminaDerecha,this.x,this.y,0);
         }
