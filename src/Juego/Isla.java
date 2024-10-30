@@ -27,8 +27,30 @@ public class Isla {
     public boolean hayTortuga() {
         return tortugaEnIsla;
     }
-    public void establecerTortuga(boolean estado) {
-        this.tortugaEnIsla = estado;
+    public void hayTortuga(Tortuga[] tortugas) {
+        if(colisionaArribaTortu(tortugas)) {
+            this.tortugaEnIsla=true;
+        }
+        else {
+            this.tortugaEnIsla=false;
+        }
+    }
+    //colision abajo
+    public boolean colisionaArribaTortu(Tortuga[] tortugas) {
+        for(Tortuga tortuga : tortugas) {
+            if(tortuga==null) {
+                continue;
+            }
+            double bordeSuperiorIsla = this.y - (this.alto / 2);
+            double bordeInferiorTortu = tortuga.getY() + (tortuga.getAlto() / 2);
+
+            if(bordeSuperiorIsla <= bordeInferiorTortu && bordeSuperiorIsla>= bordeInferiorTortu-10) {
+                if(this.x+(this.ancho/2) > tortuga.getX()-(tortuga.getAncho()/2)  &&  this.x-(this.ancho/2) < tortuga.getX()+(tortuga.getAncho()/2)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     // Método que dibuja la isla en el entorno

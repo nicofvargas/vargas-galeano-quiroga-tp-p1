@@ -4,6 +4,7 @@ import entorno.Entorno;
 import entorno.Herramientas;
 import java.awt.*;
 public class Hud {
+    //atributos
     private String rutaFondo="Images/Fondo/fondo.jpg";
     private Image fondo;
     private int cronometro;
@@ -11,6 +12,8 @@ public class Hud {
     private int duendesMuertos;
     private int enemigosEliminados;
     private int inicioJuego;
+
+    //constructor
     public Hud() {
         this.cronometro=0;
         this.inicioJuego=0;

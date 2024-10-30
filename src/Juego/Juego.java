@@ -5,7 +5,6 @@ package Juego;
 import entorno.Entorno;
 import entorno.InterfaceJuego;
 
-import javax.swing.*;
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,12 @@ public class Juego extends InterfaceJuego {
     private int maximoDuendes=4;
     private int ultimo;
     private double[] posicionesX={35,85,165,650,715,765};
+    private boolean[] posicionesXUsadas = new boolean[posicionesX.length];
+    private Isla[] islasDelSpawn = new Isla[posicionesX.length];
     private Random random = new Random();
     private boolean juegoiniciado=false;
-    private int condicionVictoria=5;
-    private int condicionDerrota=5;
+    private int condicionVictoria=30;
+    private int condicionDerrota=30;
     private boolean gano;
     private boolean perdio;
     private boolean puedeJugar=true;
@@ -47,32 +48,60 @@ public class Juego extends InterfaceJuego {
         this.ui = new Hud();
         this.bolaFuego=null;
         islas=crearIslas(entorno);
+        this.tortugas = new Tortuga[3];
+        islasDelSpawn[0]=islas[10];
+        islasDelSpawn[1]=islas[7];
+        islasDelSpawn[2]=islas[3];
+        islasDelSpawn[3]=islas[5];
+        islasDelSpawn[4]=islas[9];
+        islasDelSpawn[5]=islas[14];
         this.casa = new Casa(islas);
         this.duende = new Duende(casa);
         this.duendes = new ArrayList<>();
         Duende.crearDuendesConDelay(duendes, maximoDuendes, casa);
         this.entorno.iniciar();
         this.ultimo= ui.getCronometro();
-        this.tortugas = new Tortuga[3];
         this.gano=false;
         this.perdio=false;
 
     }
     //aca obtengo una posicion aleatoria de X para tortugas
     public double getPosicionAleatoria() {
-        return posicionesX[random.nextInt(posicionesX.length)];
+        double[] posicionesDisponibles = posicionesDisponibles(posicionesXUsadas,posicionesX);
+        return posicionesDisponibles[random.nextInt(posicionesDisponibles.length)];
     }
-    //aca compruebo que la posicion no esta siendo usada
-    public boolean estaSiendoUsada(Tortuga[] tortugas, double posRandom) {
-        for (Tortuga tortuga : tortugas) {
-            if(tortuga==null) {
-                continue;
-            }
-            if(tortuga!=null && posRandom==tortuga.getX()) {
-                return true;
+    //aca asigno a cada posicion del array el objeto isla para que correspondan por orden
+    public double[] posicionesDisponibles(boolean[] posicionesXUsadas, double[] posicionesX) {
+        //aca obtengo la cantidad de indices que va a tener el nuevo array
+        int contador=0;
+        for (int i=0; i<posicionesXUsadas.length;i++) {
+            if(posicionesXUsadas[i]==false) {
+                contador++;
             }
         }
-        return false;
+        //aca asigno el tamaño del nuevo array y cargo los valores de X que pueden ser usados
+        double[] nuevoArray = new double[contador];
+        int indiceArray=0;
+        for (int i=0; i<posicionesXUsadas.length; i++) {
+            if(posicionesXUsadas[i]==false) {
+                nuevoArray[indiceArray]=posicionesX[i];
+                indiceArray++;
+            }
+        }
+        return nuevoArray;
+    }
+    //aca compruebo que la posicion no esta siendo usada
+
+    //aca verifico si posee tortuga y asigno los booleanos al array de booleanos
+    private void verificarIslaDisponible() {
+        for (int i=0; i<islasDelSpawn.length;i++) {
+            if (islasDelSpawn[i].hayTortuga()) {
+                posicionesXUsadas[i]=false;
+            }
+            else {
+                posicionesXUsadas[i]=true;
+            }
+        }
     }
 
     // a ver
@@ -128,24 +157,23 @@ public class Juego extends InterfaceJuego {
 
                 for(Isla isla: islas) {                     //Crea las islas
                     if(isla!=null) {                         //Verifica que no sea null
-                        isla.dibujar(entorno);                 // las dibuja
+                        isla.dibujar(entorno);
+                        //isla.colisionaArribaTortu(tortugas);// las dibuja
                     }
                 }
 
                 int tiempoactual = ui.getCronometro();
                 int intervalo=2;
-
                 for (int i=0; i <tortugas.length; i++) {                            // crea las tortugas
                     if(tortugas[i]==null) {                                         //Verifica que no sea null
                         if(tiempoactual - ultimo >= intervalo) {                     // tiempo de creacion
                             double posRandom= getPosicionAleatoria();               // Busca la posicion aleatoria
-                            if(!estaSiendoUsada(tortugas,posRandom)) {               //verifica que no haya otra
-                                tortugas[i]= new Tortuga(posRandom);                   //crea
-                                ultimo=tiempoactual;                                   //acomoda el tiempo
-                            }
+                            tortugas[i]= new Tortuga(posRandom);                   //crea
+                            ultimo=tiempoactual;
                         }
                     }
-                    if(tortugas[i]!=null) {                                              //Verifica que no sea null
+                    if(tortugas[i]!=null) {
+                        tortugas[i].aplicarGravedad(islas);                    //Verifica que no sea null
                         tortugas[i].actualizarPosicion(islas);                          //Verifica que este cayendo en una isla
                         tortugas[i].dibujar(entorno);                                    //crea
                         if(bolaFuego!=null) {                                           //Verifica que la bolaFuego no sea null
