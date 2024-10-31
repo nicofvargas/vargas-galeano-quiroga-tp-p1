@@ -1,15 +1,10 @@
 package Juego;
 
-
-
 import entorno.Entorno;
 import entorno.InterfaceJuego;
-
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 public class Juego extends InterfaceJuego {
     // El objeto Entorno que controla el tiempo y otros
@@ -67,6 +62,7 @@ public class Juego extends InterfaceJuego {
     }
     //aca obtengo una posicion aleatoria de X para tortugas
     public double getPosicionAleatoria() {
+        verificarIslaDisponible();
         double[] posicionesDisponibles = posicionesDisponibles(posicionesXUsadas,posicionesX);
         return posicionesDisponibles[random.nextInt(posicionesDisponibles.length)];
     }
@@ -83,7 +79,7 @@ public class Juego extends InterfaceJuego {
         double[] nuevoArray = new double[contador];
         int indiceArray=0;
         for (int i=0; i<posicionesXUsadas.length; i++) {
-            if(posicionesXUsadas[i]==false) {
+            if(!posicionesXUsadas[i]) {
                 nuevoArray[indiceArray]=posicionesX[i];
                 indiceArray++;
             }
@@ -96,10 +92,10 @@ public class Juego extends InterfaceJuego {
     private void verificarIslaDisponible() {
         for (int i=0; i<islasDelSpawn.length;i++) {
             if (islasDelSpawn[i].hayTortuga()) {
-                posicionesXUsadas[i]=false;
+                posicionesXUsadas[i]=true;
             }
             else {
-                posicionesXUsadas[i]=true;
+                posicionesXUsadas[i]=false;
             }
         }
     }
@@ -158,7 +154,7 @@ public class Juego extends InterfaceJuego {
                 for(Isla isla: islas) {                     //Crea las islas
                     if(isla!=null) {                         //Verifica que no sea null
                         isla.dibujar(entorno);
-                        //isla.colisionaArribaTortu(tortugas);// las dibuja
+                        isla.hayTortuga(tortugas);// las dibuja
                     }
                 }
 
@@ -166,7 +162,7 @@ public class Juego extends InterfaceJuego {
                 int intervalo=2;
                 for (int i=0; i <tortugas.length; i++) {                            // crea las tortugas
                     if(tortugas[i]==null) {                                         //Verifica que no sea null
-                        if(tiempoactual - ultimo >= intervalo) {                     // tiempo de creacion
+                        if(tiempoactual - ultimo >= intervalo) {
                             double posRandom= getPosicionAleatoria();               // Busca la posicion aleatoria
                             tortugas[i]= new Tortuga(posRandom);                   //crea
                             ultimo=tiempoactual;
@@ -180,7 +176,7 @@ public class Juego extends InterfaceJuego {
                             if(tortugas[i].colisionaAbajoBolaFuego(bolaFuego) ||
                                     tortugas[i].colisionaIzquierdaBolaFuego(bolaFuego) ||     //verifica que no choque con tortuga bolaFuego
                                     tortugas[i].colisionaDerechaBolaFuego(bolaFuego)) {
-                                tortugas[i]=null;                                            // la mata
+                                tortugas[i]=null;
                                 bolaFuego=null;                                              //Desaparece la bola
                                 ui.setEnemigosEliminado();                                   // aumenta contador de eliminados
                             }

@@ -20,7 +20,6 @@ public class Isla {
         this.y = y;
         this.ancho = ancho;
         this.alto = alto;
-        this.tortugaEnIsla = false;
         this.imagenIsla = Herramientas.cargarImagen(rutaIsla).getScaledInstance(this.ancho,this.alto,Image.SCALE_SMOOTH);
 
     }

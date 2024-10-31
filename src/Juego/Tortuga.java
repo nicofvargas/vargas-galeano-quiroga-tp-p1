@@ -16,9 +16,6 @@ public class Tortuga {
     private boolean enElAire;
     private double velocidadCaida;
     private double gravedad;
-
-    //atributos usados en gravedad
-
     private String rutaCaminaDerecha="Images/Tortuga/transparent-mario-spiked-turtle-with-red-mushroom-on-head661f16350cb837.55097172.png";
     private String rutaCaminaIzq="Images/Tortuga/tortugaizq.png";
     private Image caminaDerecha;
