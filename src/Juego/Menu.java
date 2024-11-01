@@ -90,13 +90,7 @@ public class Menu {
                 entorno.mouseY() >= botonSalirY - altoBoton / 2 &&
                 entorno.mouseY() <= botonSalirY + altoBoton / 2;
     }
-    public boolean botonReiniciarPresionado() {
-        return entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO) &&
-                entorno.mouseX() >= botonSalirX - anchoBoton / 2 &&
-                entorno.mouseX() <= botonSalirX + anchoBoton / 2 &&
-                entorno.mouseY() >= botonSalirY - altoBoton / 2 &&
-                entorno.mouseY() <= botonSalirY + altoBoton / 2;
-    }
+
 }
 
 

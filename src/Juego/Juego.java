@@ -25,14 +25,12 @@ public class Juego extends InterfaceJuego {
     private boolean[] posicionesXUsadas = new boolean[posicionesX.length];
     private Isla[] islasDelSpawn = new Isla[posicionesX.length];
     private Random random = new Random();
-    private boolean juegoiniciado=false;
     private int condicionVictoria=30;
     private int condicionDerrota=30;
     private boolean gano;
     private boolean perdio;
     private enum EstadoJuego { INICIO, EN_JUEGO, FINALIZADO }
     private EstadoJuego estadoJuego = EstadoJuego.INICIO;
-    private boolean puedeJugar=true;
     // Variables y métodos propios de cada grupo
     // ...
 
@@ -54,7 +52,6 @@ public class Juego extends InterfaceJuego {
         islasDelSpawn[5]=islas[14];
         this.casa = new Casa(islas);
         this.duende = new Duende(casa);
-        this.entorno.iniciar();
         this.duendes = new ArrayList<>();
         Duende.crearDuendesConDelay(duendes, maximoDuendes, casa);
         this.ultimo= ui.getCronometro();
@@ -102,7 +99,7 @@ public class Juego extends InterfaceJuego {
         }
     }
 
-    // a ver
+
     public static Isla[] crearIslas(Entorno entorno) {
         int pisos=5;
         Isla[] islas=new Isla[pisos*(pisos+1)/2];
