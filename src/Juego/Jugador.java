@@ -76,7 +76,7 @@ public class Jugador {
         }
     }
 
-    public void moverIzquierda(Isla[] islas) {
+    public void moverIzquierda(Entorno entorno, Isla[] islas) {
         this.x -= velocidad;
         this.miraDerecha=false;
         this.miraIzq=true;

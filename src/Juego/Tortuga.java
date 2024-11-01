@@ -41,7 +41,7 @@ public class Tortuga {
 
 
 
-//aca verifica tortuga, caiga , y este en una isla
+    //aca verifica tortuga, caiga , y este en una isla
     public void actualizarPosicion(Isla[] islas) {
         for (Isla isla : islas) {
             if(colisionConIsla(isla)) {
@@ -56,7 +56,7 @@ public class Tortuga {
                 this.y + this.alto / 2 >= isla.getY() - isla.getAlto() / 2 &&
                 this.y - this.alto / 2 <= isla.getY() + isla.getAlto() / 2);
     }
-//para que se mueva, se usa en aterrizar
+    //para que se mueva, se usa en aterrizar
     private void moverEnIsla(Isla isla) {
         if (moviendoDerecha) {
             x += velocidadMovimiento;

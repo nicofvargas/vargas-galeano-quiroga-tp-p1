@@ -87,4 +87,11 @@ public class Hud {
     public void dibujarEnemigosEliminados(Entorno entorno) {
         entorno.escribirTexto(enemigosEliminadosStr(),420,25);
     }
+
+    public void reiniciarContadores() {
+        duendesSalvados = 0;
+        duendesMuertos = 0;
+        enemigosEliminados = 0;
+    }
+
 }

@@ -34,7 +34,7 @@ public class Menu {
         entorno.dibujarImagen(fondo, ancho / 2, alto / 2, 0);
 
         entorno.cambiarFont("Engravers MT", 50, Color.BLACK);
-        entorno.escribirTexto("Al rescate de los Gnomos", entorno.ancho() / 2 - 250, entorno.alto() / 4);
+        entorno.escribirTexto("Al rescate de los Gnomos", entorno.ancho() / 2 -260 , entorno.alto() / 4);
 
         entorno.dibujarRectangulo(botonIniciarX, botonIniciarY, anchoBoton, altoBoton, 0, Color.GREEN);
         entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
@@ -49,7 +49,7 @@ public class Menu {
         entorno.dibujarImagen(fondo, ancho / 2, alto / 2, 0);
 
         entorno.cambiarFont("Engravers MT", 50, Color.BLUE);
-        entorno.escribirTexto("HAS GANADO", entorno.ancho() / 2 - 250, entorno.alto() / 4);
+        entorno.escribirTexto("HAS GANADO", entorno.ancho() / 2-200 , entorno.alto() / 4);
 
         entorno.dibujarRectangulo(botonIniciarX, botonIniciarY, anchoBoton, altoBoton, 0, Color.GREEN);
         entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
@@ -64,7 +64,7 @@ public class Menu {
         entorno.dibujarImagen(fondo, ancho / 2, alto / 2, 0);
 
         entorno.cambiarFont("Engravers MT", 50, Color.RED);
-        entorno.escribirTexto("HAS PERDIDO", entorno.ancho() / 2 - 250, entorno.alto() / 4);
+        entorno.escribirTexto("HAS PERDIDO", entorno.ancho() / 2 , entorno.alto() / 4);
 
         entorno.dibujarRectangulo(botonIniciarX, botonIniciarY, anchoBoton, altoBoton, 0, Color.GREEN);
         entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
@@ -90,5 +90,14 @@ public class Menu {
                 entorno.mouseY() >= botonSalirY - altoBoton / 2 &&
                 entorno.mouseY() <= botonSalirY + altoBoton / 2;
     }
+    public boolean botonReiniciarPresionado() {
+        return entorno.sePresionoBoton(entorno.BOTON_IZQUIERDO) &&
+                entorno.mouseX() >= botonSalirX - anchoBoton / 2 &&
+                entorno.mouseX() <= botonSalirX + anchoBoton / 2 &&
+                entorno.mouseY() >= botonSalirY - altoBoton / 2 &&
+                entorno.mouseY() <= botonSalirY + altoBoton / 2;
+    }
 }
+
+
 
