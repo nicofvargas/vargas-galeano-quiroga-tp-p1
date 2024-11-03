@@ -21,7 +21,7 @@ public class Juego extends InterfaceJuego {
     private Casa casa;
     private int maximoDuendes=4;
     private int ultimo;
-    private double[] posicionesX={35,85,165,650,715,765};
+    private double[] posicionesX={35,85,165,250,520,650,715,765};
     private boolean[] posicionesXUsadas = new boolean[posicionesX.length];
     private Isla[] islasDelSpawn = new Isla[posicionesX.length];
     private Random random = new Random();
@@ -47,9 +47,11 @@ public class Juego extends InterfaceJuego {
         islasDelSpawn[0]=islas[10];
         islasDelSpawn[1]=islas[7];
         islasDelSpawn[2]=islas[3];
-        islasDelSpawn[3]=islas[5];
-        islasDelSpawn[4]=islas[9];
-        islasDelSpawn[5]=islas[14];
+        islasDelSpawn[3]=islas[1];
+        islasDelSpawn[4]=islas[2];
+        islasDelSpawn[5]=islas[5];
+        islasDelSpawn[6]=islas[9];
+        islasDelSpawn[7]=islas[14];
         this.casa = new Casa(islas);
         this.duende = new Duende(casa);
         this.duendes = new ArrayList<>();
@@ -60,7 +62,7 @@ public class Juego extends InterfaceJuego {
         estadoJuego = EstadoJuego.INICIO;
 
     }
-    //aca obtengo una posicion aleatoria de X para tortugas
+    //aca obtengo una posicion aleatoria de X para tortugas(el return de este metodo es pasado por parametro a tortuga)
     public double getPosicionAleatoria() {
         verificarIslaDisponible();
         double[] posicionesDisponibles = posicionesDisponibles(posicionesXUsadas,posicionesX);
@@ -87,7 +89,6 @@ public class Juego extends InterfaceJuego {
         return nuevoArray;
     }
     //aca compruebo que la posicion no esta siendo usada
-
     private void verificarIslaDisponible() {
         for (int i=0; i<islasDelSpawn.length;i++) {
             if (islasDelSpawn[i].hayTortuga()) {
@@ -99,7 +100,7 @@ public class Juego extends InterfaceJuego {
         }
     }
 
-
+    //metodo que crea las islas
     public static Isla[] crearIslas(Entorno entorno) {
         int pisos=5;
         Isla[] islas=new Isla[pisos*(pisos+1)/2];
@@ -139,7 +140,7 @@ public class Juego extends InterfaceJuego {
                     jugador.hayColisionVentanaAbajo(entorno))) {
                 jugador = null;
             }
-
+            //a partir de aca esta la interaccion de todos los objetos entre si
             if (jugador != null) {
                 ui.actualizarCronometro(entorno);
                 ui.dibujarFondo(entorno);
@@ -158,31 +159,31 @@ public class Juego extends InterfaceJuego {
                         isla.hayTortuga(tortugas);
                     }
                 }
-
+                //con tiempoactual e intervalo haciendo un calculo simple podemos obtener un temporizador usando el valor de intervalo
                 int tiempoactual = ui.getCronometro();
                 int intervalo = 2;
-                for (int i = 0; i < tortugas.length; i++) {
-                    if (tortugas[i] == null && tiempoactual - ultimo >= intervalo) {
-                        double posRandom = getPosicionAleatoria();
-                        tortugas[i] = new Tortuga(posRandom);
+                for (int i = 0; i < tortugas.length; i++) { //recorre el array de tortugas y crea una nueva en una posicion null
+                    if (tortugas[i] == null && tiempoactual - ultimo >= intervalo) { //se utliliza el intervalo
+                        double posRandom = getPosicionAleatoria(); //obtiene posicion aleatoria
+                        tortugas[i] = new Tortuga(posRandom); //crea una nueva tortuga
                         ultimo = tiempoactual;
                     }
-                    if (tortugas[i] != null) {
+                    if (tortugas[i] != null) { //si no es null se aplica el comportamiento con los demas objetos
                         tortugas[i].aplicarGravedad(islas);
                         tortugas[i].actualizarPosicion(islas);
                         tortugas[i].dibujar(entorno);
-
+                        //se comprueba si bola de fuego colisiona con tortuga
                         if (bolaFuego != null && (tortugas[i].colisionaAbajoBolaFuego(bolaFuego) ||
                                 tortugas[i].colisionaIzquierdaBolaFuego(bolaFuego) ||
                                 tortugas[i].colisionaDerechaBolaFuego(bolaFuego))) {
-                            tortugas[i] = null;
-                            bolaFuego = null;
-                            ui.setEnemigosEliminado();
+                            tortugas[i] = null; //establece en null si colisiona
+                            bolaFuego = null; //se establece en null si colisiona
+                            ui.setEnemigosEliminado(); //aumento el contador
                         }
                     }
                 }
 
-
+                //comportamiento de duende
                 for (int i = 0; i < duendes.size(); i++) {
                     Duende duende = duendes.get(i);
                     if (duende == null) {

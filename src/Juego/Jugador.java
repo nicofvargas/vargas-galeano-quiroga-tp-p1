@@ -24,7 +24,7 @@ public class Jugador {
 
     //Constructor
     public Jugador(Entorno entorno) {
-        this.x = 65;
+        this.x = 400;
         this.y = 456;
         this.ancho = 20;
         this.alto = 40;
@@ -96,10 +96,18 @@ public class Jugador {
 
     //colision con bordes de ventana
     public boolean hayColisionIzq() {
-        return this.x - this.ancho / 2 <= 0; //le resto el ancho dividido dos porque sino se pasa de la ventana ya que X es el medio del rectangulo
+        if(this.x - this.ancho / 2 <= 0) {
+            this.x=this.ancho/2;
+            return true;
+        }
+        return false;
     }
     public boolean hayColisionDer(Entorno entorno) {
-        return this.x + this.ancho / 2 >= entorno.ancho(); //aca lo mismo pero a la inversa le falta medio rectangulo para llegar a colisionar
+        if (this.x + this.ancho / 2 >= entorno.ancho()) {
+            this.x=entorno.ancho()-this.ancho/2;
+            return true;
+        }
+        return false;
     }
     public boolean hayColisionVentanaAbajo(Entorno entorno) {
         return this.y + this.ancho/2 >= entorno.alto();
