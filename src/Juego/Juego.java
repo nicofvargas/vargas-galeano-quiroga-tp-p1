@@ -25,8 +25,8 @@ public class Juego extends InterfaceJuego {
     private boolean[] posicionesXUsadas = new boolean[posicionesX.length];
     private Isla[] islasDelSpawn = new Isla[posicionesX.length];
     private Random random = new Random();
-    private int condicionVictoria=30;
-    private int condicionDerrota=30;
+    private int condicionVictoria=10;
+    private int condicionDerrota=10;
     private boolean gano;
     private boolean perdio;
     private enum EstadoJuego { INICIO, EN_JUEGO, FINALIZADO }

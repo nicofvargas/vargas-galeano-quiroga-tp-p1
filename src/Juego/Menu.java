@@ -11,6 +11,10 @@ public class Menu {
     private int anchoBoton = 200;
     private int altoBoton = 50;
     private String rutaFondo ="images/Menu/fondo.png";
+    private String rutaGanaste="images/menu/ganaste.png";
+    private String rutaPerdiste="images/menu/perdiste.png";
+    private Image ganaste;
+    private Image perdiste;
     private Image fondo;
     private int ancho, alto;
 
@@ -25,8 +29,8 @@ public class Menu {
         botonSalirX = entorno.ancho() / 2;
         botonSalirY = entorno.alto() / 2 + 50;
         this.fondo = Herramientas.cargarImagen(rutaFondo).getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
-
-
+        this.ganaste=Herramientas.cargarImagen(rutaGanaste).getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
+        this.perdiste=Herramientas.cargarImagen(rutaPerdiste).getScaledInstance(ancho, alto, Image.SCALE_SMOOTH);
     }
 
     public void dibujar() {
@@ -46,10 +50,10 @@ public class Menu {
     }
     public void dibujarVictoria() {
 
-        entorno.dibujarImagen(fondo, ancho / 2, alto / 2, 0);
+        entorno.dibujarImagen(ganaste, ancho / 2, alto / 2, 0);
 
         entorno.cambiarFont("Engravers MT", 50, Color.BLUE);
-        entorno.escribirTexto("HAS GANADO", entorno.ancho() / 2-200 , entorno.alto() / 4);
+        entorno.escribirTexto("HAS GANADO", entorno.ancho() / 2-170 , entorno.alto() / 4);
 
         entorno.dibujarRectangulo(botonIniciarX, botonIniciarY, anchoBoton, altoBoton, 0, Color.GREEN);
         entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
@@ -61,10 +65,10 @@ public class Menu {
     }
     public void dibujarDerrota() {
 
-        entorno.dibujarImagen(fondo, ancho / 2, alto / 2, 0);
+        entorno.dibujarImagen(perdiste, ancho / 2, alto / 2, 0);
 
         entorno.cambiarFont("Engravers MT", 50, Color.RED);
-        entorno.escribirTexto("HAS PERDIDO", entorno.ancho() / 2 , entorno.alto() / 4);
+        entorno.escribirTexto("HAS PERDIDO", entorno.ancho() / 2-170 , entorno.alto() / 4);
 
         entorno.dibujarRectangulo(botonIniciarX, botonIniciarY, anchoBoton, altoBoton, 0, Color.GREEN);
         entorno.cambiarFont("Engravers MT", 20, Color.WHITE);
