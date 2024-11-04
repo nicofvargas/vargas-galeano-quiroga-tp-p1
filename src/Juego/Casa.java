@@ -15,7 +15,7 @@ public class Casa {
 
     public Casa(Isla[] islas) {
         this.x=islas[0].getX();
-        this.y=islas[0].getY()-islas[0].getAlto()-this.alto;
+        this.y=islas[0].getY()-10-islas[0].getAlto()-this.alto;
         this.ancho=100;
         this.alto=100;
         this.imagenCasa= Herramientas.cargarImagen(rutaImagen).getScaledInstance((int) this.ancho,(int) this.alto, Image.SCALE_SMOOTH);
